@@ -78,32 +78,32 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EDIT-01 | — | Pending |
-| EDIT-02 | — | Pending |
-| EDIT-03 | — | Pending |
-| EDIT-04 | — | Pending |
-| EDIT-05 | — | Pending |
-| EDIT-06 | — | Pending |
-| NAV-01 | — | Pending |
-| CONT-01 | — | Pending |
-| CONT-02 | — | Pending |
-| CONT-03 | — | Pending |
-| CONT-04 | — | Pending |
-| COMM-01 | — | Pending |
-| COMM-02 | — | Pending |
-| COMM-03 | — | Pending |
-| COMM-04 | — | Pending |
-| TECH-01 | — | Pending |
-| TECH-02 | — | Pending |
-| TECH-03 | — | Pending |
-| TECH-04 | — | Pending |
-| TECH-05 | — | Pending |
+| EDIT-01 | Phase 2 | Pending |
+| EDIT-02 | Phase 2 | Pending |
+| EDIT-03 | Phase 2 | Pending |
+| EDIT-04 | Phase 2 | Pending |
+| EDIT-05 | Phase 5 | Pending |
+| EDIT-06 | Phase 3 | Pending |
+| NAV-01 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Pending |
+| CONT-02 | Phase 2 | Pending |
+| CONT-03 | Phase 4 | Pending |
+| CONT-04 | Phase 5 | Pending |
+| COMM-01 | Phase 3 | Pending |
+| COMM-02 | Phase 4 | Pending |
+| COMM-03 | Phase 3 | Pending |
+| COMM-04 | Phase 4 | Pending |
+| TECH-01 | Phase 1 | Pending |
+| TECH-02 | Phase 1 | Pending |
+| TECH-03 | Phase 2 | Pending |
+| TECH-04 | Phase 5 | Pending |
+| TECH-05 | Phase 2 | Pending |
 
 **Coverage:**
 - v1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 (pending roadmap creation)
+- Mapped to phases: 20
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-02*
-*Last updated: 2026-03-02 after initial definition*
+*Last updated: 2026-03-02 after roadmap creation*
