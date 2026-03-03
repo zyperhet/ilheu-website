@@ -1,0 +1,136 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Prose from '../../components/Prose.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const author = await getEntry(article.data.author);
+const { Content } = await render(article);
+
+// Derive edition from article ID: "edition-1/articles/hugo-goncales-interview"
+const editionId = article.id.split('/')[0];
+const edition = await getEntry('editions', editionId);
+
+// Teaser/excerpt types show a "Read in print" boundary after content
+const isTeaser = ['teaser', 'excerpt'].includes(article.data.type);
+
+// Format published date
+const publishedDate = article.data.published_date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${article.data.title} — Ilhéu Magazine`}
+  description={article.data.excerpt}
+>
+  {/* Full-width hero image — only when article has a cover_image */}
+  {article.data.cover_image && (
+    <div class="w-full max-h-[60vh] overflow-hidden">
+      <Image
+        src={article.data.cover_image}
+        alt={article.data.title}
+        class="w-full h-full object-cover"
+        width={1600}
+        height={900}
+      />
+    </div>
+  )}
+
+  {/* Article container — narrow centered column */}
+  <article class="max-w-[65ch] mx-auto px-4 sm:px-6 py-12">
+
+    {/* Back navigation */}
+    {edition && (
+      <nav class="mb-8">
+        <a
+          href={`/editions/${editionId}`}
+          class="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+        >
+          &larr; Back to {edition.data.title}
+        </a>
+      </nav>
+    )}
+
+    {/* Article header */}
+    <header class="mb-10">
+      <h1 class="font-cardo text-3xl lg:text-4xl leading-tight mb-4">
+        {article.data.title}
+      </h1>
+
+      {/* Metadata: author · edition · date */}
+      <p class="text-sm text-gray-500 flex flex-wrap gap-x-2 items-center">
+        {author && (
+          <>
+            <a
+              href={`/contributors/${author.id}`}
+              class="hover:text-gray-900 transition-colors"
+            >
+              {author.data.name}
+            </a>
+            <span aria-hidden="true">&middot;</span>
+          </>
+        )}
+        {edition && (
+          <>
+            <a
+              href={`/editions/${editionId}`}
+              class="hover:text-gray-900 transition-colors"
+            >
+              {edition.data.title}
+            </a>
+            <span aria-hidden="true">&middot;</span>
+          </>
+        )}
+        <time datetime={article.data.published_date.toISOString()}>
+          {publishedDate}
+        </time>
+      </p>
+    </header>
+
+    {/* Article body */}
+    <div class="mb-12">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
+
+    {/* Teaser boundary — honest, no fade-out gimmick */}
+    {isTeaser && (
+      <aside class="border-t border-gray-300 pt-10 mt-2">
+        <p class="font-cardo text-xl mb-4">Read the full piece in print.</p>
+
+        {edition?.data.purchase_url ? (
+          <a
+            href={edition.data.purchase_url}
+            class="inline-block bg-gray-900 text-white px-6 py-3 text-sm tracking-wide hover:bg-gray-700 transition-colors"
+          >
+            Buy {edition.data.title}
+          </a>
+        ) : edition ? (
+          <p class="text-gray-500 text-sm">
+            Available in{' '}
+            <a
+              href={`/editions/${editionId}`}
+              class="underline underline-offset-2 hover:text-gray-900 transition-colors"
+            >
+              {edition.data.title}
+            </a>
+          </p>
+        ) : null}
+      </aside>
+    )}
+
+  </article>
+</BaseLayout>
