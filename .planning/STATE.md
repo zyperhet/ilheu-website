@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-core-pages-02-01-PLAN.md
-last_updated: "2026-03-03T16:32:07.804Z"
+stopped_at: Completed 02-core-pages-02-02-PLAN.md
+last_updated: "2026-03-03T16:36:50.568Z"
 last_activity: "2026-03-03 — Plan 01-02 complete: Four content collections with Zod schemas and placeholder content"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 9
-  completed_plans: 4
+  completed_plans: 7
   percent: 13
 ---
 
@@ -51,6 +51,8 @@ Progress: [██░░░░░░░░] 13%
 
 *Updated after each plan completion*
 | Phase 02-core-pages P01 | 2 | 2 tasks | 6 files |
+| Phase 02-core-pages P04 | 3 | 1 tasks | 2 files |
+| Phase 02-core-pages P02 | 2 | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -73,6 +75,11 @@ Recent decisions affecting current work:
 - [Phase 02-core-pages]: Navigation is static (not sticky) — scrolls with page per editorial magazine feel
 - [Phase 02-core-pages]: Mobile hamburger: minimal inline script toggle with aria-expanded; no JS framework
 - [Phase 02-core-pages]: Font stack: --font-cardo (Cardo serif) for headings/logo, --font-inter (Inter sans-serif) for body text
+- [Phase 02-core-pages]: Teaser boundary: clean border-t with explicit text — no opacity tricks, no fade-out; honest CTA per user requirement
+- [Phase 02-core-pages]: Article metadata: author (linked) + edition (linked) + date — no tags, no reading time per design decision
+- [Phase 02-core-pages]: Buy Edition button hidden entirely when purchase_url absent — honest UX, no disabled placeholder
+- [Phase 02-core-pages]: Cover image fallback uses accent-coloured div with theme text — visually intentional, not broken image state
+- [Phase 02-core-pages]: Featured article: only one article per edition should have featured: true — ana-costa-photography set to featured: false
 
 ### Pending Todos
 
@@ -86,6 +93,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-03T16:32:07.800Z
-Stopped at: Completed 02-core-pages-02-01-PLAN.md
+Last session: 2026-03-03T16:36:50.564Z
+Stopped at: Completed 02-core-pages-02-02-PLAN.md
 Resume file: None

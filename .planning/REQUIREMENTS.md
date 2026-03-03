@@ -19,8 +19,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Content & Articles
 
-- [ ] **CONT-01**: Article pages render Markdown/MDX with readable typography and image support
-- [ ] **CONT-02**: Articles support multiple types: full, teaser/excerpt, web-exclusive, editorial, extended-cut
+- [x] **CONT-01**: Article pages render Markdown/MDX with readable typography and image support
+- [x] **CONT-02**: Articles support multiple types: full, teaser/excerpt, web-exclusive, editorial, extended-cut
 - [ ] **CONT-03**: Web-exclusive content section ("Between Editions" or similar)
 - [ ] **CONT-04**: Contributor profile pages with bio, photo, and linked articles
 
@@ -85,8 +85,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-05 | Phase 5 | Pending |
 | EDIT-06 | Phase 3 | Pending |
 | NAV-01 | Phase 2 | Complete |
-| CONT-01 | Phase 2 | Pending |
-| CONT-02 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Complete |
+| CONT-02 | Phase 2 | Complete |
 | CONT-03 | Phase 4 | Pending |
 | CONT-04 | Phase 5 | Pending |
 | COMM-01 | Phase 3 | Pending |
