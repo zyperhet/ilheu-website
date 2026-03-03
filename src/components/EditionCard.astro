@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  edition: CollectionEntry<'editions'>;
+}
+
+const { edition } = Astro.props;
+---
+
+<a
+  href={`/editions/${edition.id}`}
+  class="group block border border-gray-200 hover:border-gray-400 transition-colors duration-200"
+>
+  <div class="aspect-[3/4] bg-gray-100 overflow-hidden flex items-center justify-center">
+    {edition.data.cover_image ? (
+      <Image
+        src={edition.data.cover_image}
+        alt={`Cover of ${edition.data.title}`}
+        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+        widths={[300, 600]}
+        sizes="(max-width: 768px) 100vw, 300px"
+      />
+    ) : (
+      <div
+        class="w-full h-full flex items-center justify-center"
+        style={edition.data.accent_colour ? `background-color: ${edition.data.accent_colour}` : 'background-color: #e5e7eb'}
+      >
+        <span class="font-cardo text-5xl text-white opacity-60">
+          {edition.data.edition_number}
+        </span>
+      </div>
+    )}
+  </div>
+  <div class="p-4">
+    <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">
+      Edition {edition.data.edition_number}
+    </p>
+    <h2 class="font-cardo text-xl mb-1 group-hover:underline decoration-1 underline-offset-2">
+      {edition.data.title}
+    </h2>
+    <p class="text-sm text-gray-500 italic">{edition.data.theme}</p>
+  </div>
+</a>

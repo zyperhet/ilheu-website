@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  authorName: string;
+}
+
+const { article, authorName } = Astro.props;
+---
+
+<article class="py-6 border-b border-gray-100 last:border-b-0">
+  <h3 class="font-cardo text-xl mb-1 leading-snug">
+    <a
+      href={`/articles/${article.id}`}
+      class="hover:underline decoration-1 underline-offset-2"
+    >
+      {article.data.title}
+    </a>
+  </h3>
+  <p class="text-sm text-gray-500 mb-3">
+    by <span class="text-gray-700">{authorName}</span>
+  </p>
+  <p class="text-sm text-gray-600 leading-relaxed line-clamp-3">
+    {article.data.excerpt}
+  </p>
+</article>
