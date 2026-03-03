@@ -3,7 +3,7 @@ title: "After the Silence"
 author: ana-costa
 published_date: 2026-03-15
 excerpt: "Photographer Ana Costa's decade-long project documenting the abandoned volcanic observation stations of the Azores — and what they reveal about our relationship with the unpredictable earth beneath our feet."
-featured: true
+featured: false
 tags: [photography, landscape, azores, science, volcanology]
 language: en
 type: teaser
