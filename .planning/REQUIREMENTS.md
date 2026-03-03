@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Editions & Navigation
 
-- [ ] **EDIT-01**: Homepage showcases current edition with hero image, cover, and buy CTA
-- [ ] **EDIT-02**: Homepage features one article as editorial highlight
+- [x] **EDIT-01**: Homepage showcases current edition with hero image, cover, and buy CTA
+- [x] **EDIT-02**: Homepage features one article as editorial highlight
 - [ ] **EDIT-03**: Edition archive page lists all editions with cover thumbnails and themes
 - [ ] **EDIT-04**: Individual edition page shows theme, cover, contributors, article list, and buy link
 - [ ] **EDIT-05**: Edition pages have per-edition colour accents reflecting print identity
@@ -78,8 +78,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EDIT-01 | Phase 2 | Pending |
-| EDIT-02 | Phase 2 | Pending |
+| EDIT-01 | Phase 2 | Complete |
+| EDIT-02 | Phase 2 | Complete |
 | EDIT-03 | Phase 2 | Pending |
 | EDIT-04 | Phase 2 | Pending |
 | EDIT-05 | Phase 5 | Pending |
