@@ -46,15 +46,15 @@ Plans:
   3. A visitor can open an individual edition page and see its theme, contributors, article list, and a buy link
   4. A visitor can read a full article with readable typography and inline images, or see a teaser excerpt with a clear indication it is not the full text
   5. A visitor on a mobile device (375px+) can navigate the site, read articles, and access all pages without horizontal scrolling or broken layouts
-**Plans**: TBD
+**Plans**: 6 plans
 
 Plans:
-- [ ] 02-01: Build base layout with persistent navigation (4-6 items) and footer
-- [ ] 02-02: Build homepage with current edition hero, cover, buy CTA, and featured article slot
-- [ ] 02-03: Build edition archive page (auto-generated from content collections)
-- [ ] 02-04: Build individual edition landing page (theme, contributors, article list, buy link)
-- [ ] 02-05: Build article renderer for `full` and `teaser` types with typography and image support
-- [ ] 02-06: Build about page (mission, team bios, contact info); apply mobile-responsive layouts across all pages
+- [ ] 02-01-PLAN.md — Install @tailwindcss/typography, configure Cardo/Inter fonts, build Nav + Footer components, update BaseLayout
+- [ ] 02-02-PLAN.md — Build homepage with current edition hero, buy CTA, featured article highlight, and edition archive preview
+- [ ] 02-03-PLAN.md — Build edition archive page and individual edition page with reusable EditionCard, ArticleTeaser, and ContributorCard components
+- [ ] 02-04-PLAN.md — Build article renderer with Prose component for full and teaser types, editorial typography, and "Read in print" boundary
+- [ ] 02-05-PLAN.md — Build about page (mission, team bios from contributors collection, contact info), articles index, and shop stub
+- [ ] 02-06-PLAN.md — Cross-page mobile responsive audit and human verification of complete editorial experience
 
 ### Phase 3: Integrations
 **Goal**: Visitors can purchase the magazine, read the Edition 1 flipbook, and optionally translate content — all integrated and tested on the actual Cloudflare Pages deployment
