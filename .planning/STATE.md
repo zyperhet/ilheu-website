@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-core-pages-02-05-PLAN.md
-last_updated: "2026-03-03T16:37:11.146Z"
+stopped_at: Completed 02-core-pages-02-03-PLAN.md
+last_updated: "2026-03-03T16:37:43.884Z"
 last_activity: "2026-03-03 — Plan 01-02 complete: Four content collections with Zod schemas and placeholder content"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
   percent: 13
 ---
 
@@ -54,6 +54,7 @@ Progress: [██░░░░░░░░] 13%
 | Phase 02-core-pages P04 | 3 | 1 tasks | 2 files |
 | Phase 02-core-pages P02 | 2 | 1 tasks | 2 files |
 | Phase 02-core-pages P05 | 2 | 2 tasks | 3 files |
+| Phase 02-core-pages P03 | 3 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 02-core-pages]: Featured article: only one article per edition should have featured: true — ana-costa-photography set to featured: false
 - [Phase 02-core-pages]: Contributors sourced from getCollection not hardcoded — avoids duplication, data already in collection
 - [Phase 02-core-pages]: Shop page Phase 3 integration-ready: dynamically surfaces editions with purchase_url, no code changes needed when URLs added
+- [Phase 02-core-pages]: EditionCard uses accent_colour for numbered fallback, buy CTA hidden entirely when no purchase_url
+- [Phase 02-core-pages]: Articles on edition page sorted by published_date ascending (editorial reading order)
 
 ### Pending Todos
 
@@ -96,6 +99,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-03T16:37:11.142Z
-Stopped at: Completed 02-core-pages-02-05-PLAN.md
+Last session: 2026-03-03T16:37:43.879Z
+Stopped at: Completed 02-core-pages-02-03-PLAN.md
 Resume file: None

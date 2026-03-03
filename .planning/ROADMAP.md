@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/3 | In Progress|  |
-| 2. Core Pages | 4/6 | In Progress|  |
+| 2. Core Pages | 5/6 | In Progress|  |
 | 3. Integrations | 0/3 | Not started | - |
 | 4. Editorial Depth | 0/2 | Not started | - |
 | 5. Polish | 0/3 | Not started | - |
