@@ -37,7 +37,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **TECH-02**: Static site built with Astro (or chosen SSG) deployable to Cloudflare Pages
 - [x] **TECH-03**: Mobile-first responsive design (designed for 375px+, enhanced for tablet and desktop)
 - [ ] **TECH-04**: Optimised images (build-time processing, responsive images)
-- [ ] **TECH-05**: About page with mission, team bios, and contact info
+- [x] **TECH-05**: About page with mission, team bios, and contact info
 
 ## v2 Requirements
 
@@ -97,7 +97,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TECH-02 | Phase 1 | Complete |
 | TECH-03 | Phase 2 | Complete |
 | TECH-04 | Phase 5 | Pending |
-| TECH-05 | Phase 2 | Pending |
+| TECH-05 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 20 total

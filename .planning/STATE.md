@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-core-pages-02-02-PLAN.md
-last_updated: "2026-03-03T16:37:02.917Z"
+stopped_at: Completed 02-core-pages-02-05-PLAN.md
+last_updated: "2026-03-03T16:37:11.146Z"
 last_activity: "2026-03-03 — Plan 01-02 complete: Four content collections with Zod schemas and placeholder content"
 progress:
   total_phases: 5
@@ -81,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 02-core-pages]: Buy Edition button hidden entirely when purchase_url absent — honest UX, no disabled placeholder
 - [Phase 02-core-pages]: Cover image fallback uses accent-coloured div with theme text — visually intentional, not broken image state
 - [Phase 02-core-pages]: Featured article: only one article per edition should have featured: true — ana-costa-photography set to featured: false
+- [Phase 02-core-pages]: Contributors sourced from getCollection not hardcoded — avoids duplication, data already in collection
+- [Phase 02-core-pages]: Shop page Phase 3 integration-ready: dynamically surfaces editions with purchase_url, no code changes needed when URLs added
 
 ### Pending Todos
 
@@ -94,6 +96,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-03T16:36:50.564Z
-Stopped at: Completed 02-core-pages-02-02-PLAN.md
+Last session: 2026-03-03T16:37:11.142Z
+Stopped at: Completed 02-core-pages-02-05-PLAN.md
 Resume file: None
