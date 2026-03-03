@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **EDIT-04**: Individual edition page shows theme, cover, contributors, article list, and buy link
 - [ ] **EDIT-05**: Edition pages have per-edition colour accents reflecting print identity
 - [ ] **EDIT-06**: Digital flipbook embed on Edition 1 page (and Edition 2 when available)
-- [ ] **NAV-01**: Persistent navigation with 4-6 items (editions, articles, shop, about)
+- [x] **NAV-01**: Persistent navigation with 4-6 items (editions, articles, shop, about)
 
 ### Content & Articles
 
@@ -35,7 +35,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **TECH-01**: All content authored as Markdown/MDX files with structured frontmatter schema
 - [x] **TECH-02**: Static site built with Astro (or chosen SSG) deployable to Cloudflare Pages
-- [ ] **TECH-03**: Mobile-first responsive design (designed for 375px+, enhanced for tablet and desktop)
+- [x] **TECH-03**: Mobile-first responsive design (designed for 375px+, enhanced for tablet and desktop)
 - [ ] **TECH-04**: Optimised images (build-time processing, responsive images)
 - [ ] **TECH-05**: About page with mission, team bios, and contact info
 
@@ -84,7 +84,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-04 | Phase 2 | Pending |
 | EDIT-05 | Phase 5 | Pending |
 | EDIT-06 | Phase 3 | Pending |
-| NAV-01 | Phase 2 | Pending |
+| NAV-01 | Phase 2 | Complete |
 | CONT-01 | Phase 2 | Pending |
 | CONT-02 | Phase 2 | Pending |
 | CONT-03 | Phase 4 | Pending |
@@ -95,7 +95,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMM-04 | Phase 4 | Pending |
 | TECH-01 | Phase 1 | Complete |
 | TECH-02 | Phase 1 | Complete |
-| TECH-03 | Phase 2 | Pending |
+| TECH-03 | Phase 2 | Complete |
 | TECH-04 | Phase 5 | Pending |
 | TECH-05 | Phase 2 | Pending |
 

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-03T15:42:58.781Z"
+stopped_at: Completed 02-core-pages-02-01-PLAN.md
+last_updated: "2026-03-03T16:32:07.804Z"
 last_activity: "2026-03-03 — Plan 01-02 complete: Four content collections with Zod schemas and placeholder content"
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 9
+  completed_plans: 4
   percent: 13
 ---
 
@@ -50,6 +50,7 @@ Progress: [██░░░░░░░░] 13%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 02-core-pages P01 | 2 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,9 @@ Recent decisions affecting current work:
 - [01-02]: image() fields marked .optional() in all schemas — image() helper fails build if referenced file doesn't exist; content authors must provide images by convention
 - [01-02]: entry.id (not entry.slug) used in Astro v5 Content Layer API — established as project-wide pattern
 - [01-02]: Contributor IDs derived from filename without extension (placeholder-contributor.md → id 'placeholder-contributor') — referenced in articles via author: placeholder-contributor frontmatter field
+- [Phase 02-core-pages]: Navigation is static (not sticky) — scrolls with page per editorial magazine feel
+- [Phase 02-core-pages]: Mobile hamburger: minimal inline script toggle with aria-expanded; no JS framework
+- [Phase 02-core-pages]: Font stack: --font-cardo (Cardo serif) for headings/logo, --font-inter (Inter sans-serif) for body text
 
 ### Pending Todos
 
@@ -82,6 +86,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-03T15:42:58.764Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-core-pages/02-CONTEXT.md
+Last session: 2026-03-03T16:32:07.800Z
+Stopped at: Completed 02-core-pages-02-01-PLAN.md
+Resume file: None
