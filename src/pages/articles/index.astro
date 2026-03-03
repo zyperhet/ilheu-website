@@ -1,0 +1,98 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Fetch all articles and sort by published_date descending
+const allArticles = await getCollection('articles');
+allArticles.sort(
+  (a, b) =>
+    new Date(b.data.published_date).getTime() - new Date(a.data.published_date).getTime()
+);
+
+// Resolve author and edition for each article
+const articlesWithMeta = await Promise.all(
+  allArticles.map(async (article) => {
+    const author = await getEntry(article.data.author);
+    const editionId = article.id.split('/')[0]; // e.g. "edition-1"
+    const edition = await getEntry('editions', editionId);
+    return { article, author, edition };
+  })
+);
+
+// Group by edition for display
+type ArticleWithMeta = (typeof articlesWithMeta)[number];
+const byEdition = articlesWithMeta.reduce(
+  (acc: Record<string, ArticleWithMeta[]>, item) => {
+    const key = item.edition?.id ?? 'unknown';
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(item);
+    return acc;
+  },
+  {}
+);
+
+// Sort editions by edition_number descending (newest first)
+const sortedEditionKeys = Object.keys(byEdition).sort((a, b) => {
+  const numA = byEdition[a][0]?.edition?.data.edition_number ?? 0;
+  const numB = byEdition[b][0]?.edition?.data.edition_number ?? 0;
+  return numB - numA;
+});
+---
+
+<BaseLayout title="Articles — Ilheu Magazine" description="All articles published in Ilhéu Magazine, across every edition.">
+  <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+
+    <h1 class="font-cardo text-4xl md:text-5xl font-bold text-gray-900 mb-12">Articles</h1>
+
+    {sortedEditionKeys.map((editionKey) => {
+      const items = byEdition[editionKey];
+      const editionData = items[0]?.edition?.data;
+
+      return (
+        <section class="mb-16">
+          {/* Edition heading */}
+          {editionData && (
+            <div class="mb-8 pb-4 border-b border-gray-200">
+              <p class="text-xs font-medium uppercase tracking-widest text-gray-400 mb-1">
+                Edition {editionData.edition_number}
+              </p>
+              <h2 class="font-cardo text-2xl md:text-3xl font-bold text-gray-900">
+                {editionData.title}
+              </h2>
+              {editionData.theme && (
+                <p class="text-gray-500 mt-0.5 italic">{editionData.theme}</p>
+              )}
+            </div>
+          )}
+
+          {/* Article list */}
+          <ul class="space-y-8">
+            {items.map(({ article, author }) => (
+              <li>
+                <a
+                  href={`/articles/${article.id}`}
+                  class="group block"
+                >
+                  <h3 class="font-cardo text-xl font-bold text-gray-900 group-hover:underline underline-offset-2 mb-1">
+                    {article.data.title}
+                  </h3>
+                  <p class="text-sm text-gray-500 mb-2">
+                    {author?.data.name && (
+                      <span>{author.data.name}</span>
+                    )}
+                    {author?.data.role && (
+                      <span class="mx-1.5 text-gray-300">&mdash;</span>
+                      <span>{author.data.role}</span>
+                    )}
+                  </p>
+                  <p class="text-gray-700 leading-relaxed">{article.data.excerpt}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+
+  </div>
+</BaseLayout>
