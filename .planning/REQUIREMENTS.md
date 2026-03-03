@@ -33,7 +33,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation & Technical
 
-- [ ] **TECH-01**: All content authored as Markdown/MDX files with structured frontmatter schema
+- [x] **TECH-01**: All content authored as Markdown/MDX files with structured frontmatter schema
 - [x] **TECH-02**: Static site built with Astro (or chosen SSG) deployable to Cloudflare Pages
 - [ ] **TECH-03**: Mobile-first responsive design (designed for 375px+, enhanced for tablet and desktop)
 - [ ] **TECH-04**: Optimised images (build-time processing, responsive images)
@@ -93,7 +93,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMM-02 | Phase 4 | Pending |
 | COMM-03 | Phase 3 | Pending |
 | COMM-04 | Phase 4 | Pending |
-| TECH-01 | Phase 1 | Pending |
+| TECH-01 | Phase 1 | Complete |
 | TECH-02 | Phase 1 | Complete |
 | TECH-03 | Phase 2 | Pending |
 | TECH-04 | Phase 5 | Pending |

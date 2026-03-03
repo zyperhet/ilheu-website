@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 ## Current Position
 
 Phase: 1 of 5 (Foundation)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-03-03 — Plan 01-01 complete: Astro v5 scaffold with Tailwind v4, MDX, static output
+Last activity: 2026-03-03 — Plan 01-02 complete: Four content collections with Zod schemas and placeholder content
 
-Progress: [█░░░░░░░░░] 7%
+Progress: [██░░░░░░░░] 13%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 4 min
-- Total execution time: 0.07 hours
+- Total plans completed: 2
+- Average duration: 3 min
+- Total execution time: 0.10 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation | 1/3 | 4 min | 4 min |
+| 1. Foundation | 2/3 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4 min)
+- Last 5 plans: 01-01 (4 min), 01-02 (2 min)
 - Trend: —
 
 *Updated after each plan completion*
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - [01-01]: No Cloudflare adapter — output: 'static' with no adapter is correct for Cloudflare Pages static hosting; @astrojs/cloudflare is SSR-only
 - [01-01]: Tailwind v4 via @tailwindcss/vite Vite plugin only — no tailwind.config.js needed; CSS activated via @import "tailwindcss" in global.css
 - [01-01]: Node 20 EBADENGINE warning on local machine is non-blocking; Cloudflare Pages will use Node 22 via .nvmrc
+- [01-02]: image() fields marked .optional() in all schemas — image() helper fails build if referenced file doesn't exist; content authors must provide images by convention
+- [01-02]: entry.id (not entry.slug) used in Astro v5 Content Layer API — established as project-wide pattern
+- [01-02]: Contributor IDs derived from filename without extension (placeholder-contributor.md → id 'placeholder-contributor') — referenced in articles via author: placeholder-contributor frontmatter field
 
 ### Pending Todos
 
@@ -64,5 +67,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 01-01-PLAN.md — Astro v5 project scaffold; ready for plan 01-02 (content collections)
+Stopped at: Completed 01-02-PLAN.md — four content collections defined with Zod schemas; ready for plan 01-03 (routing and pages)
 Resume file: None
