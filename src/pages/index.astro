@@ -38,7 +38,7 @@ if (currentEdition) {
             </p>
             <a href={`/editions/${currentEdition.id}`} class="block group">
               <h1
-                class="font-cardo text-5xl lg:text-7xl leading-tight text-gray-900 mb-4 group-hover:text-gray-600 transition-colors"
+                class="font-cardo text-4xl sm:text-5xl lg:text-7xl leading-tight text-gray-900 mb-4 group-hover:text-gray-600 transition-colors"
                 style={currentEdition.data.accent_colour ? `color: ${currentEdition.data.accent_colour}` : ''}
               >
                 {currentEdition.data.theme}
@@ -88,7 +88,7 @@ if (currentEdition) {
           From This Edition
         </p>
         <a href={`/articles/${featuredArticle.id}`} class="block group mb-6">
-          <h2 class="font-cardo text-3xl lg:text-4xl text-gray-900 mb-5 group-hover:text-gray-600 transition-colors leading-snug">
+          <h2 class="font-cardo text-2xl sm:text-3xl lg:text-4xl text-gray-900 mb-5 group-hover:text-gray-600 transition-colors leading-snug">
             {featuredArticle.data.title}
           </h2>
           <p class="font-inter text-gray-600 text-base lg:text-lg leading-relaxed">
