@@ -29,12 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The frontmatter schema for editions, articles, and contributors is documented and enforced via Astro content collections
   3. A developer can add a new edition by creating a folder under `content/editions/` with a valid `index.md` — no code changes required
   4. The site builds locally and on Cloudflare Pages from the same source without error, with Node.js version pinned and matched in both environments
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Initialize Astro project with MDX, Tailwind, and Cloudflare Pages adapter; pin Node.js version
-- [ ] 01-02: Define and enforce frontmatter schemas for editions, articles, and contributors via Astro content collections
-- [ ] 01-03: Deploy skeleton site to Cloudflare Pages; verify build environment parity
+- [ ] 01-01-PLAN.md — Scaffold Astro v5 project with MDX, Tailwind v4 Vite plugin, static output; pin Node.js 22 in .nvmrc; verify build produces dist/
+- [ ] 01-02-PLAN.md — Define four Zod-backed content collections (editions, articles, contributors, special); create placeholder content files; verify build-time schema validation
+- [ ] 01-03-PLAN.md — Deploy skeleton site to Cloudflare Pages; verify Node.js version parity; document deployment configuration
 
 ### Phase 2: Core Pages
 **Goal**: Visitors can read articles, explore editions, understand the magazine, and navigate the site — the full editorial experience without third-party integrations
