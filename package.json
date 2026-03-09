@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "product:add": "node scripts/add-product.mjs",
+    "shipping:setup": "node scripts/setup-shipping.mjs"
   },
   "engines": {
     "node": ">=22"

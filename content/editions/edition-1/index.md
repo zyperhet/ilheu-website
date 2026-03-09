@@ -5,14 +5,11 @@ theme: "Island of Origins"
 release_date: 2024-06-01
 status: archive
 accent_colour: "#2D5F3E"
+purchase_url: "https://buy.stripe.com/test_14AfZabUn9opgLmavC7IY00"
 contributors:
   - hugo-goncales
   - pedro-borges
   - hun-chung-lee
 ---
 
-The inaugural edition of Ilhéu Magazine takes readers to São Miguel, the largest and most populous island in the Azores archipelago. Known as *A Ilha Verde* — the Green Island — São Miguel is a landscape of extremes: volcanic calderas filled with mirror-still lakes, hot springs that steam through ancient gardens, and coastlines where the Atlantic crashes against black basalt cliffs.
-
-This edition explores the people shaping São Miguel's cultural identity today. From a Netflix screenwriter mining his fishing village roots for global storytelling, to an architect learning humility from volcanic landscapes, to a Korean ceramic artist who sees in Azorean geology a kinship with the ancient craft of fire and clay.
-
-These are conversations from the Atlantic — voices that emerge from a place where Europe ends and something else begins.
+The first issue focuses on São Miguel, where everyone who works on the magazine lives. Highlights include an exclusive interview with Rabo de Peixe Netflix TV script writer Hugo Gonçales, a conversation with Pedro Borges, the award-winning architect responsible for the exceptional new renovations at Terra Nostra Garden, and the acclaimed Korean ceramic artist, Hun-Chung Lee. Lee counts Brad Pitt and Norman Foster as collectors, and is himself planning a new art intervention across all nine islands of the Azores.

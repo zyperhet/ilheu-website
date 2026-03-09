@@ -1,0 +1,129 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import dacostaArtwork from '../assets/images/00-covers/front-cover-dacosta-memory-v-green-triangle.jpg';
+
+const allEditions = await getCollection('editions');
+const currentEdition = allEditions.find(e => e.data.status === 'current');
+const archivedEditions = allEditions
+  .filter(e => e.data.status === 'archive')
+  .sort((a, b) => b.data.edition_number - a.data.edition_number);
+
+let featuredArticle = null;
+let featuredAuthor = null;
+if (currentEdition) {
+  const featured = await getCollection('articles', ({ id, data }) =>
+    id.startsWith(currentEdition.id + '/') && data.featured === true
+  );
+  featuredArticle = featured[0] || null;
+  if (featuredArticle) {
+    featuredAuthor = await getEntry(featuredArticle.data.author);
+  }
+}
+---
+
+<BaseLayout
+  title="Ilhéu Magazine"
+  description="Ilhéu is a biannual literary and cultural magazine from the Azores."
+>
+  {currentEdition && (
+    <!-- Hero: The Artwork -->
+    <section class="py-24 lg:py-32">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <!-- Artwork, large and breathing -->
+        <div class="max-w-lg mx-auto mb-16 lg:mb-20">
+          <a href={`/editions/${currentEdition.id}`} class="block">
+            <Image
+              src={dacostaArtwork}
+              alt={`DaCosta, Memory V — cover artwork for Ilhéu Magazine Issue B`}
+              class="w-full"
+            />
+          </a>
+        </div>
+
+        <!-- Edition info: whisper-quiet typography -->
+        <p class="font-inter text-xs uppercase tracking-[0.25em] text-gray-400 mb-6">
+          Issue B
+        </p>
+        <h1 class="font-cardo text-2xl lg:text-3xl text-gray-900 mb-3 leading-relaxed">
+          {currentEdition.data.theme}
+        </h1>
+        <p class="font-cardo text-lg text-gray-400 mb-10">
+          {currentEdition.data.title}
+        </p>
+
+        {currentEdition.data.purchase_url && (
+          <a
+            href={currentEdition.data.purchase_url}
+            class="inline-block font-inter text-xs uppercase tracking-[0.2em] text-gray-500 border border-gray-300 px-8 py-3 hover:text-gray-900 hover:border-gray-900 transition-colors"
+          >
+            Buy Issue
+          </a>
+        )}
+      </div>
+    </section>
+  )}
+
+  {featuredArticle && featuredAuthor && (
+    <!-- Featured Article -->
+    <fragment>
+      <div class="max-w-4xl mx-auto px-6">
+        <hr class="border-t border-gray-200 my-16 lg:my-24" />
+      </div>
+
+      <section class="pb-16 lg:pb-24">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+          <p class="font-inter text-xs uppercase tracking-[0.25em] text-gray-400 mb-10">
+            From This Issue
+          </p>
+          <a href={`/articles/${featuredArticle.id}`} class="block group mb-8">
+            <h2 class="font-cardo text-2xl lg:text-3xl text-gray-900 mb-6 group-hover:text-gray-500 transition-colors leading-relaxed">
+              {featuredArticle.data.title}
+            </h2>
+            <p class="font-cardo text-lg italic text-gray-500 leading-relaxed">
+              {featuredArticle.data.excerpt}
+            </p>
+          </a>
+          <p class="font-inter text-xs uppercase tracking-[0.2em] text-gray-400">
+            <a
+              href={`/contributors/${featuredAuthor.id}`}
+              class="hover:text-gray-900 transition-colors"
+            >
+              {featuredAuthor.data.name}
+            </a>
+          </p>
+        </div>
+      </section>
+    </fragment>
+  )}
+
+  {archivedEditions.length > 0 && (
+    <!-- Archive: Text-only, minimal -->
+    <fragment>
+      <div class="max-w-4xl mx-auto px-6">
+        <hr class="border-t border-gray-200 my-16 lg:my-24" />
+      </div>
+
+      <section class="pb-24 lg:pb-32">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+          <p class="font-inter text-xs uppercase tracking-[0.25em] text-gray-400 mb-12">
+            Archive
+          </p>
+          <ul class="space-y-4">
+            {archivedEditions.map((edition) => (
+              <li>
+                <a
+                  href={`/editions/${edition.id}`}
+                  class="font-cardo text-lg text-gray-500 hover:text-gray-900 transition-colors inline-block decoration-gray-300 underline-offset-4 hover:underline"
+                >
+                  Issue A &mdash; {edition.data.theme} &mdash; {edition.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </fragment>
+  )}
+</BaseLayout>

@@ -123,3 +123,11 @@ None - no external service configuration required.
 ---
 *Phase: 02-core-pages*
 *Completed: 2026-03-03*
+
+## Self-Check: PASSED
+
+- FOUND: src/pages/index.astro
+- FOUND: content/editions/edition-2/articles/ana-costa-photography.md
+- FOUND: .planning/phases/02-core-pages/02-02-SUMMARY.md
+- FOUND commit: 25a504b (Task 1)
+- FOUND commit: 27041c8 (Metadata)

@@ -1,0 +1,73 @@
+[
+  {
+    "id": "edition-1",
+    "type": "edition",
+    "name": "Ilhéu Magazine — Issue A: São Miguel",
+    "description": "Island of Origins. Limited print edition.",
+    "price": 18,
+    "currency": "eur",
+    "stripe_product_id": "prod_U6wsYy0TWlimS0",
+    "stripe_price_id": "price_1T8iyi2OC4GlVfF24XsN3ifo",
+    "stripe_payment_link": "https://buy.stripe.com/test_14AfZabUn9opgLmavC7IY00",
+    "shipping": true,
+    "created_at": "2026-03-08T15:10:48.997Z"
+  },
+  {
+    "id": "edition-2",
+    "type": "edition",
+    "name": "Ilhéu Magazine — Issue B: The Nine",
+    "description": "Across the Archipelago. Limited print edition.",
+    "price": 18,
+    "currency": "eur",
+    "stripe_product_id": "prod_U6wsjFzERS4uHQ",
+    "stripe_price_id": "price_1T8iyj2OC4GlVfF2BIh18zoV",
+    "stripe_payment_link": "https://buy.stripe.com/test_14A00c4rV7ghcv6dHO7IY01",
+    "shipping": true,
+    "created_at": "2026-03-08T15:10:50.141Z"
+  },
+  {
+    "id": "ilheu-tshirt",
+    "type": "merch",
+    "name": "Ilhéu T-Shirt",
+    "description": "100% organic cotton, screen-printed logo.",
+    "price": 28,
+    "currency": "eur",
+    "image": null,
+    "stripe_product_id": "prod_U6wsdSJLfHJjyY",
+    "stripe_price_id": "price_1T8iyk2OC4GlVfF2Vu909NcJ",
+    "stripe_payment_link": "https://buy.stripe.com/test_3cI3co9Mf3013YA6fm7IY02",
+    "shipping": true,
+    "active": true,
+    "created_at": "2026-03-08T15:10:51.386Z"
+  },
+  {
+    "id": "ilheu-tote-bag",
+    "type": "merch",
+    "name": "Ilhéu Tote Bag",
+    "description": "Heavy-duty canvas tote with magazine artwork.",
+    "price": 22,
+    "currency": "eur",
+    "image": null,
+    "stripe_product_id": "prod_U6wsSPb1Q7kYrS",
+    "stripe_price_id": "price_1T8iyl2OC4GlVfF2BmrLUzcG",
+    "stripe_payment_link": "https://buy.stripe.com/test_aFa9AMe2vast9iUeLS7IY03",
+    "shipping": true,
+    "active": true,
+    "created_at": "2026-03-08T15:10:52.391Z"
+  },
+  {
+    "id": "poster-edition-2",
+    "type": "merch",
+    "name": "Issue B Cover Poster",
+    "description": "A2 giclée print of the Issue B cover artwork.",
+    "price": 35,
+    "currency": "eur",
+    "image": null,
+    "stripe_product_id": "prod_U6ws4FaJsx7232",
+    "stripe_price_id": "price_1T8iym2OC4GlVfF2bla7C8B6",
+    "stripe_payment_link": "https://buy.stripe.com/test_14A4gs1fJ7ghamY0V27IY04",
+    "shipping": true,
+    "active": true,
+    "created_at": "2026-03-08T15:10:53.355Z"
+  }
+]

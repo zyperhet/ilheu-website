@@ -1,0 +1,330 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import oceanWave from '../assets/images/08-marco-costa-photography/aerial-blue-ocean-wave-marco-costa.jpg';
+import magazineCover from '../assets/images/00-covers/front-cover-full-page.png';
+import featuredImage from '../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-golden-light-blue-shirt.jpg';
+import coverIssueA from '../assets/images/00-covers/cover-issue-a.png';
+import backCover from '../assets/images/00-covers/back-page-woman-reaching-across-rocks.jpg';
+
+const allEditions = await getCollection('editions');
+const currentEdition = allEditions.find(e => e.data.status === 'current');
+const archivedEditions = allEditions
+  .filter(e => e.data.status === 'archive')
+  .sort((a, b) => b.data.edition_number - a.data.edition_number);
+
+let featuredArticle = null;
+let featuredAuthor = null;
+if (currentEdition) {
+  const featured = await getCollection('articles', ({ id, data }) =>
+    id.startsWith(currentEdition.id + '/') && data.featured === true
+  );
+  featuredArticle = featured[0] || null;
+  if (featuredArticle) {
+    featuredAuthor = await getEntry(featuredArticle.data.author);
+  }
+}
+---
+
+<BaseLayout
+  title="Ilhéu Magazine"
+  description="Ilhéu is a biannual literary and cultural magazine from the Azores."
+>
+  {/* ───── Editorial Spread Hero ───── */}
+  <section class="min-h-[90vh] lg:min-h-screen bg-gray-950">
+    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[90vh] lg:min-h-screen">
+
+      {/* Left column — tall ocean photography, spans 7 cols */}
+      <div class="relative lg:col-span-7 min-h-[50vh] lg:min-h-screen overflow-hidden">
+        <Image
+          src={oceanWave}
+          alt="Aerial view of a deep blue ocean wave breaking off the Azores coast"
+          class="absolute inset-0 w-full h-full object-cover"
+          widths={[800, 1200, 1920]}
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          loading="eager"
+          quality={85}
+        />
+        {/* Subtle overlay at bottom for mobile text */}
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-gray-950/30"></div>
+
+        {/* Edition badge — floating on the image */}
+        {currentEdition && (
+          <div class="absolute top-6 left-6 lg:top-10 lg:left-10">
+            <span class="font-inter text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/90 bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/20">
+              Issue B
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Right column — text block + cover image stacked, spans 5 cols */}
+      <div class="lg:col-span-5 flex flex-col justify-between bg-gray-950 px-8 py-12 lg:px-14 lg:py-16">
+
+        {/* Top: Edition text block */}
+        <div class="mb-10 lg:mb-0">
+          <p class="font-inter text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/40 mb-6">
+            Ilh&eacute;u Magazine
+          </p>
+
+          {currentEdition ? (
+            <div>
+              <a href={`/editions/${currentEdition.id}`} class="block group">
+                <h1 class="font-cardo text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.05] mb-6 group-hover:text-white/70 transition-colors">
+                  {currentEdition.data.theme}
+                </h1>
+              </a>
+              <p class="font-cardo text-lg sm:text-xl text-white/50 italic mb-4">
+                {currentEdition.data.title}
+              </p>
+              <p class="font-inter text-sm text-white/40 leading-relaxed max-w-sm mb-10">
+                A biannual literary and cultural magazine from the Azores, exploring the edges of island life, memory, and belonging.
+              </p>
+              {currentEdition.data.purchase_url && (
+                <a
+                  href={currentEdition.data.purchase_url}
+                  class="inline-block font-inter text-xs uppercase tracking-[0.25em] text-gray-950 bg-white px-8 py-4 hover:bg-white/90 transition-colors duration-300"
+                >
+                  Buy This Issue
+                </a>
+              )}
+            </div>
+          ) : (
+            <div>
+              <h1 class="font-cardo text-5xl lg:text-7xl text-white leading-[1.05] mb-6">
+                Ilh&eacute;u
+              </h1>
+              <p class="font-inter text-sm text-white/40 leading-relaxed max-w-sm">
+                A biannual literary and cultural magazine from the Azores.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom: Magazine cover — smaller, with shadow, editorial placement */}
+        <div class="flex items-end gap-6 mt-auto pt-8 border-t border-white/10">
+          <div class="relative w-36 sm:w-44 flex-shrink-0">
+            <Image
+              src={magazineCover}
+              alt={currentEdition ? `Cover of Ilhéu Magazine Issue B` : 'Ilhéu Magazine cover'}
+              class="w-full shadow-2xl shadow-black/50"
+              widths={[200, 400]}
+              sizes="176px"
+              quality={90}
+            />
+          </div>
+          <div class="pb-2">
+            <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/30 mb-1">
+              Current Issue
+            </p>
+            <p class="font-cardo text-sm text-white/60 leading-snug">
+              {currentEdition ? `${currentEdition.data.page_count || '120'}+ pages of literature, photography, and essays` : 'Literary and cultural magazine from the Azores'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── Featured Article — Two-column Editorial ───── */}
+  {featuredArticle && featuredAuthor && (
+    <section class="bg-white border-t border-gray-100">
+      <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[60vh]">
+
+        {/* Left: striking portrait image */}
+        <div class="relative min-h-[40vh] lg:min-h-[60vh] overflow-hidden order-2 lg:order-1">
+          <Image
+            src={featuredImage}
+            alt="Portrait photograph accompanying the featured article"
+            class="absolute inset-0 w-full h-full object-cover object-top"
+            widths={[600, 1000, 1400]}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            quality={85}
+          />
+        </div>
+
+        {/* Right: article text */}
+        <div class="flex items-center px-8 py-16 lg:px-16 lg:py-24 order-1 lg:order-2">
+          <div class="max-w-lg">
+            <p class="font-inter text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-8">
+              Featured Article
+            </p>
+
+            <a href={`/articles/${featuredArticle.id}`} class="block group mb-8">
+              <h2 class="font-cardo text-3xl sm:text-4xl lg:text-5xl text-gray-900 leading-[1.15] mb-6 group-hover:text-gray-500 transition-colors">
+                {featuredArticle.data.title}
+              </h2>
+              <p class="font-inter text-base text-gray-500 leading-relaxed">
+                {featuredArticle.data.excerpt}
+              </p>
+            </a>
+
+            <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
+              <div>
+                <p class="font-inter text-sm text-gray-900 font-medium">
+                  <a
+                    href={`/contributors/${featuredAuthor.id}`}
+                    class="underline underline-offset-4 decoration-gray-300 hover:decoration-gray-900 transition-colors"
+                  >
+                    {featuredAuthor.data.name}
+                  </a>
+                </p>
+                {featuredAuthor.data.bio && (
+                  <p class="font-inter text-xs text-gray-400 mt-1 line-clamp-1">
+                    {featuredAuthor.data.bio}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <a
+              href={`/articles/${featuredArticle.id}`}
+              class="inline-block mt-10 font-inter text-xs uppercase tracking-[0.2em] text-gray-900 border border-gray-900 px-6 py-3 hover:bg-gray-900 hover:text-white transition-all duration-300"
+            >
+              Read Article
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* ───── Editorial Interstitial — pull quote / magazine philosophy ───── */}
+  <section class="relative bg-gray-950 py-24 lg:py-32 overflow-hidden">
+    {/* Background texture: faded back cover image */}
+    <Image
+      src={backCover}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover opacity-15"
+      widths={[800, 1400]}
+      sizes="100vw"
+      quality={60}
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gray-950/80"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-8 text-center">
+      <blockquote class="font-cardo text-2xl sm:text-3xl lg:text-4xl text-white/90 leading-relaxed italic mb-8">
+        &ldquo;Each island is a world unto itself&mdash;a fragment of something larger, held together by salt, wind, and memory.&rdquo;
+      </blockquote>
+      <p class="font-inter text-xs uppercase tracking-[0.3em] text-white/40">
+        From the editors
+      </p>
+    </div>
+  </section>
+
+  {/* ───── Archive — Horizontal Scroll of Cover Thumbnails ───── */}
+  {archivedEditions.length > 0 && (
+    <section class="bg-gray-50 border-t border-gray-200">
+      <div class="max-w-7xl mx-auto px-8 py-20 lg:py-28">
+        <div class="flex items-baseline justify-between mb-12">
+          <div>
+            <p class="font-inter text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-3">
+              The Collection
+            </p>
+            <h2 class="font-cardo text-2xl lg:text-3xl text-gray-900">
+              Past Issues
+            </h2>
+          </div>
+          <a
+            href="/editions"
+            class="font-inter text-xs uppercase tracking-[0.2em] text-gray-500 border-b border-gray-300 pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors"
+          >
+            View All
+          </a>
+        </div>
+
+        {/* Horizontal scroll strip */}
+        <div class="flex gap-8 overflow-x-auto pb-6 -mx-2 px-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+          {archivedEditions.map((edition) => (
+            <a
+              href={`/editions/${edition.id}`}
+              class="group flex-shrink-0 w-48 sm:w-56 snap-start"
+            >
+              {edition.data.cover_image ? (
+                <Image
+                  src={edition.data.cover_image}
+                  alt={`Cover of Ilhéu Magazine Issue A: ${edition.data.title}`}
+                  class="w-full aspect-[3/4] object-cover shadow-md group-hover:shadow-xl transition-shadow duration-300"
+                  widths={[250, 400]}
+                  sizes="224px"
+                  quality={80}
+                  loading="lazy"
+                />
+              ) : (
+                <div
+                  class="w-full aspect-[3/4] flex items-center justify-center shadow-md group-hover:shadow-xl transition-shadow duration-300"
+                  style={edition.data.accent_colour ? `background-color: ${edition.data.accent_colour}` : 'background-color: #1a1a1a'}
+                >
+                  <span class="font-cardo text-white text-lg text-center px-4 leading-snug">
+                    {edition.data.theme}
+                  </span>
+                </div>
+              )}
+              <div class="mt-4">
+                <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">
+                  Issue A
+                </p>
+                <h3 class="font-cardo text-base text-gray-900 group-hover:text-gray-500 transition-colors leading-snug">
+                  {edition.data.title}
+                </h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* ───── Final CTA — Magazine Spread Feel ───── */}
+  <section class="bg-gray-950">
+    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[50vh]">
+
+      {/* Left: cover image repeated as editorial element */}
+      <div class="lg:col-span-4 flex items-center justify-center py-16 lg:py-0 px-8 bg-gray-900">
+        <Image
+          src={coverIssueA}
+          alt="Cover of Ilhéu Magazine first edition featuring green triangle design"
+          class="max-w-[220px] lg:max-w-[260px] shadow-2xl shadow-black/60"
+          widths={[280, 400]}
+          sizes="260px"
+          quality={90}
+          loading="lazy"
+        />
+      </div>
+
+      {/* Right: subscribe / buy CTA */}
+      <div class="lg:col-span-8 flex items-center px-8 py-16 lg:px-20 lg:py-24">
+        <div class="max-w-lg">
+          <p class="font-inter text-[10px] uppercase tracking-[0.3em] text-white/40 mb-6">
+            Don&apos;t miss an issue
+          </p>
+          <h2 class="font-cardo text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.1] mb-6">
+            Stories from the edge of Europe
+          </h2>
+          <p class="font-inter text-sm text-white/50 leading-relaxed mb-10 max-w-md">
+            Ilh&eacute;u arrives twice a year, carrying literature, photography, and essays from the Azores and beyond. Each edition is a keepsake.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            {currentEdition?.data.purchase_url && (
+              <a
+                href={currentEdition.data.purchase_url}
+                class="inline-block font-inter text-xs uppercase tracking-[0.2em] text-gray-950 bg-white px-8 py-4 hover:bg-white/90 transition-colors text-center"
+              >
+                Buy Current Issue
+              </a>
+            )}
+            <a
+              href="/editions"
+              class="inline-block font-inter text-xs uppercase tracking-[0.2em] text-white border border-white/30 px-8 py-4 hover:border-white hover:bg-white/10 transition-all text-center"
+            >
+              Browse Issues
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

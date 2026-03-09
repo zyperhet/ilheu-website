@@ -1,77 +1,206 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import productsData from '../data/products.json';
 
-// Surface editions that have a purchase URL — will be populated in Phase 3
+import coverEdition2 from '../assets/images/00-covers/front-cover-full-page.png';
+import coverEdition1 from '../assets/images/00-covers/front-cover-dacosta-memory-v-green-triangle.jpg';
+
+const coverMap: Record<number, ImageMetadata> = {
+  1: coverEdition1,
+  2: coverEdition2,
+};
+
+// Editions with purchase URLs
 const editions = await getCollection('editions');
 const availableEditions = editions.filter((e) => e.data.purchase_url);
-
-// Sort by edition number descending
 availableEditions.sort((a, b) => b.data.edition_number - a.data.edition_number);
+
+// Merchandise from products.json
+const merch = (productsData as any[]).filter((p) => p.type === 'merch' && p.active);
+
+const hasProducts = availableEditions.length > 0 || merch.length > 0;
 ---
 
 <BaseLayout title="Shop — Ilheu Magazine" description="Buy Ilhéu Magazine. Biannual print editions from the Azores.">
-  <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
 
-    <h1 class="font-cardo text-4xl md:text-5xl font-bold text-gray-900 mb-6">Shop</h1>
+  {hasProducts ? (
+    <div>
+      {/* --- Edition heroes, alternating layout --- */}
+      {availableEditions.map((edition, i) => {
+        const cover = coverMap[edition.data.edition_number];
+        const textLeft = i % 2 === 0;
+        const label = edition.data.status === 'current' ? 'Latest Issue' : `Issue ${String.fromCharCode(65 + availableEditions.length - 1 - i)}`;
 
-    {availableEditions.length > 0 ? (
-      <div>
-        <p class="text-lg text-gray-700 mb-10 leading-relaxed">
-          Each issue of Ilhéu Magazine is printed in a limited run and ships worldwide. Order your copy below.
-        </p>
+        return (
+          <section class={`min-h-[85vh] flex items-center border-b border-gray-100 ${i % 2 !== 0 ? 'bg-gray-50' : ''}`}>
+            <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28 w-full">
+              <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
 
-        <ul class="space-y-8">
-          {availableEditions.map((edition) => (
-            <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-100 pb-8">
-              <div>
-                <p class="text-xs font-medium uppercase tracking-widest text-gray-400 mb-0.5">
-                  Edition {edition.data.edition_number}
-                </p>
-                <h2 class="font-cardo text-2xl font-bold text-gray-900">{edition.data.title}</h2>
-                <p class="text-gray-500 italic">{edition.data.theme}</p>
+                {/* Text column */}
+                <div class={`lg:col-span-5 text-center lg:text-left ${textLeft ? '' : 'lg:order-last'} ${textLeft ? 'mb-14 lg:mb-0' : ''}`}>
+                  <p class="text-xs uppercase tracking-[0.25em] text-gray-400 mb-6 font-inter">
+                    {label}
+                  </p>
+                  <a href={`/editions/${edition.id}`} class="block group">
+                    <h2
+                      class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-gray-900 mb-5 group-hover:text-gray-600 transition-colors"
+                      style={edition.data.accent_colour ? `color: ${edition.data.accent_colour}` : ''}
+                    >
+                      {edition.data.theme}
+                    </h2>
+                    <p class="font-cardo text-xl sm:text-2xl text-gray-400 mb-10 leading-relaxed">
+                      {edition.data.title}
+                    </p>
+                  </a>
+                  <a
+                    href={edition.data.purchase_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block bg-gray-900 text-white font-inter text-xs uppercase tracking-[0.2em] px-10 py-4 hover:bg-gray-700 transition-colors duration-300"
+                  >
+                    Buy This Issue
+                  </a>
+                </div>
+
+                {/* Cover column */}
+                <div class={`lg:col-span-7 flex justify-center ${textLeft ? 'lg:justify-end' : 'lg:justify-start mb-14 lg:mb-0'}`}>
+                  <div class="relative max-w-sm lg:max-w-md">
+                    {cover ? (
+                      <Image
+                        src={cover}
+                        alt={`Cover of Ilhéu Magazine Edition ${edition.data.edition_number}: ${edition.data.title}`}
+                        class="w-full shadow-2xl"
+                        widths={[400, 600, 800]}
+                        sizes="(max-width: 640px) 360px, (max-width: 1024px) 400px, 480px"
+                      />
+                    ) : (
+                      <div
+                        class="w-full aspect-[3/4] flex items-center justify-center shadow-2xl"
+                        style={edition.data.accent_colour ? `background-color: ${edition.data.accent_colour}` : 'background-color: #1a1a1a'}
+                      >
+                        <span class="font-cardo text-white text-4xl lg:text-5xl text-center px-8 leading-snug opacity-80">
+                          {edition.data.theme}
+                        </span>
+                      </div>
+                    )}
+                    <div
+                      class="absolute -bottom-6 left-[10%] right-[10%] h-12 blur-2xl opacity-15 rounded-full -z-10"
+                      style={edition.data.accent_colour
+                        ? `background-color: ${edition.data.accent_colour}`
+                        : 'background-color: #333'}
+                    />
+                  </div>
+                </div>
+
               </div>
-              <a
-                href={edition.data.purchase_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-block shrink-0 bg-gray-900 text-white text-sm font-medium px-6 py-3 hover:bg-gray-700 transition-colors"
-              >
-                Buy Now
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ) : (
+            </div>
+          </section>
+        );
+      })}
+
+      {/* --- Merchandise heroes, continuing the alternation --- */}
+      {merch.map((item: any, j: number) => {
+        const globalIndex = availableEditions.length + j;
+        const textLeft = globalIndex % 2 === 0;
+
+        return (
+          <section class={`min-h-[70vh] flex items-center border-b border-gray-100 ${globalIndex % 2 !== 0 ? 'bg-gray-50' : ''}`}>
+            <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28 w-full">
+              <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+
+                {/* Text column */}
+                <div class={`lg:col-span-5 text-center lg:text-left ${textLeft ? '' : 'lg:order-last'} ${textLeft ? 'mb-14 lg:mb-0' : ''}`}>
+                  <p class="text-xs uppercase tracking-[0.25em] text-gray-400 mb-6 font-inter">
+                    Merchandise
+                  </p>
+                  <h2 class="font-cardo text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-gray-900 mb-5">
+                    {item.name}
+                  </h2>
+                  {item.description && (
+                    <p class="font-inter text-base text-gray-500 leading-relaxed mb-8 max-w-sm mx-auto lg:mx-0">
+                      {item.description}
+                    </p>
+                  )}
+                  <p class="font-inter text-lg font-medium text-gray-900 mb-10">
+                    {item.price.toFixed(2)} {item.currency.toUpperCase()}
+                  </p>
+                  <a
+                    href={item.stripe_payment_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-block bg-gray-900 text-white font-inter text-xs uppercase tracking-[0.2em] px-10 py-4 hover:bg-gray-700 transition-colors duration-300"
+                  >
+                    Buy Now
+                  </a>
+                </div>
+
+                {/* Image column */}
+                <div class={`lg:col-span-7 flex justify-center ${textLeft ? 'lg:justify-end' : 'lg:justify-start mb-14 lg:mb-0'}`}>
+                  <div class="relative w-full max-w-sm lg:max-w-lg">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        class="w-full aspect-square object-cover shadow-2xl"
+                      />
+                    ) : (
+                      <div class="w-full aspect-square flex items-center justify-center bg-gray-900 shadow-2xl">
+                        <span class="font-cardo text-white/20 text-[8rem] select-none leading-none">
+                          I
+                        </span>
+                      </div>
+                    )}
+                    <div class="absolute -bottom-6 left-[10%] right-[10%] h-12 blur-2xl opacity-10 rounded-full -z-10 bg-gray-900" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* --- Shipping note --- */}
+      <section class="border-t border-gray-100">
+        <div class="max-w-2xl mx-auto px-6 py-16 text-center">
+          <p class="font-inter text-sm text-gray-400 leading-relaxed">
+            We ship to all of Europe, the United States, Canada, Brazil, and all Portuguese-speaking countries.
+            If your country is not available at checkout, get in touch at{' '}
+            <a
+              href="mailto:hello@ilheumagazine.com"
+              class="text-gray-600 underline underline-offset-4 decoration-gray-300 hover:text-gray-900 hover:decoration-gray-500 transition-colors"
+            >
+              hello@ilheumagazine.com
+            </a>{' '}
+            and we will arrange shipping for you.
+          </p>
+        </div>
+      </section>
+    </div>
+  ) : (
+    <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <h1 class="font-cardo text-4xl md:text-5xl font-bold text-gray-900 mb-6">Shop</h1>
       <div class="space-y-5 text-lg text-gray-700 leading-relaxed">
+        <p>The Ilhéu Magazine shop is coming soon.</p>
         <p>
-          The Ilhéu Magazine shop is coming soon.
-        </p>
-        <p>
-          We are a biannual print magazine from the Azores. Each issue is printed in a limited run and ships worldwide. Full purchasing will be available here in a future update.
+          We are a biannual print magazine from the Azores. Each issue is printed in a limited run
+          and ships worldwide. Full purchasing will be available here in a future update.
         </p>
         <p class="text-base text-gray-500">
           In the meantime, you can follow us at{' '}
-          <a
-            href="https://www.instagram.com/ilheumagazine"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-gray-700 underline underline-offset-2 hover:text-gray-900 transition-colors"
-          >
+          <a href="https://www.instagram.com/ilheumagazine" target="_blank" rel="noopener noreferrer"
+            class="text-gray-700 underline underline-offset-2 hover:text-gray-900 transition-colors">
             @ilheumagazine
-          </a>{' '}
-          or get in touch at{' '}
-          <a
-            href="mailto:hello@ilheumagazine.com"
-            class="text-gray-700 underline underline-offset-2 hover:text-gray-900 transition-colors"
-          >
+          </a>{' '}or get in touch at{' '}
+          <a href="mailto:hello@ilheumagazine.com"
+            class="text-gray-700 underline underline-offset-2 hover:text-gray-900 transition-colors">
             hello@ilheumagazine.com
-          </a>
-          .
+          </a>.
         </p>
       </div>
-    )}
+    </div>
+  )}
 
-  </div>
 </BaseLayout>

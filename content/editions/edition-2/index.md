@@ -5,6 +5,7 @@ theme: "Across the Archipelago"
 release_date: 2026-03-15
 status: current
 accent_colour: "#1B3A5C"
+purchase_url: "https://buy.stripe.com/test_14A00c4rV7ghcv6dHO7IY01"
 contributors:
   - ana-costa
   - joao-medeiros
