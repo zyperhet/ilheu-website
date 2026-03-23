@@ -1,160 +1,93 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-const allEditions = await getCollection('editions');
-const currentEdition = allEditions.find(e => e.data.status === 'current');
-const archivedEditions = allEditions
-  .filter(e => e.data.status === 'archive')
-  .sort((a, b) => b.data.edition_number - a.data.edition_number);
-
-let featuredArticle = null;
-let featuredAuthor = null;
-if (currentEdition) {
-  const featured = await getCollection('articles', ({ id, data }) =>
-    id.startsWith(currentEdition.id + '/') && data.featured === true
-  );
-  featuredArticle = featured[0] || null;
-  if (featuredArticle) {
-    featuredAuthor = await getEntry(featuredArticle.data.author);
-  }
-}
+import '../styles/global.css';
 ---
 
-<BaseLayout
-  title="Ilhéu Magazine"
-  description="Ilhéu is a biannual literary and cultural magazine from the Azores."
->
-  {currentEdition && (
-    <!-- Current Edition Hero -->
-    <section class="border-b border-gray-200">
-      <div class="max-w-6xl mx-auto px-6 py-16 lg:py-24">
-        <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-          <!-- Text block -->
-          <div class="mb-10 lg:mb-0">
-            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4 font-inter">
-              Issue B
-            </p>
-            <a href={`/editions/${currentEdition.id}`} class="block group">
-              <h1
-                class="font-cardo text-4xl sm:text-5xl lg:text-7xl leading-tight text-gray-900 mb-4 group-hover:text-gray-600 transition-colors"
-                style={currentEdition.data.accent_colour ? `color: ${currentEdition.data.accent_colour}` : ''}
-              >
-                {currentEdition.data.theme}
-              </h1>
-              <p class="font-cardo text-2xl text-gray-500 mb-8">
-                {currentEdition.data.title}
-              </p>
-            </a>
-            {currentEdition.data.purchase_url && (
-              <a
-                href={currentEdition.data.purchase_url}
-                class="inline-block bg-gray-900 text-white font-inter text-sm uppercase tracking-widest px-8 py-4 hover:bg-gray-700 transition-colors"
-              >
-                Buy Issue
-              </a>
-            )}
-          </div>
-          <!-- Cover image -->
-          <div class="order-first lg:order-last">
-            {currentEdition.data.cover_image ? (
-              <Image
-                src={currentEdition.data.cover_image}
-                alt={`Cover of Ilhéu Magazine Issue B: ${currentEdition.data.title}`}
-                class="w-full max-w-md mx-auto lg:max-w-full shadow-lg"
-              />
-            ) : (
-              <div
-                class="w-full aspect-[3/4] max-w-md mx-auto lg:max-w-full flex items-center justify-center"
-                style={currentEdition.data.accent_colour ? `background-color: ${currentEdition.data.accent_colour}` : 'background-color: #1a1a1a'}
-              >
-                <span class="font-cardo text-white text-3xl lg:text-4xl text-center px-8 leading-snug">
-                  {currentEdition.data.theme}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Ilhéu — conversations from the Atlantic." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Ilhéu Magazine</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
 
-  {featuredArticle && featuredAuthor && (
-    <!-- Featured Article Highlight -->
-    <section class="border-b border-gray-200 bg-gray-50">
-      <div class="max-w-3xl mx-auto px-6 py-16 lg:py-20">
-        <p class="text-xs uppercase tracking-widest text-gray-400 mb-8 font-inter">
-          From This Issue
+    <div class="min-h-dvh flex flex-col items-center justify-center px-6">
+
+      <!-- Brand -->
+      <header class="mb-20 text-center">
+        <h1 class="font-cardo text-4xl sm:text-5xl tracking-[0.2em] uppercase text-gray-900">
+          Ilhéu
+        </h1>
+        <p class="font-cardo text-lg sm:text-xl italic mt-5" style="color: #1B3A5C;">
+          Conversations from the Atlantic
         </p>
-        <a href={`/articles/${featuredArticle.id}`} class="block group mb-6">
-          <h2 class="font-cardo text-2xl sm:text-3xl lg:text-4xl text-gray-900 mb-5 group-hover:text-gray-600 transition-colors leading-snug">
-            {featuredArticle.data.title}
-          </h2>
-          <p class="font-inter text-gray-600 text-base lg:text-lg leading-relaxed">
-            {featuredArticle.data.excerpt}
-          </p>
+      </header>
+
+      <!-- Upcoming -->
+      <p class="font-inter text-[11px] tracking-[0.25em] uppercase text-gray-400 mb-20">
+        Issue B&ensp;·&ensp;The Colour Blue&ensp;·&ensp;Soon
+      </p>
+
+      <!-- Actions -->
+      <nav class="flex flex-col items-center gap-6">
+        <a
+          href="https://www.instagram.com/ilheumagazine"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300"
+        >
+          Follow
         </a>
-        <p class="font-inter text-sm text-gray-500">
-          By{' '}
-          <a
-            href={`/contributors/${featuredAuthor.id}`}
-            class="text-gray-900 underline underline-offset-2 hover:text-gray-600 transition-colors"
-          >
-            {featuredAuthor.data.name}
-          </a>
-        </p>
-      </div>
-    </section>
-  )}
 
-  {archivedEditions.length > 0 && (
-    <!-- Edition Archive Preview -->
-    <section>
-      <div class="max-w-6xl mx-auto px-6 py-16 lg:py-20">
-        <div class="flex items-baseline justify-between mb-10">
-          <h2 class="font-cardo text-2xl lg:text-3xl text-gray-900">
-            Past Issues
-          </h2>
-          <a
-            href="/editions"
-            class="font-inter text-sm text-gray-500 underline underline-offset-2 hover:text-gray-900 transition-colors"
-          >
-            View all editions
-          </a>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {archivedEditions.map((edition) => (
-            <a href={`/editions/${edition.id}`} class="group block">
-              {edition.data.cover_image ? (
-                <Image
-                  src={edition.data.cover_image}
-                  alt={`Cover of Ilhéu Magazine Issue A: ${edition.data.title}`}
-                  class="w-full aspect-[3/4] object-cover mb-4 shadow-sm group-hover:shadow-md transition-shadow"
-                />
-              ) : (
-                <div
-                  class="w-full aspect-[3/4] mb-4 flex items-center justify-center"
-                  style={edition.data.accent_colour ? `background-color: ${edition.data.accent_colour}` : 'background-color: #333'}
-                >
-                  <span class="font-cardo text-white text-xl text-center px-4 leading-snug">
-                    {edition.data.theme}
-                  </span>
-                </div>
-              )}
-              <p class="font-inter text-xs uppercase tracking-widest text-gray-400 mb-1">
-                Issue A
-              </p>
-              <h3 class="font-cardo text-xl text-gray-900 group-hover:text-gray-600 transition-colors mb-1">
-                {edition.data.title}
-              </h3>
-              <p class="font-inter text-sm text-gray-500">
-                {edition.data.theme}
-              </p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-</BaseLayout>
+        <a
+          href="mailto:contact@ilheumagazine.com"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300"
+        >
+          Write to us
+        </a>
+
+        <button
+          id="share-btn"
+          type="button"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300 cursor-pointer"
+        >
+          Spread the word
+        </button>
+      </nav>
+
+      <!-- Stockist / distributor -->
+      <p class="mt-24 font-inter text-[10px] tracking-widest uppercase text-gray-300">
+        <a
+          href="mailto:contact@ilheumagazine.com?subject=Distribution%20enquiry"
+          class="hover:text-gray-500 transition-colors duration-300"
+        >
+          Stockist &amp; distribution enquiries
+        </a>
+      </p>
+
+    </div>
+
+    <script>
+      const btn = document.getElementById('share-btn');
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          const data = {
+            title: 'Ilhéu Magazine',
+            text: 'Conversations from the Atlantic.',
+            url: window.location.href,
+          };
+          if (navigator.share) {
+            try { await navigator.share(data); } catch {}
+          } else {
+            await navigator.clipboard.writeText(window.location.href);
+            btn.textContent = 'Link copied';
+            setTimeout(() => { btn.textContent = 'Spread the word'; }, 2000);
+          }
+        });
+      }
+    </script>
+
+  </body>
+</html>
