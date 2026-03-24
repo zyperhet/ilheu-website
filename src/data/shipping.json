@@ -1,0 +1,22 @@
+{
+  "rates": [
+    {
+      "id": "shr_1TEUzDRsfkWOq7pP9l9Do9m9",
+      "name": "Portugal",
+      "amount": 500,
+      "currency": "eur"
+    },
+    {
+      "id": "shr_1TEUzERsfkWOq7pPh8KCiylX",
+      "name": "Europe",
+      "amount": 1200,
+      "currency": "eur"
+    },
+    {
+      "id": "shr_1TEUzERsfkWOq7pPcuuFC7qE",
+      "name": "Rest of World",
+      "amount": 1800,
+      "currency": "eur"
+    }
+  ]
+}
