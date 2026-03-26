@@ -147,7 +147,8 @@ const supplementary = [
         Editor&rsquo;s Letter
       </p>
 
-      <div class="font-cardo text-lg sm:text-xl leading-[1.9] text-white/90 space-y-8">
+      <div class="relative">
+        <div id="editorial-content" class="font-cardo text-lg sm:text-xl leading-[1.9] text-white/90 space-y-8 max-h-[28rem] overflow-hidden transition-[max-height] duration-700 ease-in-out">
 
         <!-- Epigraph -->
         <blockquote class="border-l-2 border-white/20 pl-6 italic text-white/70 text-base sm:text-lg leading-[1.9]">
@@ -169,7 +170,25 @@ const supplementary = [
 
         <p class="text-white/40 text-sm mt-6 italic">1. Ralph Ellison, <em>Shadow and Act</em> (New York: Random House, 1964)</p>
 
+        </div>
+
+        <div
+          id="editorial-fade"
+          class="absolute bottom-0 inset-x-0 h-40 pointer-events-none transition-opacity duration-500"
+          style={`background: linear-gradient(to top, ${accentColour}, transparent)`}
+        ></div>
       </div>
+
+      <div class="text-center mt-10">
+        <button
+          id="editorial-toggle"
+          type="button"
+          class="font-inter text-[11px] uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors duration-300 cursor-pointer"
+        >
+          Continue reading
+        </button>
+      </div>
+
     </div>
   </section>
 
@@ -222,58 +241,80 @@ const supplementary = [
       </div>
 
       <!-- Supplementary pieces -->
-      <div class="mt-20 lg:mt-24 border-t border-gray-100 pt-16">
-        <h3 class="font-cardo text-2xl text-gray-900 mb-10">
+      <div class="mt-24 lg:mt-28 border-t border-gray-100 pt-14">
+        <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-10">
           Also in this issue
-        </h3>
+        </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {supplementary.map((item) => (
-            <div class="flex gap-4 items-start">
-              {item.image ? (
-                <div class="w-20 h-20 shrink-0 overflow-hidden bg-gray-100">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {supplementary.map((item) => {
+            const hasImage = !!item.image;
+            const isPlaylist = item.type === 'Playlist';
+            const isMap = item.type === 'Map';
+            const isProse = item.type === 'Prose';
+            const isDark = isPlaylist || isMap || hasImage;
+
+            return (
+              <div
+                class:list={[
+                  'relative aspect-[4/3] overflow-hidden',
+                  item.href && 'group cursor-pointer',
+                  !hasImage && isPlaylist && 'bg-gray-950',
+                  !hasImage && !isPlaylist && !isMap && 'bg-stone-50',
+                ]}
+                style={!hasImage && isMap ? `background-color: ${accentColour}` : ''}
+              >
+                {hasImage && (
                   <Image
-                    src={item.image}
-                    alt={item.alt!}
-                    class="w-full h-full object-cover"
-                    widths={[160, 240]}
-                    sizes="80px"
+                    src={item.image!}
+                    alt={item.alt || ''}
+                    class={`absolute inset-0 w-full h-full object-cover${item.href ? ' transition-transform duration-500 group-hover:scale-105' : ''}`}
+                    widths={[400, 600]}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
-              ) : (
-                <div
-                  class="w-20 h-20 shrink-0 flex items-center justify-center"
-                  style={`background-color: ${accentColour}10`}
-                >
-                  <span
-                    class="font-inter text-[10px] font-bold uppercase tracking-widest"
-                    style={`color: ${accentColour}`}
-                  >
-                    {item.type === 'Playlist' ? '\u266B' : item.type === 'Map' ? '\u2316' : item.type === 'Prose' ? '\u270E' : ''}
-                  </span>
-                </div>
-              )}
-              <div>
-                <p
-                  class="font-inter text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
-                  style={`color: ${accentColour}`}
-                >
-                  {item.type}
-                </p>
-                <p class="font-cardo text-base leading-snug text-gray-900 mb-1">
-                  {item.href ? (
-                    <a href={item.href} class="hover:underline underline-offset-2 transition-colors duration-300" style={`color: ${accentColour}`}>{item.title}</a>
-                  ) : (
-                    item.title
-                  )}
-                </p>
-                {item.contributors && (
-                  <p class="font-inter text-xs text-gray-500">{item.contributors}</p>
                 )}
-                <p class="font-inter text-xs text-gray-400">pp. {item.pages}</p>
+                {hasImage && (
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                )}
+
+                {isPlaylist && !hasImage && (
+                  <div class="absolute top-3 right-4 font-cardo text-[8rem] leading-none text-white/[0.06] select-none pointer-events-none">&#9835;</div>
+                )}
+                {isProse && !hasImage && (
+                  <div class="absolute -top-4 left-3 font-cardo text-[10rem] leading-none text-gray-900/[0.05] select-none pointer-events-none">&ldquo;</div>
+                )}
+
+                <div class="relative h-full flex flex-col justify-end p-5 md:p-6">
+                  <p class:list={[
+                    'font-inter text-[10px] font-medium uppercase tracking-[0.2em] mb-2',
+                    isDark ? 'text-white/40' : 'text-gray-400',
+                  ]}>
+                    {item.type} &middot; pp. {item.pages}
+                  </p>
+                  <h4 class:list={[
+                    'font-cardo text-lg leading-snug',
+                    isDark ? 'text-white' : 'text-gray-900',
+                  ]}>
+                    {item.title}
+                  </h4>
+                  {item.contributors && (
+                    <p class:list={[
+                      'font-inter text-sm mt-1',
+                      isDark ? 'text-white/50' : 'text-gray-400',
+                    ]}>
+                      {item.contributors}
+                    </p>
+                  )}
+                </div>
+
+                {item.href && (
+                  <a href={item.href} class="absolute inset-0 z-10">
+                    <span class="sr-only">{item.title}</span>
+                  </a>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -295,7 +336,8 @@ const supplementary = [
       <p class="font-inter text-base text-gray-500 leading-relaxed mb-10 max-w-md mx-auto">
         128 pages of conversations, photography, prose, maps and comics. Printed on Munken Pure 100g at Nova Grafica, Sao Miguel.
       </p>
-      <p class="font-cardo text-2xl text-gray-900 mb-8">&euro;18</p>
+      <p class="font-cardo text-2xl text-gray-900 mb-2">&euro;15</p>
+      <p class="font-inter text-sm text-gray-400 mb-8">+ shipping</p>
       <a
         href={purchaseUrl}
         class="inline-block text-white font-inter text-xs uppercase tracking-[0.2em] px-14 py-4 hover:opacity-90 transition-opacity duration-300"
@@ -308,5 +350,28 @@ const supplementary = [
       </p>
     </div>
   </section>
+
+  <script>
+    const content = document.getElementById('editorial-content');
+    const fade = document.getElementById('editorial-fade');
+    const btn = document.getElementById('editorial-toggle');
+
+    if (content && fade && btn) {
+      let expanded = false;
+
+      btn.addEventListener('click', () => {
+        expanded = !expanded;
+        if (expanded) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          fade.style.opacity = '0';
+          btn.textContent = 'Show less';
+        } else {
+          content.style.maxHeight = '28rem';
+          fade.style.opacity = '1';
+          btn.textContent = 'Continue reading';
+        }
+      });
+    }
+  </script>
 
 </BaseLayout>

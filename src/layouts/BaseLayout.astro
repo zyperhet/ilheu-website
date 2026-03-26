@@ -6,11 +6,15 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
+  navVariant?: 'light' | 'dark';
+  fullBleed?: boolean;
 }
 
 const {
   title = 'Ilhéu Magazine',
   description = 'Ilhéu is a biannual literary and cultural magazine from the Azores.',
+  navVariant = 'light',
+  fullBleed = false,
 } = Astro.props;
 ---
 
@@ -24,8 +28,9 @@ const {
     <title>{title}</title>
   </head>
   <body class="font-inter text-gray-900 bg-white antialiased overflow-x-hidden">
-    <Nav />
+    <Nav variant={navVariant} />
     <main>
+      {!fullBleed && <div class="h-16 md:h-20" aria-hidden="true" />}
       <slot />
     </main>
     <Footer />
