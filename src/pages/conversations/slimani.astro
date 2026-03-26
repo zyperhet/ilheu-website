@@ -1,0 +1,174 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+import heroImage from '../../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-golden-light-blue-shirt.jpg';
+import portraitSeated from '../../assets/images/02-leila-slimani-conversation/leila-slimani-full-page-portrait-seated-outdoors.jpg';
+import portraitGarden from '../../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-garden-agapanthus.jpg';
+import portraitMaria from '../../assets/images/02-leila-slimani-conversation/maria-brandao-portrait-floral-dress-tree.jpg';
+---
+
+<BaseLayout
+  title="What's the point trying to understand a soul? -- Ilhéu Magazine"
+  description="Conversation 2: What's the point trying to understand a soul? Maria Brandão meets Leïla Slimani in a Lisbon park on a shimmering June evening to talk about writing, sex, and the blues."
+>
+
+  <ArticleNav next={{ label: "Azorean Blues", href: "/conversations/azorean-blues" }} />
+
+  <!-- Hero -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 md:pt-28 md:pb-16">
+
+      <!-- Category label -->
+      <p class="font-inter text-xs tracking-[0.25em] uppercase text-gray-400 mb-8">
+        Conversation 2 &mdash; Writing
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-gray-900 max-w-4xl">
+        What&rsquo;s the point trying to understand a soul?
+      </h1>
+
+      <!-- Credits -->
+      <div class="mt-8 space-y-1">
+        <p class="font-inter text-sm text-gray-500">
+          By Maria Brand&atilde;o &amp; Le&iuml;la Slimani
+        </p>
+        <p class="font-inter text-sm text-gray-400">
+          Photographs by Maria Abranches
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image: golden-light portrait -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <figure>
+        <Image
+          src={heroImage}
+          alt="Le&iuml;la Slimani, portrait in golden light wearing a blue shirt"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Le&iuml;la Slimani. Photograph by Maria Abranches
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Opening hook -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        <em>Nunca Mais</em> is a short story about adultery by the Azorean writer Maria Brand&atilde;o, which ends gruesomely. A woman asks a man she knows to take her home and make love to her. He&rsquo;s keen but he&rsquo;s got a girlfriend now and says he can&rsquo;t. It takes the lightest touch to persuade him he can. The two of them go home and do the things they want to do and do them well. Once the infidelity is over, the man cuts off the woman&rsquo;s tongue.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pull quote -->
+  <section class="bg-[#faf8f5]">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <blockquote class="font-cardo text-xl sm:text-2xl md:text-3xl leading-snug text-gray-700 italic border-l-2 border-gray-300 pl-8 md:pl-12">
+        &ldquo;What made Le&iuml;la Slimani so deeply blue for me was her ability to feel with a rare raw depth and combine this simultaneously with a precise and unwavering focus on her craft. She funnels profound emotions into writing and conversation with precise intellectual force.&rdquo;
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Portrait: seated outdoors -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-28">
+      <figure>
+        <Image
+          src={portraitSeated}
+          alt="Le&iuml;la Slimani, seated outdoors in a Lisbon park"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Photograph by Maria Abranches
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Scene-setting text -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        There were four of us waiting to interview Le&iuml;la. We arrived an hour early to the Lisbon city park in which we had agreed to meet, in the middle of a shimmering June heatwave. The evening air was thick and hot, packed with locals enjoying that sliver of golden time just before sunset.
+      </p>
+    </div>
+  </section>
+
+  <!-- Portrait pair: garden + Maria -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-28">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+        <figure>
+          <Image
+            src={portraitGarden}
+            alt="Le&iuml;la Slimani, portrait among agapanthus flowers in a garden"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            Le&iuml;la Slimani
+          </figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={portraitMaria}
+            alt="Maria Brand&atilde;o, portrait in floral dress by a tree"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            Maria Brand&atilde;o
+          </figcaption>
+        </figure>
+      </div>
+      <p class="font-inter text-xs text-gray-400 mt-4">
+        Photographs by Maria Abranches
+      </p>
+    </div>
+  </section>
+
+  <!-- Closing pull quote: Eric Clapton -->
+  <section class="bg-[#faf8f5]">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <blockquote class="font-cardo text-xl sm:text-2xl leading-relaxed text-gray-600 italic border-l-2 border-gray-200 pl-8">
+        &ldquo;The blues is something disciplined and structured coupled with a state of mind&hellip; you can have either of those things but it&rsquo;s the two together that make it what it is.&rdquo;
+      </blockquote>
+      <p class="font-inter text-sm text-gray-400 mt-6 pl-8">
+        &mdash; Eric Clapton
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-28 md:pb-36 text-center">
+      <div class="border-t border-gray-200 pt-16">
+        <p class="font-cardo text-lg sm:text-xl text-gray-500 mb-6">
+          Read the full conversation in Ilh&eacute;u Magazine Issue B
+        </p>
+        <a
+          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+        >
+          Buy Issue B
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ArticleNav next={{ label: "Azorean Blues", href: "/conversations/azorean-blues" }} />
+
+</BaseLayout>

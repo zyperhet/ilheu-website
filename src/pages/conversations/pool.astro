@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+import heroDiving from '../../assets/images/04-pool-at-edge-of-world-architecture/povoacao-pool-diving-platform-lanes-interior.jpg';
+import poolInterior from '../../assets/images/04-pool-at-edge-of-world-architecture/povoacao-municipal-pool-abandoned-interior.jpg';
+import tilledWall from '../../assets/images/04-pool-at-edge-of-world-architecture/povoacao-pool-blue-tiled-wall-rust-detail.jpg';
+import portraitArchitect from '../../assets/images/04-pool-at-edge-of-world-architecture/jose-antonio-barbosa-architect-portrait.jpg';
+---
+
+<BaseLayout
+  title="The Pool at the Edge of the World -- Ilh&eacute;u Magazine"
+  description="Conversation 4: Architecture. An abandoned brutalist swimming pool in a remote Azorean village. Photography by Marco Costa."
+>
+
+  <ArticleNav next={{ label: "Blue Azores", href: "/conversations/blue-azores" }} />
+
+  <!-- Hero -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 md:pt-28 md:pb-16">
+
+      <!-- Category label -->
+      <p class="font-inter text-xs tracking-[0.25em] uppercase text-gray-400 mb-8">
+        Conversation 4 &mdash; Architecture
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-gray-900 max-w-5xl">
+        The Pool at the Edge of the World
+      </h1>
+
+      <!-- Credits -->
+      <div class="mt-8 space-y-1">
+        <p class="font-inter text-sm text-gray-500">
+          By Ilh&eacute;u Atelier &amp; Jos&eacute; Ant&oacute;nio Barbosa
+        </p>
+        <p class="font-inter text-sm text-gray-400">
+          Photographs by Marco Costa. Portrait by Pedro Duarte Jorge.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image: full-width diving platform -->
+  <section class="bg-white">
+    <div class="w-full">
+      <figure>
+        <Image
+          src={heroDiving}
+          alt="Abandoned municipal swimming pool in Povoa&ccedil;&atilde;o, diving platform and empty lanes"
+          class="w-full h-auto"
+          widths={[800, 1200, 1920]}
+          sizes="100vw"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 px-6 leading-relaxed">
+          Povoa&ccedil;&atilde;o municipal swimming pool, abandoned. Photograph by Marco Costa
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Opening text: Historical context -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        The Azores archipelago was first sighted by Portuguese sailors in the early 15th century. One of the most fanciful feats in the history of Azorean construction might be the Furnas villa of the American businessman Thomas Hickling. Built in 1780, his summer residence boasted not only a world-class botanic garden, but a large open air swimming pool filled directly from the town&rsquo;s hot volcanic springs.
+      </p>
+    </div>
+  </section>
+
+  <!-- Abandoned interior photograph -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={poolInterior}
+          alt="Interior of the abandoned Povoa&ccedil;&atilde;o municipal pool, empty basin and Brutalist architecture"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          The empty basin. Photograph by Marco Costa
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- The discovery -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        Emerging high upon sand-coloured cliffs into a light-filled vista of green and blue, they will discover the picturesque fishing port of Povoa&ccedil;&atilde;o. This small town is the most isolated in S&atilde;o Miguel but historically important as the very first settlement.
+      </p>
+    </div>
+  </section>
+
+  <!-- Concrete/gray section: The pool -->
+  <section class="bg-stone-100">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <blockquote class="font-cardo text-xl sm:text-2xl leading-relaxed text-gray-700 border-l-2 border-gray-300 pl-8">
+        &ldquo;Next to the large football pitch, just down from the budget supermarket Casa Cheia, is a series of low buildings. Clad in volcanic rock, their Brutalist style would perhaps be more fitting to a European capital city than a remote Azorean fishing village. These are the municipal pools, the infamous and feted architectural project by the architects Barbosa &amp; Guimar&atilde;es which opened in 2009 for a few months, then were closed and abandoned.&rdquo;
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Blue tile detail: accent image -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-28">
+      <figure>
+        <Image
+          src={tilledWall}
+          alt="Detail of pale turquoise pool tiles with rust staining, Povoa&ccedil;&atilde;o municipal pool"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Pale turquoise tiles and rust. Photograph by Marco Costa
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Blue connection text -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        One of the most ubiquitous and unchanging blues is that of the municipal swimming pool. Photographer Marco Costa&rsquo;s ghostly images of the empty basin, and its dirty, pale turquoise tiles, capture well the washed-out blue of failure and abandonment.
+      </p>
+    </div>
+  </section>
+
+  <!-- Architect portrait -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={portraitArchitect}
+          alt="Portrait of architect Jos&eacute; Ant&oacute;nio Barbosa"
+          class="w-full h-auto"
+          widths={[600, 900]}
+          sizes="(max-width: 768px) 100vw, 700px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Jos&eacute; Ant&oacute;nio Barbosa. Portrait by Pedro Duarte Jorge
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-28 md:pb-36 text-center">
+      <div class="border-t border-gray-200 pt-16">
+        <p class="font-cardo text-lg sm:text-xl text-gray-500 mb-6">
+          Read the full conversation in Ilh&eacute;u Magazine Issue B
+        </p>
+        <a
+          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+        >
+          Buy Issue B
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ArticleNav next={{ label: "Blue Azores", href: "/conversations/blue-azores" }} />
+
+</BaseLayout>

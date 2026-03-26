@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+import heroImage from '../../assets/images/06-dacosta-picture-essay-artworks/dacosta-two-mermaids-mouth-of-cave-1980-acrylic.jpg';
+import artworkIsland from '../../assets/images/06-dacosta-picture-essay-artworks/dacosta-island-1979-acrylic-collage-on-paper.jpg';
+import artworkBullfight from '../../assets/images/06-dacosta-picture-essay-artworks/dacosta-bullfight-1946-oil-on-canvas.jpg';
+import artworkSwan from '../../assets/images/06-dacosta-picture-essay-artworks/dacosta-the-swan-1984-acrylic-on-canvas.jpg';
+import artworkSelfPortrait from '../../assets/images/06-dacosta-picture-essay-artworks/dacosta-self-portrait-by-lamplight-mixed-media.jpg';
+import photoGallery from '../../assets/images/01-antonio-dacosta-conversation/arlete-alves-da-silva-with-dacosta-paintings.jpg';
+---
+
+<BaseLayout
+  title="António Dacosta and His Paris Blues -- Ilhéu Magazine"
+  description="Conversation 1: António Dacosta and His Paris Blues. A conversation with Urbano Resendes and Arlete Alves da Silva about the Azorean painter's life, silence, and late flowering."
+>
+
+  <ArticleNav next={{ label: "Slimani", href: "/conversations/slimani" }} />
+
+  <!-- Hero -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 md:pt-28 md:pb-16">
+
+      <!-- Category label -->
+      <p class="font-inter text-xs tracking-[0.25em] uppercase text-gray-400 mb-8">
+        Conversation 1 &mdash; Art
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-gray-900 max-w-4xl">
+        Ant&oacute;nio Dacosta and His Paris Blues
+      </h1>
+
+      <!-- Credits -->
+      <div class="mt-8 space-y-1">
+        <p class="font-inter text-sm text-gray-500">
+          By Urbano Resendes &amp; Arlete Alves da Silva
+        </p>
+        <p class="font-inter text-sm text-gray-400">
+          Photographs by Paulo Goulart
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <figure>
+        <Image
+          src={heroImage}
+          alt="António Dacosta, Two Mermaids at the Mouth of a Cave, 1980, acrylic on canvas"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Ant&oacute;nio Dacosta, <em>Two Mermaids at the Mouth of a Cave</em>, 1980, acrylic on canvas
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Epigraph -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <blockquote class="font-cardo text-xl sm:text-2xl leading-relaxed text-gray-600 italic border-l-2 border-gray-200 pl-8">
+        &ldquo;No Title, 1980, acrylic and collage on canvas: One light blue square sitting within another square of darker, petrol blue. A ripped piece of yellow paper stuck down upon the paint. Its edges are craggy, irregular, reminiscent of a beach and its coastline.&rdquo;
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Text block 1 + artwork -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        Ant&oacute;nio Dacosta was born in 1914 on Terceira Island into a family of craftsmen, just as World War I was breaking out. He spent his childhood and adolescence on the peaceful island in the middle of the Atlantic Ocean, gazing at the blue sky and the blue sea.
+      </p>
+    </div>
+  </section>
+
+  <!-- Artwork: Island -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={artworkIsland}
+          alt="António Dacosta, Island, 1979, acrylic and collage on paper"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Ant&oacute;nio Dacosta, <em>Island</em>, 1979, acrylic and collage on paper. Photograph by Paulo Goulart
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Text block 2 -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        What makes this story so especially blue is that it is governed by those bleak feelings every one of us, artist or no, endures. Those feelings which we often call &lsquo;the blues&rsquo;. It is the story of a man who becomes stuck, creatively and emotionally, for an impossibly long period of time, and then of his almost miraculous late flowering.
+      </p>
+    </div>
+  </section>
+
+  <!-- Artwork: Bullfight -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={artworkBullfight}
+          alt="António Dacosta, Bullfight, 1946, oil on canvas"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Ant&oacute;nio Dacosta, <em>Bullfight</em>, 1946, oil on canvas. Photograph by Paulo Goulart
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Text block 3 -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        From 1952 to 1978, he mostly wrote about the artistic activity in Paris. Then, right at the end of his life, Dacosta began working again. His 1983 exhibition was described at the time by <em>Expresso</em> magazine as a seminal moment in Portuguese art history &mdash; reviving and revolutionising contemporary painting. Art critic Helena de Freitas described his work from this late period as &lsquo;news from paradise&rsquo;.
+      </p>
+    </div>
+  </section>
+
+  <!-- Artwork pair: Swan + Self-portrait -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-28">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+        <figure>
+          <Image
+            src={artworkSwan}
+            alt="António Dacosta, The Swan, 1984, acrylic on canvas"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            <em>The Swan</em>, 1984, acrylic on canvas
+          </figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={artworkSelfPortrait}
+            alt="António Dacosta, Self-portrait by Lamplight, mixed media"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            <em>Self-portrait by Lamplight</em>, mixed media
+          </figcaption>
+        </figure>
+      </div>
+      <p class="font-inter text-xs text-gray-400 mt-4">
+        Photographs by Paulo Goulart
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery photograph -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={photoGallery}
+          alt="Arlete Alves da Silva with Dacosta paintings at Galeria 111"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Arlete Alves da Silva with Dacosta paintings at Galeria 111. Photograph by Paulo Goulart
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-28 md:pb-36 text-center">
+      <div class="border-t border-gray-200 pt-16">
+        <p class="font-cardo text-lg sm:text-xl text-gray-500 mb-6">
+          Read the full conversation in Ilh&eacute;u Magazine Issue B
+        </p>
+        <a
+          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+        >
+          Buy Issue B
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ArticleNav next={{ label: "Slimani", href: "/conversations/slimani" }} />
+
+</BaseLayout>

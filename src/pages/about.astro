@@ -1,104 +1,130 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const contributors = await getCollection('contributors');
 ---
 
-<BaseLayout title="About — Ilheu Magazine" description="Learn about Ilhéu Magazine — our mission, the team behind it, and how to reach us.">
-  <div class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+<BaseLayout title="About — Ilhéu Magazine" description="Credits and colophon for Ilhéu Magazine, Issue B, Spring 2026.">
+  <section class="bg-[#3B3F9E] text-white py-20 md:py-28 px-6">
+    <div class="max-w-6xl mx-auto">
 
-    <!-- Section 1: Mission Statement -->
-    <section class="mb-20">
-      <h1 class="font-cardo text-4xl md:text-5xl font-bold text-gray-900 mb-8">About Ilhéu</h1>
+      <!-- Wordmark -->
+      <h1 class="font-cardo text-5xl md:text-7xl lg:text-8xl font-bold text-center mb-20 md:mb-28 tracking-wide">ILHÉU</h1>
 
-      <div class="space-y-5 text-lg text-gray-700 leading-relaxed">
-        <p>
-          Ilhéu is a biannual print magazine rooted in the Azores — an archipelago of nine volcanic islands suspended in the Atlantic, halfway between Europe and America. We exist to tell the stories that emerge from this singular place: the voices, the art, the conflicts, and the quiet beauty of islands that have long shaped the world while remaining apart from it.
-        </p>
-        <p>
-          Each edition is built around a single island, gathering writers, artists, photographers, and thinkers whose work is inseparable from the Atlantic. We publish in print because we believe in the magazine as object — something to hold, to return to, to keep. The ocean taught us patience, and we think good work deserves it.
-        </p>
-        <p>
-          Ilhéu is named for the small rocky islets that appear off the Azorean coast — outcroppings that seem marginal from a distance but are, up close, entire worlds. That is the spirit of this magazine: to turn towards the margins and find them full of life.
-        </p>
-      </div>
-    </section>
+      <!-- Three-column grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-10 lg:gap-14">
 
-    <!-- Section 2: Contributors / Team -->
-    <section class="mb-20">
-      <h2 class="font-cardo text-3xl md:text-4xl font-bold text-gray-900 mb-10">The People Behind Ilhéu</h2>
+        <!-- Column 1: People -->
+        <div class="space-y-10">
 
-      <div class="grid gap-10 md:grid-cols-2">
-        {contributors.map((contributor) => {
-          const initial = contributor.data.name.charAt(0).toUpperCase();
-          return (
-            <div class="flex gap-5 items-start">
-              <!-- Portrait or initial circle -->
-              {contributor.data.portrait ? (
-                <img
-                  src={contributor.data.portrait.src}
-                  alt={contributor.data.name}
-                  class="w-16 h-16 rounded-full object-cover flex-shrink-0"
-                  width={64}
-                  height={64}
-                />
-              ) : (
-                <div
-                  class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0"
-                  aria-hidden="true"
-                >
-                  <span class="font-cardo text-2xl font-bold text-gray-600">{initial}</span>
-                </div>
-              )}
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Editor</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Kathleen McCaul</p>
+          </div>
 
-              <div>
-                <h3 class="font-cardo text-xl font-bold text-gray-900 mb-0.5">{contributor.data.name}</h3>
-                <p class="text-sm text-gray-500 uppercase tracking-wide mb-2">{contributor.data.role}</p>
-                <p class="text-gray-700 leading-relaxed text-sm">{contributor.data.bio}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Graphic Design</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Júlia Garcia</p>
+            <p class="font-inter text-sm text-white/50 leading-relaxed">Assisted by Caetano Kühne</p>
+          </div>
 
-    <!-- Section 3: Contact -->
-    <section>
-      <h2 class="font-cardo text-3xl md:text-4xl font-bold text-gray-900 mb-8">Get in Touch</h2>
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Editorial Team</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Andrea Santolaya, Filipe Moura, Kathleen McCaul, Júlia Garcia</p>
+          </div>
 
-      <div class="space-y-4 text-lg text-gray-700">
-        <p>
-          We welcome pitches, reader letters, and partnership enquiries. The Azores are small — we are never far away.
-        </p>
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Contributors</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Ilhéu Atelier: Afonso Botelho Santos and Rita Sampaio, Arlete Alves da Silva, Rui Brito and Galeria 111, Sara Azad, José António Barbosa, Romeu Bairos, Maria Brandão, Bernardo Brito e Abreu, Diogo Lima, Oscar Opoku-Banful Taylor, Adriano Quintela, Urbano Resendes, Leïla Slimani</p>
+          </div>
 
-        <div class="space-y-2 mt-6">
-          <p>
-            <span class="font-medium text-gray-900">Email</span>
-            <br />
-            <a
-              href="mailto:hello@ilheumagazine.com"
-              class="text-gray-600 hover:text-gray-900 underline underline-offset-2 transition-colors"
-            >
-              hello@ilheumagazine.com
-            </a>
-          </p>
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Photographers</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Maria Abranches, Marina Cruz, Marco Costa, Pedro Duarte Jorge, Paulo Goulart, Nelson Raposo, Sandra Rocha, Andrea Santolaya</p>
+          </div>
 
-          <p>
-            <span class="font-medium text-gray-900">Instagram</span>
-            <br />
-            <a
-              href="https://www.instagram.com/ilheumagazine"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-gray-600 hover:text-gray-900 underline underline-offset-2 transition-colors"
-            >
-              @ilheumagazine
-            </a>
-          </p>
         </div>
-      </div>
-    </section>
 
-  </div>
+        <!-- Column 2: Production -->
+        <div class="space-y-10">
+
+          <div>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">The between-story photos are taken from the books <em>Atlântico 744</em>, by Marco Costa and <em>Azores Atlantic Surfers</em>, and <em>Anticyclone</em> by Sandra Rocha.</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">English Proof Reading</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Jonathan Weil</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Portuguese Proof Reading</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Pedro Arruda, Maria Brandão, Diogo Lima, Urbano Resendes</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Typography</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Obviously, PT Serif Pro</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Paper</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Munken Pure 100g</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Print and Finishing</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Nova Gráfica</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Copies</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">1,850</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">ISBN</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">978-989-33-6588-5</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">With Special Thanks to</h2>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Dirk Mönkemöller, Jesse James, António Castro Freire, Catarina Ferreira, Arlete Alves da Silva, Urbano Resendes</p>
+          </div>
+
+        </div>
+
+        <!-- Column 3: Publication Info -->
+        <div class="space-y-10">
+
+          <div>
+            <p class="font-inter text-sm text-white/90 leading-relaxed font-medium">Ilhéu Magazine, Issue B, Spring 2026, &euro;15</p>
+          </div>
+
+          <div>
+            <p class="font-inter text-sm text-white/90 leading-relaxed">Ilhéu magazine is published and printed at Nova Gráfica, São Miguel, Azores, Rua de Encarnação, 21 Fajã de Baixo, 9500-513, Ponta Delgada</p>
+          </div>
+
+          <div>
+            <h2 class="font-inter text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Contact</h2>
+            <div class="space-y-1">
+              <p class="font-inter text-sm text-white/90 leading-relaxed">
+                <a href="mailto:contact@ilheumagazine.com" class="underline underline-offset-2 decoration-white/30 hover:decoration-white transition-colors">contact@ilheumagazine.com</a>
+              </p>
+              <p class="font-inter text-sm text-white/90 leading-relaxed">
+                <a href="https://ilheumagazine.com" class="underline underline-offset-2 decoration-white/30 hover:decoration-white transition-colors">ilheumagazine.com</a>
+              </p>
+              <p class="font-inter text-sm text-white/90 leading-relaxed">
+                <a href="https://www.instagram.com/ilheumagazine" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 decoration-white/30 hover:decoration-white transition-colors">@ilheumagazine</a>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-inter text-sm text-white/50 leading-relaxed">Kathleen Mary McCaul, Rua de Tres Cruzes, 33, 9545-131, Capelas, São Miguel</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
 </BaseLayout>

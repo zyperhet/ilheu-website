@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+import heroJellyfish from '../../assets/images/05-blue-azores-environment/blue-azores-jellyfish-underwater-nelson-raposo.jpg';
+import planetEarth from '../../assets/images/05-blue-azores-environment/planet-earth-blue-marble-from-space.jpg';
+import marineMap from '../../assets/images/05-blue-azores-environment/blue-azores-marine-park-map.png';
+import portraitBernardo from '../../assets/images/05-blue-azores-environment/bernardo-melo-de-brito-portrait-underwater.jpg';
+import portraitAdriano from '../../assets/images/05-blue-azores-environment/adriano-quintela-portrait-radio-headphones.jpg';
+---
+
+<BaseLayout
+  title="Blue Azores -- Ilhéu Magazine"
+  description="Conversation 5: Blue Azores. A conversation about ocean conservation, marine protection, and the radical plan to safeguard the waters of the Azores."
+>
+
+  <ArticleNav />
+
+  <!-- Hero: Full-bleed underwater jellyfish -->
+  <section class="relative w-full h-[85vh] min-h-[600px] overflow-hidden">
+    <Image
+      src={heroJellyfish}
+      alt="Jellyfish drifting through blue Azorean waters, photographed by Nelson Raposo"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[800, 1200, 1800, 2400]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/30 via-transparent to-[#0a1628]/70"></div>
+    <div class="relative z-10 flex flex-col justify-end h-full max-w-6xl mx-auto px-6 pb-16 md:pb-24">
+
+      <!-- Category label -->
+      <p class="font-inter text-xs tracking-[0.25em] uppercase text-white/70 mb-6">
+        Conversation 5 &mdash; Environment
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-cardo text-5xl sm:text-6xl lg:text-8xl leading-[1.0] text-white max-w-3xl">
+        Blue Azores
+      </h1>
+
+      <!-- Credits -->
+      <div class="mt-8 space-y-1">
+        <p class="font-inter text-sm text-white/80">
+          By Adriano Quintela &amp; Bernardo Brito e Abreu
+        </p>
+        <p class="font-inter text-sm text-white/50">
+          Photographs by Nelson Raposo. Portraits by Andrea Santolaya.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Epigraph: Attenborough -->
+  <section class="bg-[#0b1a2e] text-white">
+    <div class="max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <blockquote class="font-cardo text-xl sm:text-2xl lg:text-3xl leading-relaxed text-blue-100/90 italic">
+        &ldquo;All life began in the deep blue sea,&rdquo; says the iconic David Attenborough at the start of his new documentary, <em>Ocean</em>, filmed in his 99th year. He explains that a lifetime of filming the natural world has taught him something Azoreans know instinctively: the most important place on earth is not on land.
+      </blockquote>
+      <p class="font-inter text-xs tracking-wide uppercase text-blue-300/50 mt-8">
+        David Attenborough
+      </p>
+    </div>
+  </section>
+
+  <!-- Text block: The project -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.85] text-gray-800">
+        Blue Azores is a homegrown, outward-looking project launched in 2019 with a simple but powerful aim: to put the ocean first. It commits the region to protecting 30% of Azorean waters by 2030 &mdash; not as lines on a map, but as living places where fragile ecosystems such as hydrothermal vents and deep-sea corals are safeguarded.
+      </p>
+    </div>
+  </section>
+
+  <!-- Planet Earth blue marble -->
+  <section class="bg-[#060e1a]">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-28">
+      <figure class="flex flex-col items-center">
+        <div class="w-full max-w-lg">
+          <Image
+            src={planetEarth}
+            alt="Planet Earth seen from space, the Blue Marble"
+            class="w-full h-auto rounded-full shadow-2xl shadow-blue-900/40"
+            widths={[400, 600, 900]}
+            sizes="(max-width: 768px) 80vw, 500px"
+          />
+        </div>
+        <figcaption class="font-inter text-xs text-blue-300/40 mt-6 text-center">
+          The Blue Marble. The most important place on earth is not on land.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Text block: The scale -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.85] text-gray-800">
+        At its heart is a vast marine park &mdash; nearly 300,000 square kilometres, half of which is fully protected and the other half which is highly protected, where some sustainable fishing is allowed.
+      </p>
+    </div>
+  </section>
+
+  <!-- Marine park map -->
+  <section class="bg-gray-50">
+    <div class="max-w-5xl mx-auto px-6 py-16 md:py-24">
+      <figure>
+        <Image
+          src={marineMap}
+          alt="Map of the Blue Azores marine park showing the network of marine protected areas across the Azores archipelago"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-4 leading-relaxed">
+          The Blue Azores marine park &mdash; nearly 300,000 square kilometres of protected waters
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Text block: The horror of trawling (dark section) -->
+  <section class="bg-[#0b1a2e] text-white">
+    <div class="max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.85] text-blue-100/85">
+        Cameras film for the first time a modern bottom trawler scraping the seabed with a metal chain, sucking everything into its giant mouth of a net: coral, sand, rocks, and of course every species unfortunate enough to be caught.
+      </p>
+    </div>
+  </section>
+
+  <!-- Portraits: Adriano & Bernardo -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+        <figure>
+          <Image
+            src={portraitAdriano}
+            alt="Portrait of Adriano Quintela with radio headphones"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            Adriano Quintela. Portrait by Andrea Santolaya
+          </figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={portraitBernardo}
+            alt="Portrait of Bernardo Brito e Abreu underwater"
+            class="w-full h-auto"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+            Bernardo Brito e Abreu. Photograph by Nelson Raposo
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Text block: The people -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.85] text-gray-800">
+        Between them, science and policy meet. They admit that fighting for ocean protection can often feel terrifying &mdash; because they truly understand what is at stake, and what is being lost &mdash; but their belief in Blue Azores is unwavering.
+      </p>
+    </div>
+  </section>
+
+  <!-- Scene-setting (dark section) -->
+  <section class="bg-[#0b1a2e] text-white">
+    <div class="max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <blockquote class="font-cardo text-xl sm:text-2xl leading-relaxed text-blue-100/90 italic border-l-2 border-blue-400/30 pl-8">
+        &ldquo;We talked together over beer at one of the highest points on the island, Bernardo&rsquo;s family home Pico do Ref&uacute;gio, where the blue sea glittered peacefully around us.&rdquo;
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-28 md:py-36 text-center">
+      <div class="border-t border-gray-200 pt-16">
+        <p class="font-cardo text-lg sm:text-xl text-gray-500 mb-6">
+          Read the full conversation in Ilh&eacute;u Magazine Issue B
+        </p>
+        <a
+          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+        >
+          Buy Issue B
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ArticleNav />
+
+</BaseLayout>

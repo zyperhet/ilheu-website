@@ -1,6 +1,7 @@
 ---
 const navItems = [
   { label: 'Home', href: '/' },
+  { label: 'Issue B', href: '/editions/edition-2', accent: true },
   { label: 'About', href: '/about' },
 ];
 
@@ -32,8 +33,10 @@ function isActive(href: string): boolean {
           href={item.href}
           class={`text-sm uppercase tracking-wider transition-colors ${
             isActive(item.href)
-              ? 'font-semibold text-gray-900 underline underline-offset-4'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'font-semibold underline underline-offset-4' + (item.accent ? ' text-[#1B3A5C]' : ' text-gray-900')
+              : item.accent
+                ? 'text-[#1B3A5C] hover:text-[#132a44] font-medium'
+                : 'text-gray-600 hover:text-gray-900'
           }`}
         >
           {item.label}
@@ -69,8 +72,10 @@ function isActive(href: string): boolean {
             href={item.href}
             class={`text-sm uppercase tracking-wider transition-colors ${
               isActive(item.href)
-                ? 'font-semibold text-gray-900 underline underline-offset-4'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'font-semibold underline underline-offset-4' + (item.accent ? ' text-[#1B3A5C]' : ' text-gray-900')
+                : item.accent
+                  ? 'text-[#1B3A5C] hover:text-[#132a44] font-medium'
+                  : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             {item.label}

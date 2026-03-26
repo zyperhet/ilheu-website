@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+import heroPortrait from '../../assets/images/03-azorean-blues-conversation/romeu-bairos-portrait-with-viola-da-terra.jpg';
+import violaCloseUp from '../../assets/images/03-azorean-blues-conversation/romeu-bairos-viola-da-terra-close-up.jpg';
+import romeuPlaying from '../../assets/images/03-azorean-blues-conversation/romeu-bairos-playing-viola-da-terra-tropical-plants.jpg';
+---
+
+<BaseLayout
+  title="Azorean Blues -- Ilh&eacute;u Magazine"
+  description="Conversation 3: Azorean Blues. Diogo Lima and Romeu Bairos on folk music, the viola da terra, and imagining an Azorean blues."
+>
+
+  <ArticleNav next={{ label: "Playlist", href: "/playlists/azorean-blues" }} />
+
+  <!-- Hero -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 md:pt-28 md:pb-16">
+
+      <!-- Category label -->
+      <p class="font-inter text-xs tracking-[0.25em] uppercase text-gray-400 mb-8">
+        Conversation 3 &mdash; Music
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-gray-900 max-w-4xl">
+        Azorean Blues
+      </h1>
+
+      <!-- Credits -->
+      <div class="mt-8 space-y-1">
+        <p class="font-inter text-sm text-gray-500">
+          By Diogo Lima &amp; Romeu Bairos
+        </p>
+        <p class="font-inter text-sm text-gray-400">
+          Photographs by Maria Abranches
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image: Romeu portrait with viola da terra -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <figure>
+        <Image
+          src={heroPortrait}
+          alt="Romeu Bairos with his viola da terra"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Romeu Bairos with his viola da terra. Photograph by Maria Abranches
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Opening context -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        The blues is one of the foundations of modern music &mdash; rock, jazz, country, and so many more musical genres trace their lineage back to it. Beyond the American South, however, other cultures developed their own sorrow songs: fado in Portugal, the Greek rebetiko, or the Ethiopian tezeta.
+      </p>
+    </div>
+  </section>
+
+  <!-- Viola da terra close-up -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
+      <figure>
+        <Image
+          src={violaCloseUp}
+          alt="Close-up of a viola da terra, the Azorean twelve-string guitar"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          The viola da terra, the Azorean twelve-string guitar. Photograph by Maria Abranches
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- About Romeu -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-16 md:pb-24">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        Romeu Bairos continues that lineage, though never by simply going back to basics. On <em>Rom&ecirc; das Furnas</em>, he reinterprets forgotten folk songs and adds new ones of his own, all anchored by the viola da terra, the Azorean twelve-string guitar that remains at the heart of the islands&rsquo; sound.
+      </p>
+    </div>
+  </section>
+
+  <!-- Warm accent section with key insight -->
+  <section class="bg-stone-50">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <blockquote class="font-cardo text-xl sm:text-2xl leading-relaxed text-gray-600 italic border-l-2 border-stone-300 pl-8">
+        &ldquo;What makes Bairos singular is the way he seems to inhabit the very traits of the songs he sings. Restless, sometimes fatalistic, and with a hint of cheekiness here and there, he embodies the bluesy undertones of the Azorean spirit rather than treating them as raw material for bland pop fusion.&rdquo;
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Romeu playing amid tropical plants -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-28">
+      <figure>
+        <Image
+          src={romeuPlaying}
+          alt="Romeu Bairos playing the viola da terra amid tropical plants"
+          class="w-full h-auto"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+        <figcaption class="font-inter text-xs text-gray-400 mt-3 leading-relaxed">
+          Photograph by Maria Abranches
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Framing -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
+      <p class="font-cardo text-lg sm:text-xl leading-[1.8] text-gray-800">
+        It is in this speculative spirit &mdash; halfway between history, invention, and personal expression &mdash; that our conversation unfolded: on what it might mean to imagine an &lsquo;Azorean blues.&rsquo;
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 pb-28 md:pb-36 text-center">
+      <div class="border-t border-gray-200 pt-16">
+        <p class="font-cardo text-lg sm:text-xl text-gray-500 mb-6">
+          Read the full conversation in Ilh&eacute;u Magazine Issue B
+        </p>
+        <a
+          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+        >
+          Buy Issue B
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ArticleNav next={{ label: "Playlist", href: "/playlists/azorean-blues" }} />
+
+</BaseLayout>

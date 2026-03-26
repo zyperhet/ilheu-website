@@ -1,0 +1,274 @@
+---
+// v133 — UNCONVENTIONAL / ART-FORWARD
+// Dark-light contrast, asymmetric layouts, vertical text, overlapping elements.
+// Think independent art gallery or experimental literary journal.
+// Breaks the grid on purpose.
+
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import coverIssueB from '../assets/images/00-covers/front-cover-full-page.png';
+import coverIssueA from '../assets/images/00-covers/cover-issue-a.png';
+
+import photoLeila from '../assets/images/02-leila-slimani-conversation/leila-slimani-full-page-portrait-seated-outdoors.jpg';
+import photoNightSky from '../assets/images/09-andrea-santolaya-photography/azores-night-sky-milky-way-andrea-santolaya.jpg';
+import photoPoolAbandoned from '../assets/images/04-pool-at-edge-of-world-architecture/povoacao-municipal-pool-abandoned-interior.jpg';
+import photoDacosta from '../assets/images/06-dacosta-picture-essay-artworks/dacosta-memory-v-1982-acrylic-collage-wax-crayon.jpg';
+
+const allEditions = await getCollection('editions');
+const currentEdition = allEditions.find(e => e.data.status === 'current');
+const archivedEditions = allEditions
+  .filter(e => e.data.status === 'archive')
+  .sort((a, b) => b.data.edition_number - a.data.edition_number);
+
+let featuredArticle = null;
+let featuredAuthor = null;
+if (currentEdition) {
+  const featured = await getCollection('articles', ({ id, data }) =>
+    id.startsWith(currentEdition.id + '/') && data.featured === true
+  );
+  featuredArticle = featured[0] || null;
+  if (featuredArticle) {
+    featuredAuthor = await getEntry(featuredArticle.data.author);
+  }
+}
+---
+
+<BaseLayout
+  title="Ilhéu Magazine"
+  description="Ilhéu is a biannual literary and cultural magazine from the Azores."
+>
+  <!-- Hero: Dark, cinematic, cover tilted -->
+  {currentEdition && (
+    <section class="bg-gray-950 min-h-screen relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 py-24 lg:py-0 lg:min-h-screen flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
+
+        <!-- Left: Oversized type, vertical accent -->
+        <div class="lg:w-1/2 relative z-10 lg:pr-12">
+          <div class="flex items-start gap-6 lg:gap-8">
+            <!-- Vertical text -->
+            <p
+              class="hidden lg:block font-inter text-[10px] uppercase tracking-[0.4em] text-gray-600 whitespace-nowrap"
+              style="writing-mode: vertical-lr"
+            >
+              Biannual &mdash; Azores &mdash; Print
+            </p>
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6 font-inter">
+                Issue B
+              </p>
+              <a href={`/editions/${currentEdition.id}`} class="block group">
+                <h1 class="font-cardo text-6xl sm:text-7xl lg:text-8xl text-white leading-[0.9] mb-6 group-hover:text-gray-300 transition-colors">
+                  {currentEdition.data.theme}
+                </h1>
+                <p class="font-cardo text-2xl text-gray-500 mb-12 leading-relaxed">
+                  {currentEdition.data.title}
+                </p>
+              </a>
+              <div class="flex items-center gap-4">
+                {currentEdition.data.purchase_url && (
+                  <a
+                    href={currentEdition.data.purchase_url}
+                    class="inline-block bg-white text-gray-900 font-inter text-xs uppercase tracking-[0.2em] px-8 py-4 hover:bg-gray-200 transition-colors duration-300"
+                  >
+                    Buy
+                  </a>
+                )}
+                <a
+                  href={`/editions/${currentEdition.id}`}
+                  class="inline-block border border-gray-700 text-gray-400 font-inter text-xs uppercase tracking-[0.2em] px-8 py-4 hover:border-gray-400 hover:text-white transition-colors duration-300"
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Cover, slightly rotated -->
+        <div class="lg:w-1/2 flex justify-center lg:justify-end">
+          <div class="relative w-64 sm:w-72 lg:w-80 transform rotate-2 hover:rotate-0 transition-transform duration-700">
+            <Image
+              src={coverIssueB}
+              alt={`Cover of Issue B: ${currentEdition.data.title}`}
+              class="w-full drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)]"
+              widths={[400, 600, 800]}
+              sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Accent line at bottom -->
+      <div
+        class="absolute bottom-0 left-0 right-0 h-1"
+        style={currentEdition.data.accent_colour ? `background: ${currentEdition.data.accent_colour}` : 'background: #555'}
+      />
+    </section>
+  )}
+
+  <!-- Featured article: Asymmetric with tall portrait -->
+  {featuredArticle && featuredAuthor && (
+    <section class="bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="lg:grid lg:grid-cols-5 min-h-[80vh]">
+
+          <!-- Tall portrait, no padding, edge-to-edge vertically -->
+          <div class="lg:col-span-2 relative">
+            <Image
+              src={photoLeila}
+              alt="Leila Slimani portrait"
+              class="w-full h-[50vh] lg:h-full object-cover object-top"
+              widths={[600, 900]}
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+            <!-- Vertical label on the image -->
+            <p
+              class="hidden lg:block absolute bottom-8 left-6 font-inter text-[9px] uppercase tracking-[0.4em] text-white/60"
+              style="writing-mode: vertical-lr"
+            >
+              From This Issue
+            </p>
+          </div>
+
+          <!-- Text, large left padding to create asymmetry -->
+          <div class="lg:col-span-3 flex items-center px-6 lg:px-20 py-20 lg:py-0">
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.35em] text-gray-400 mb-10 font-inter lg:hidden">
+                From This Issue
+              </p>
+              <a href={`/articles/${featuredArticle.id}`} class="block group mb-10">
+                <h2 class="font-cardo text-4xl sm:text-5xl lg:text-6xl text-gray-900 mb-8 group-hover:text-gray-500 transition-colors leading-[1.05]">
+                  {featuredArticle.data.title}
+                </h2>
+                {featuredArticle.data.excerpt && (
+                  <p class="font-inter text-gray-400 text-base lg:text-lg leading-relaxed max-w-lg">
+                    {featuredArticle.data.excerpt}
+                  </p>
+                )}
+              </a>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-px bg-gray-300" />
+                <p class="font-inter text-sm text-gray-400">
+                  <a
+                    href={`/contributors/${featuredAuthor.id}`}
+                    class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    {featuredAuthor.data.name}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Art interlude: DaCosta artwork, dark band -->
+  <section class="bg-gray-950 py-20 lg:py-28">
+    <div class="max-w-4xl mx-auto px-6 lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+      <div class="mb-12 lg:mb-0">
+        <Image
+          src={photoDacosta}
+          alt="Antonio DaCosta, Memory V, 1982"
+          class="w-full"
+          widths={[400, 600]}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+        />
+      </div>
+      <div>
+        <p class="font-cardo text-2xl sm:text-3xl text-gray-300 leading-relaxed italic mb-6">
+          "To live on an island is to understand that the horizon is both a boundary and an invitation."
+        </p>
+        <p class="font-inter text-xs uppercase tracking-[0.25em] text-gray-600">
+          From Issue B
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural photo: full bleed -->
+  <section class="relative h-[40vh] lg:h-[50vh] overflow-hidden">
+    <Image
+      src={photoPoolAbandoned}
+      alt="Abandoned municipal pool interior"
+      class="w-full h-full object-cover"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/20" />
+  </section>
+
+  <!-- Issue A: Accent-coloured background -->
+  {archivedEditions.length > 0 && archivedEditions[0] && (
+    <section
+      class="min-h-[70vh] flex items-center"
+      style={archivedEditions[0].data.accent_colour ? `background: ${archivedEditions[0].data.accent_colour}` : 'background: #2D5F3E'}
+    >
+      <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28 w-full">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+
+          <div class="lg:col-span-5 mb-14 lg:mb-0">
+            <p class="text-xs uppercase tracking-[0.3em] text-white/50 mb-6 font-inter">
+              Issue A
+            </p>
+            <a href={`/editions/${archivedEditions[0].id}`} class="block group">
+              <h2 class="font-cardo text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] mb-5 group-hover:text-white/70 transition-colors">
+                {archivedEditions[0].data.theme}
+              </h2>
+              <p class="font-cardo text-xl sm:text-2xl text-white/60 mb-10 leading-relaxed">
+                {archivedEditions[0].data.title}
+              </p>
+            </a>
+            <div class="flex flex-wrap items-center gap-4">
+              {archivedEditions[0].data.purchase_url && (
+                <a
+                  href={archivedEditions[0].data.purchase_url}
+                  class="inline-block bg-white text-gray-900 font-inter text-xs uppercase tracking-[0.2em] px-10 py-4 hover:bg-gray-200 transition-colors duration-300"
+                >
+                  Buy This Issue
+                </a>
+              )}
+              <a
+                href={`/editions/${archivedEditions[0].id}`}
+                class="inline-block border border-white/40 text-white/80 font-inter text-xs uppercase tracking-[0.2em] px-10 py-4 hover:border-white hover:text-white transition-colors duration-300"
+              >
+                Read More
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 flex justify-center lg:justify-end">
+            <div class="relative w-64 sm:w-72 lg:w-80 transform -rotate-1 hover:rotate-0 transition-transform duration-700">
+              <Image
+                src={coverIssueA}
+                alt={`Cover of Issue A: ${archivedEditions[0].data.title}`}
+                class="w-full drop-shadow-[0_25px_60px_rgba(0,0,0,0.4)]"
+                widths={[400, 600, 800]}
+                sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Closing: Night sky with magazine name -->
+  <section class="relative h-[50vh] overflow-hidden">
+    <Image
+      src={photoNightSky}
+      alt="Azores night sky with Milky Way"
+      class="w-full h-full object-cover"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+      <h2 class="font-cardo text-6xl sm:text-8xl text-white/90 tracking-wide">
+        Ilhéu
+      </h2>
+    </div>
+  </section>
+</BaseLayout>
