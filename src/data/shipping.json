@@ -1,6 +1,12 @@
 {
   "rates": [
     {
+      "id": "shr_1TTNzdRsfkWOq7pPzxamNAxD",
+      "name": "Pickup (Ponta Delgada)",
+      "amount": 0,
+      "currency": "eur"
+    },
+    {
       "id": "shr_1TEUzDRsfkWOq7pP9l9Do9m9",
       "name": "Portugal",
       "amount": 500,
