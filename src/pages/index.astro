@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import { getEntry } from 'astro:content';
+
+const edition = await getEntry('editions', 'edition-2');
+const buyUrl = edition?.data.purchase_url;
 ---
 
 <!doctype html>
@@ -26,11 +30,22 @@ import '../styles/global.css';
       </header>
 
       <!-- Upcoming -->
-      <p class="font-inter text-[11px] tracking-[0.25em] uppercase text-gray-400 mb-20">
-        Issue B&ensp;·&ensp;The Colour Blue&ensp;·&ensp;Soon
+      <p class="font-inter text-[11px] tracking-[0.25em] uppercase text-gray-400 mb-10">
+        Issue B&ensp;·&ensp;The Colour Blue
       </p>
 
-      <!-- Actions -->
+      <!-- Primary CTA: Buy Issue B -->
+      {buyUrl && (
+        <a
+          href={buyUrl}
+          class="inline-block text-white font-inter text-xs uppercase tracking-[0.25em] px-12 py-4 mb-20 hover:opacity-90 transition-opacity duration-300"
+          style="background-color: #1B3A5C;"
+        >
+          Buy Issue B
+        </a>
+      )}
+
+      <!-- Secondary actions -->
       <nav class="flex flex-col items-center gap-6">
         <a
           href="https://www.instagram.com/ilheumagazine"
