@@ -83,8 +83,8 @@ const supplementary = [
 ---
 
 <BaseLayout
-  title="Issue B: The Colour Blue — Ilhéu Magazine"
-  description="Issue B of Ilhéu Magazine — 'The Colour Blue'. Conversations, prose, photography and design from the Azores."
+  title="Issue B (funky variant) — Ilhéu Magazine"
+  description="Experimental layout for Issue B: The Colour Blue. Scroll-driven parallax, blurred title reveals, typographic marquee."
 >
 
   <!-- ═══════════════════════════════════════════
@@ -214,6 +214,21 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
+       FUNKY MARQUEE — typographic page divider
+       ═══════════════════════════════════════════ -->
+  <div class="overflow-hidden bg-black border-y border-white/10 py-4 sm:py-6 lg:py-8">
+    <div class="funky-marquee flex shrink-0 whitespace-nowrap font-minion italic text-3xl sm:text-5xl lg:text-7xl text-white">
+      {Array.from({ length: 10 }, () => (
+        <span class="shrink-0 inline-flex items-center px-6 sm:px-10 lg:px-14">
+          Five Conversations on Blue
+          <span class="mx-6 sm:mx-10 lg:mx-14 text-white/40">&middot;</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
        FIVE FULL-BLEED CINEMATIC CONVERSATIONS
        Title overlays image with mix-blend-difference —
        text colour inverts against the photograph behind it.
@@ -229,7 +244,7 @@ const supplementary = [
           <Image
             src={item.image}
             alt={item.alt}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
+            class="funky-img absolute inset-0 w-full h-full object-cover"
             widths={[800, 1200, 1800, 2400]}
             sizes="100vw"
           />
@@ -256,7 +271,7 @@ const supplementary = [
           <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
             <div class="max-w-6xl mx-auto">
               <h3
-                class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference motion-safe:transition-transform motion-safe:duration-[1000ms] motion-safe:group-hover:-translate-y-1"
+                class="funky-title font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference motion-safe:transition-transform motion-safe:duration-[1000ms] motion-safe:group-hover:-translate-y-1"
               >
                 {item.title}
               </h3>
@@ -275,6 +290,21 @@ const supplementary = [
       </a>
     );
   })}
+
+
+  <!-- ═══════════════════════════════════════════
+       FUNKY MARQUEE — second divider
+       ═══════════════════════════════════════════ -->
+  <div class="overflow-hidden bg-black border-y border-white/10 py-4 sm:py-6 lg:py-8">
+    <div class="funky-marquee flex shrink-0 whitespace-nowrap font-minion italic text-3xl sm:text-5xl lg:text-7xl text-white">
+      {Array.from({ length: 10 }, () => (
+        <span class="shrink-0 inline-flex items-center px-6 sm:px-10 lg:px-14">
+          Maps, playlists &amp; interludes
+          <span class="mx-6 sm:mx-10 lg:mx-14 text-white/40">&middot;</span>
+        </span>
+      ))}
+    </div>
+  </div>
 
 
   <!-- ═══════════════════════════════════════════
@@ -300,7 +330,7 @@ const supplementary = [
       <Image
         src={supplementary[1].image!}
         alt={supplementary[1].alt!}
-        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
+        class="funky-img absolute inset-0 w-full h-full object-cover"
         widths={[1200, 1800, 2400]}
         sizes="100vw"
       />
@@ -319,7 +349,7 @@ const supplementary = [
 
       <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
         <div class="max-w-6xl mx-auto">
-          <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
+          <h3 class="funky-title font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
             {supplementary[1].title}
           </h3>
           <p class="font-minion text-base sm:text-lg italic text-white/85">
@@ -455,7 +485,7 @@ const supplementary = [
       <Image
         src={supplementary[4].image!}
         alt={supplementary[4].alt!}
-        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
+        class="funky-img absolute inset-0 w-full h-full object-cover"
         widths={[1200, 1800, 2400]}
         sizes="100vw"
       />
@@ -474,7 +504,7 @@ const supplementary = [
 
       <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
         <div class="max-w-6xl mx-auto">
-          <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[0.95] text-white mb-6 max-w-4xl mix-blend-difference">
+          <h3 class="funky-title font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[0.95] text-white mb-6 max-w-4xl mix-blend-difference">
             {supplementary[4].title}
           </h3>
           <p class="font-minion text-base sm:text-lg italic text-white/85">
@@ -620,5 +650,75 @@ const supplementary = [
       });
     }
   </script>
+
+  <style is:global>
+    /* ═══════════════════════════════════════════
+       Scroll-driven funky effects.
+       Falls back gracefully where unsupported.
+       ═══════════════════════════════════════════ */
+
+    /* Default state (also the fallback when scroll-driven anims aren't supported) */
+    .funky-img {
+      transform: scale(1.05);
+      will-change: transform;
+    }
+
+    .funky-title {
+      will-change: transform, filter, opacity;
+    }
+
+    /* Marquee — always moves (time-based, not scroll-based) */
+    @keyframes funky-marquee-loop {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .funky-marquee {
+      animation: funky-marquee-loop 40s linear infinite;
+      will-change: transform;
+    }
+
+    /* Scroll-driven animations — Chrome/Edge 115+, Firefox 129+, Safari 18+ */
+    @supports (animation-timeline: view()) {
+      .funky-img {
+        animation: funky-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes funky-parallax {
+        from { transform: scale(1.15) translateY(-6%); }
+        to   { transform: scale(1.15) translateY(6%); }
+      }
+
+      .funky-title {
+        animation: funky-title-in linear both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 70%;
+      }
+      @keyframes funky-title-in {
+        from {
+          opacity: 0;
+          transform: translateY(60px) scale(0.92);
+          filter: blur(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+      }
+    }
+
+    /* Reduced motion: everything stays still */
+    @media (prefers-reduced-motion: reduce) {
+      .funky-img,
+      .funky-title,
+      .funky-marquee {
+        animation: none !important;
+        transform: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
 
 </BaseLayout>
