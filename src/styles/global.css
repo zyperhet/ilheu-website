@@ -2,7 +2,16 @@
 @plugin "@tailwindcss/typography";
 @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
 
+@font-face {
+  font-family: 'Minion Pro';
+  src: url('../assets/fonts/MinionPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-cardo: 'Cardo', serif;
   --font-inter: 'Inter', sans-serif;
+  --font-minion: 'Minion Pro', 'Cardo', serif;
 }

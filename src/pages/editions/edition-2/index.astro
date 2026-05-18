@@ -1,10 +1,11 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-// Cover
+// Covers
 import coverImage from '../../../assets/images/00-covers/front-cover-full-page.png';
+import coverIssueA from '../../../assets/images/00-covers/cover-issue-a.png';
 
 // Contents images
 import imgDacosta from '../../../assets/images/01-antonio-dacosta-conversation/dacosta-artwork-portrait-photo.jpg';
@@ -18,6 +19,10 @@ import imgComic from '../../../assets/images/10-comic-strip/comic-strip-sara-aza
 const edition = await getEntry('editions', 'edition-2');
 const purchaseUrl = edition?.data.purchase_url ?? '#';
 const accentColour = '#1B3A5C';
+
+// Previous issue (Azores) — sold out, no link
+const allEditions = await getCollection('editions');
+const previousIssue = allEditions.find((e) => e.data.status === 'archive');
 
 const conversations = [
   {
@@ -78,8 +83,8 @@ const supplementary = [
 ---
 
 <BaseLayout
-  title="Issue B: Across the Archipelago — Ilhéu Magazine"
-  description="Issue B of Ilhéu Magazine — 'The Nine: Across the Archipelago'. Conversations, prose, photography and design from the Azores."
+  title="Issue B: The Colour Blue — Ilhéu Magazine"
+  description="Issue B of Ilhéu Magazine — 'The Colour Blue'. Conversations, prose, photography and design from the Azores."
 >
 
   <!-- ═══════════════════════════════════════════
@@ -92,17 +97,14 @@ const supplementary = [
         <!-- Text -->
         <div class="lg:col-span-5 mb-16 lg:mb-0 text-center lg:text-left">
           <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-8">
-            Issue B &mdash; Spring 2026
+            Issue B &middot; Spring 2026
           </p>
           <h1
-            class="font-cardo text-5xl sm:text-6xl lg:text-7xl leading-[1.05] mb-4"
+            class="font-minion italic text-6xl sm:text-7xl lg:text-8xl leading-[1.0] mb-5"
             style={`color: ${accentColour}`}
           >
-            Across the Archipelago
+            The Colour Blue
           </h1>
-          <p class="font-cardo text-2xl sm:text-3xl text-gray-400 mb-6 leading-snug">
-            The Nine
-          </p>
           <p class="font-inter text-sm text-gray-500 leading-relaxed max-w-sm mx-auto lg:mx-0 mb-10">
             Conversations, prose, photography and design, produced and published on the Azorean island of Sao Miguel. 128 pages on the colour blue.
           </p>
@@ -120,7 +122,7 @@ const supplementary = [
           <div class="relative max-w-sm lg:max-w-md">
             <Image
               src={coverImage}
-              alt="Cover of Ilheu Magazine Issue B: Across the Archipelago"
+              alt="Cover of Ilhéu Magazine Issue B: The Colour Blue"
               class="w-full shadow-2xl"
               widths={[400, 600, 800]}
               sizes="(max-width: 640px) 360px, (max-width: 1024px) 400px, 480px"
@@ -148,7 +150,7 @@ const supplementary = [
       </p>
 
       <div class="relative">
-        <div id="editorial-content" class="font-cardo text-lg sm:text-xl leading-[1.9] text-white/90 space-y-8 max-h-[28rem] overflow-hidden transition-[max-height] duration-700 ease-in-out">
+        <div id="editorial-content" class="font-minion text-lg sm:text-xl leading-[1.9] text-white/90 space-y-8 max-h-[28rem] overflow-hidden transition-[max-height] duration-700 ease-in-out">
 
         <!-- Epigraph -->
         <blockquote class="border-l-2 border-white/20 pl-6 italic text-white/70 text-base sm:text-lg leading-[1.9]">
@@ -205,12 +207,12 @@ const supplementary = [
           <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-5">
             Inside This Issue
           </p>
-          <h2 class="font-cardo text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-gray-900">
+          <h2 class="font-minion text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-gray-900">
             Five Conversations <em class="text-gray-400 font-normal">on Blue</em>
           </h2>
         </div>
         <div class="lg:col-span-4 lg:pb-2">
-          <p class="font-cardo text-base text-gray-500 italic leading-relaxed lg:pl-6 lg:border-l lg:border-gray-200">
+          <p class="font-minion text-base text-gray-500 italic leading-relaxed lg:pl-6 lg:border-l lg:border-gray-200">
             Five investigations into the least pure of all the colours &mdash; art, writing, music, architecture, environment.
           </p>
         </div>
@@ -229,7 +231,7 @@ const supplementary = [
           <article class="relative grid lg:grid-cols-12 gap-x-10 gap-y-8 items-end">
             <span
               aria-hidden="true"
-              class="absolute -top-8 -left-1 lg:-top-16 lg:-left-8 font-cardo italic text-[9rem] sm:text-[12rem] lg:text-[18rem] leading-none text-gray-100 select-none pointer-events-none z-0"
+              class="absolute -top-8 -left-1 lg:-top-16 lg:-left-8 font-minion italic text-[9rem] sm:text-[12rem] lg:text-[18rem] leading-none text-gray-100 select-none pointer-events-none z-0"
             >01</span>
 
             <div class="lg:col-span-7 relative z-10">
@@ -251,10 +253,10 @@ const supplementary = [
               >
                 Conversation 01 &middot; {lead.category}
               </p>
-              <h3 class="font-cardo text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] text-gray-900 transition-colors duration-500 group-hover:text-gray-500 mb-7">
+              <h3 class="font-minion text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] text-gray-900 transition-colors duration-500 group-hover:text-gray-500 mb-7">
                 {lead.title}
               </h3>
-              <p class="font-cardo text-lg text-gray-500 italic mb-8 leading-relaxed">
+              <p class="font-minion text-lg text-gray-500 italic mb-8 leading-relaxed">
                 With {lead.contributors}
               </p>
               <div class="flex items-center gap-6 pt-6 border-t border-gray-200">
@@ -295,7 +297,7 @@ const supplementary = [
               <article class="relative">
                 <span
                   aria-hidden="true"
-                  class="absolute -top-8 -left-1 lg:-top-12 lg:-left-4 font-cardo italic text-[5rem] lg:text-[7rem] leading-none text-gray-100 select-none pointer-events-none z-0"
+                  class="absolute -top-8 -left-1 lg:-top-12 lg:-left-4 font-minion italic text-[5rem] lg:text-[7rem] leading-none text-gray-100 select-none pointer-events-none z-0"
                 >
                   {num}
                 </span>
@@ -314,10 +316,10 @@ const supplementary = [
                 >
                   Conversation {num} &middot; {item.category}
                 </p>
-                <h3 class="font-cardo text-xl lg:text-2xl leading-[1.2] text-gray-900 group-hover:text-gray-500 transition-colors duration-500 mb-3 max-w-md">
+                <h3 class="font-minion text-xl lg:text-2xl leading-[1.2] text-gray-900 group-hover:text-gray-500 transition-colors duration-500 mb-3 max-w-md">
                   {item.title}
                 </h3>
-                <p class="font-cardo text-sm text-gray-500 italic mb-3 leading-relaxed">
+                <p class="font-minion text-sm text-gray-500 italic mb-3 leading-relaxed">
                   With {item.contributors}
                 </p>
                 <p class="font-inter text-[11px] uppercase tracking-[0.25em] text-gray-400">
@@ -344,7 +346,7 @@ const supplementary = [
         <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-5">
           Also in this issue
         </p>
-        <h2 class="font-cardo text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-gray-900">
+        <h2 class="font-minion text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-gray-900">
           Maps, playlists <em class="text-gray-400 font-normal">&amp; interludes</em>
         </h2>
       </div>
@@ -366,7 +368,7 @@ const supplementary = [
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
           <p
             aria-hidden="true"
-            class="absolute top-5 right-6 lg:top-7 lg:right-9 font-cardo italic text-white/35 text-3xl lg:text-5xl select-none pointer-events-none"
+            class="absolute top-5 right-6 lg:top-7 lg:right-9 font-minion italic text-white/35 text-3xl lg:text-5xl select-none pointer-events-none"
           >
             pp. {supplementary[1].pages}
           </p>
@@ -374,10 +376,10 @@ const supplementary = [
             <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-white/60 mb-4">
               Picture Essay
             </p>
-            <h3 class="font-cardo text-2xl sm:text-3xl lg:text-4xl leading-[1.1] text-white mb-2 max-w-lg">
+            <h3 class="font-minion text-2xl sm:text-3xl lg:text-4xl leading-[1.1] text-white mb-2 max-w-lg">
               {supplementary[1].title}
             </h3>
-            <p class="font-cardo text-sm italic text-white/60">
+            <p class="font-minion text-sm italic text-white/60">
               By {supplementary[1].contributors}
             </p>
           </div>
@@ -404,7 +406,7 @@ const supplementary = [
             <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-white/50 mb-3">
               Playlist 01 &middot; pp. {supplementary[0].pages}
             </p>
-            <h3 class="font-cardo text-xl lg:text-2xl leading-[1.2] text-white mb-4 max-w-xs">
+            <h3 class="font-minion text-xl lg:text-2xl leading-[1.2] text-white mb-4 max-w-xs">
               {supplementary[0].title}
             </h3>
             <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/50 transition-all duration-500 motion-safe:group-hover:translate-x-2 motion-safe:group-hover:text-white">
@@ -452,10 +454,10 @@ const supplementary = [
             <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-white/60 mb-2">
               Map &middot; pp. {supplementary[3].pages}
             </p>
-            <h3 class="font-cardo text-xl lg:text-2xl leading-[1.2] text-white mb-1">
+            <h3 class="font-minion text-xl lg:text-2xl leading-[1.2] text-white mb-1">
               {supplementary[3].title}
             </h3>
-            <p class="font-cardo text-sm italic text-white/60">
+            <p class="font-minion text-sm italic text-white/60">
               By {supplementary[3].contributors}
             </p>
           </div>
@@ -482,7 +484,7 @@ const supplementary = [
             <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-white/50 mb-3">
               Playlist 02 &middot; pp. {supplementary[2].pages}
             </p>
-            <h3 class="font-cardo text-xl lg:text-2xl leading-[1.2] text-white mb-4">
+            <h3 class="font-minion text-xl lg:text-2xl leading-[1.2] text-white mb-4">
               {supplementary[2].title}
             </h3>
             <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/50 transition-all duration-500 motion-safe:group-hover:translate-x-2 motion-safe:group-hover:text-white">
@@ -505,10 +507,10 @@ const supplementary = [
             <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-white/60 mb-2">
               Comic Strip &middot; p. {supplementary[4].pages}
             </p>
-            <h3 class="font-cardo text-xl lg:text-2xl leading-[1.2] text-white mb-1 max-w-xs">
+            <h3 class="font-minion text-xl lg:text-2xl leading-[1.2] text-white mb-1 max-w-xs">
               {supplementary[4].title}
             </h3>
-            <p class="font-cardo text-sm italic text-white/60">
+            <p class="font-minion text-sm italic text-white/60">
               By {supplementary[4].contributors}
             </p>
           </div>
@@ -521,12 +523,12 @@ const supplementary = [
         >
           <span
             aria-hidden="true"
-            class="absolute -top-10 left-1 font-cardo italic text-[14rem] leading-none select-none pointer-events-none"
+            class="absolute -top-10 left-1 font-minion italic text-[14rem] leading-none select-none pointer-events-none"
             style={`color: ${accentColour}; opacity: 0.09;`}
           >&ldquo;</span>
           <div class="relative h-full flex flex-col justify-between p-6 lg:p-7">
             <p
-              class="font-cardo italic text-base leading-[1.6] mt-10"
+              class="font-minion italic text-base leading-[1.6] mt-10"
               style={`color: ${accentColour};`}
             >
               A short story of unravelling in water.
@@ -538,10 +540,10 @@ const supplementary = [
               >
                 Prose &middot; pp. {supplementary[5].pages}
               </p>
-              <h3 class="font-cardo text-lg leading-[1.25] text-gray-900 mb-1">
+              <h3 class="font-minion text-lg leading-[1.25] text-gray-900 mb-1">
                 {supplementary[5].title.split('\u2014')[0].trim()}
               </h3>
-              <p class="font-cardo text-sm italic text-gray-500">
+              <p class="font-minion text-sm italic text-gray-500">
                 By {supplementary[5].contributors}
               </p>
             </div>
@@ -555,6 +557,55 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
+       PREVIOUSLY — AZORES (sold out, no link)
+       ═══════════════════════════════════════════ -->
+  {previousIssue && (
+    <section class="bg-stone-50 border-t border-gray-100">
+      <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+          <!-- Cover with sold-out tag -->
+          <div class="lg:col-span-4 flex justify-center lg:justify-start">
+            <div class="relative max-w-[260px] w-full">
+              <Image
+                src={coverIssueA}
+                alt="Cover of Ilhéu Magazine: Azores — sold out"
+                class="w-full shadow-lg grayscale opacity-90"
+                widths={[260, 400, 520]}
+                sizes="260px"
+              />
+              <div class="absolute top-3 left-3 bg-gray-900 text-white font-inter text-[10px] uppercase tracking-[0.25em] px-3 py-1.5">
+                Sold Out
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="lg:col-span-8">
+            <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400 mb-5">
+              Previous Issue
+            </p>
+            <h2 class="font-minion italic text-5xl sm:text-6xl lg:text-7xl leading-[1.0] text-gray-900 mb-6">
+              Azores
+            </h2>
+            <p class="font-minion text-lg text-gray-500 italic leading-relaxed max-w-xl mb-6">
+              The first issue &mdash; Island of Origins. 128 pages on S&atilde;o Miguel, sold out in print. With Hugo Gon&ccedil;ales, Pedro Borges, and Hun-Chung Lee.
+            </p>
+            <a
+              href="mailto:contact@ilheumagazine.com?subject=Back%20issue%20enquiry"
+              class="font-inter text-[11px] uppercase tracking-[0.25em] text-gray-500 underline underline-offset-4 decoration-gray-300 hover:text-gray-900 hover:decoration-gray-500 transition-colors duration-300"
+            >
+              Back-issue enquiries &rarr;
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )}
+
+
+  <!-- ═══════════════════════════════════════════
        BUY CTA
        ═══════════════════════════════════════════ -->
   <section class="border-t border-gray-100">
@@ -562,13 +613,13 @@ const supplementary = [
       <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
         Limited Print Edition
       </p>
-      <h2 class="font-cardo text-3xl sm:text-4xl text-gray-900 mb-4">
+      <h2 class="font-minion text-3xl sm:text-4xl text-gray-900 mb-4">
         Get your copy
       </h2>
       <p class="font-inter text-base text-gray-500 leading-relaxed mb-10 max-w-md mx-auto">
         128 pages of conversations, photography, prose, maps and comics. Printed on Munken Pure 100g at Nova Grafica, Sao Miguel.
       </p>
-      <p class="font-cardo text-2xl text-gray-900 mb-2">&euro;15</p>
+      <p class="font-minion text-2xl text-gray-900 mb-2">&euro;15</p>
       <p class="font-inter text-sm text-gray-400 mb-8">+ shipping</p>
       <a
         href={purchaseUrl}
