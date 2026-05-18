@@ -215,47 +215,60 @@ const supplementary = [
 
   <!-- ═══════════════════════════════════════════
        FIVE FULL-BLEED CINEMATIC CONVERSATIONS
+       Title overlays image with mix-blend-difference —
+       text colour inverts against the photograph behind it.
        ═══════════════════════════════════════════ -->
   {conversations.map((item, idx) => {
     const num = String(idx + 1).padStart(2, '0');
     return (
       <a
         href={item.href}
-        class="block group bg-white focus-visible:outline-2 focus-visible:outline-offset-4 outline-none"
+        class="block group relative bg-gray-900 focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
       >
-        <div class="h-[78vh] sm:h-[85vh] lg:h-[90vh] overflow-hidden bg-gray-100">
+        <div class="relative h-[85vh] sm:h-[90vh] lg:h-screen overflow-hidden">
           <Image
             src={item.image}
             alt={item.alt}
-            class="w-full h-full object-cover transition-transform duration-[1500ms] ease-out motion-safe:group-hover:scale-[1.04]"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
             widths={[800, 1200, 1800, 2400]}
             sizes="100vw"
           />
-        </div>
-        <div class="max-w-6xl mx-auto px-6 py-14 lg:py-20">
-          <p
-            class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] mb-6"
-            style={`color: ${accentColour}`}
-          >
-            {item.category} &middot; Conversation {num}
-          </p>
-          <h3 class="font-minion text-4xl sm:text-5xl lg:text-7xl leading-[1.05] text-gray-900 mb-10 max-w-4xl group-hover:text-gray-500 transition-colors duration-500">
-            {item.title}
-          </h3>
-          <div class="flex flex-wrap items-baseline justify-between gap-6 max-w-4xl">
-            <p class="font-minion text-lg italic text-gray-500 leading-relaxed">
-              With {item.contributors}
-            </p>
-            <div class="flex items-center gap-6">
-              <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-gray-400">
+
+          {/* Subtle gradient — top + bottom — to keep small meta legible */}
+          <div
+            class="absolute inset-0 pointer-events-none transition-opacity duration-[1200ms] motion-safe:group-hover:opacity-90"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
+          ></div>
+
+          {/* Top — eyebrow + page numbers */}
+          <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+            <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
+              <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+                {item.category} &middot; Conversation {num}
+              </p>
+              <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/80">
                 pp. {item.pages}
-              </span>
-              <span
-                class="font-inter text-[11px] uppercase tracking-[0.25em] transition-transform duration-500 motion-safe:group-hover:translate-x-2"
-                style={`color: ${accentColour}`}
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom — title (mix-blend-difference), contributors, read CTA */}
+          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+            <div class="max-w-6xl mx-auto">
+              <h3
+                class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference motion-safe:transition-transform motion-safe:duration-[1000ms] motion-safe:group-hover:-translate-y-1"
               >
-                Read the conversation &rarr;
-              </span>
+                {item.title}
+              </h3>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 max-w-5xl">
+                <p class="font-minion text-base sm:text-lg italic text-white/85">
+                  With {item.contributors}
+                </p>
+                <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-[600ms]">
+                  Read the conversation
+                  <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -280,30 +293,39 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       PICTURE ESSAY — full-bleed cinematic
+       PICTURE ESSAY — full-bleed, mix-blend title
        ═══════════════════════════════════════════ -->
-  <section class="relative bg-gray-900">
-    <div class="h-[75vh] sm:h-[85vh] overflow-hidden">
+  <section class="relative bg-gray-900 group">
+    <div class="relative h-[75vh] sm:h-[85vh] lg:h-screen overflow-hidden">
       <Image
         src={supplementary[1].image!}
         alt={supplementary[1].alt!}
-        class="w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
         widths={[1200, 1800, 2400]}
         sizes="100vw"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-    </div>
-    <div class="absolute inset-x-0 bottom-0">
-      <div class="max-w-6xl mx-auto px-6 pb-14 lg:pb-20">
-        <p class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
-          Picture Essay &middot; pp. {supplementary[1].pages}
-        </p>
-        <h3 class="font-minion text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-white mb-4 max-w-3xl">
-          {supplementary[1].title}
-        </h3>
-        <p class="font-minion text-lg italic text-white/60">
-          By {supplementary[1].contributors}
-        </p>
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
+      ></div>
+
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+            Picture Essay &middot; pp. {supplementary[1].pages}
+          </p>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
+            {supplementary[1].title}
+          </h3>
+          <p class="font-minion text-base sm:text-lg italic text-white/85">
+            By {supplementary[1].contributors}
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -426,30 +448,39 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       COMIC STRIP — full-bleed image
+       COMIC STRIP — full-bleed, mix-blend title
        ═══════════════════════════════════════════ -->
-  <section class="relative bg-gray-900">
-    <div class="h-[60vh] sm:h-[75vh] overflow-hidden">
+  <section class="relative bg-gray-900 group">
+    <div class="relative h-[60vh] sm:h-[75vh] lg:h-[85vh] overflow-hidden">
       <Image
         src={supplementary[4].image!}
         alt={supplementary[4].alt!}
-        class="w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
         widths={[1200, 1800, 2400]}
         sizes="100vw"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-    </div>
-    <div class="absolute inset-x-0 bottom-0">
-      <div class="max-w-6xl mx-auto px-6 pb-14 lg:pb-20">
-        <p class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
-          Comic Strip &middot; p. {supplementary[4].pages}
-        </p>
-        <h3 class="font-minion text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-white mb-3 max-w-2xl">
-          {supplementary[4].title}
-        </h3>
-        <p class="font-minion text-lg italic text-white/60">
-          By {supplementary[4].contributors}
-        </p>
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
+      ></div>
+
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+            Comic Strip &middot; p. {supplementary[4].pages}
+          </p>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[0.95] text-white mb-6 max-w-4xl mix-blend-difference">
+            {supplementary[4].title}
+          </h3>
+          <p class="font-minion text-base sm:text-lg italic text-white/85">
+            By {supplementary[4].contributors}
+          </p>
+        </div>
       </div>
     </div>
   </section>
