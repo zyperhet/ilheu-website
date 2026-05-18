@@ -16,6 +16,10 @@ import imgPool from '../../../assets/images/04-pool-at-edge-of-world-architectur
 import imgBlueAzores from '../../../assets/images/05-blue-azores-environment/blue-azores-jellyfish-underwater-nelson-raposo.jpg';
 import imgComic from '../../../assets/images/10-comic-strip/comic-strip-sara-azad-ponta-delgada.png';
 
+// Playlist backgrounds
+import imgPlaylistSoundOfBlue from '../../../assets/images/03-azorean-blues-conversation/azores-landscape-opa-collective-playlist.jpg';
+import imgPlaylistAzoreanBlues from '../../../assets/images/03-azorean-blues-conversation/romeu-bairos-viola-da-terra-close-up.jpg';
+
 const edition = await getEntry('editions', 'edition-2');
 const purchaseUrl = edition?.data.purchase_url ?? '#';
 const accentColour = '#1B3A5C';
@@ -333,74 +337,98 @@ const supplementary = [
 
   <!-- ═══════════════════════════════════════════
        PLAYLISTS — paired record sleeves
-       Vinyl grooves rotate slowly on hover.
-       A-SIDE / B-SIDE micro-labels, catalog mark.
+       Each tile is a photograph (album-cover style)
+       with a vinyl record overlay (grooves + label)
+       and mix-blend-difference title.
        ═══════════════════════════════════════════ -->
   <section class="grid sm:grid-cols-2">
 
-    {/* A-SIDE — Sound of Blue */}
+    {/* A-SIDE — Sound of Blue (Opa Collective landscape photograph) */}
     <a
       href={supplementary[0].href}
-      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
-      style="background-color: #060f1c;"
+      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none bg-gray-900"
       aria-label={`Playlist: ${supplementary[0].title}`}
     >
-      {/* Grooves (rotated 20deg on hover) */}
+      {/* Cover photograph */}
+      <Image
+        src={imgPlaylistSoundOfBlue}
+        alt="Azorean landscape, Opa Collective playlist companion photograph"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2200ms] ease-out motion-safe:group-hover:scale-105"
+        widths={[800, 1200, 1800]}
+        sizes="(max-width: 640px) 100vw, 50vw"
+      />
+
+      {/* Dark overlay for readability */}
+      <div class="absolute inset-0 bg-black/45 pointer-events-none"></div>
+
+      {/* Vinyl grooves — dark rings over photo, rotate on hover */}
       <div
         class="absolute -right-1/4 -top-1/4 w-[160%] aspect-square rounded-full transition-transform duration-[3000ms] ease-out motion-safe:group-hover:rotate-[20deg] pointer-events-none"
-        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(255,255,255,0.10) 5px 6px, transparent 6px 12px, rgba(255,255,255,0.04) 12px 13px);"
+        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(0,0,0,0.35) 5px 6px, transparent 6px 12px, rgba(0,0,0,0.18) 12px 13px);"
         aria-hidden="true"
       ></div>
-      {/* Centre label disc */}
+
+      {/* Centre label disc — record label */}
       <div
-        class="absolute right-[16%] top-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center"
+        class="absolute right-[16%] top-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center ring-1 ring-white/10"
         style={`background: ${accentColour};`}
         aria-hidden="true"
       >
         <div class="w-2 h-2 rounded-full bg-black"></div>
       </div>
 
-      {/* A-SIDE micro-label, top-left */}
+      {/* A-SIDE micro-label + catalog */}
       <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
         <div class="flex items-baseline justify-between gap-4">
-          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white/70">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white">
             A-side &middot; 33⅓ rpm
           </p>
-          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/40">
+          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/60">
             ILH&middot;B&middot;01
           </p>
         </div>
       </div>
 
-      {/* Title block — big, bottom-left */}
+      {/* Title block */}
       <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
-        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
+        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white mb-5">
           Playlist 01 &middot; pp. {supplementary[0].pages}
         </p>
-        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl">
+        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl mix-blend-difference">
           {supplementary[0].title}
         </h3>
         <span class="font-inter text-[11px] uppercase tracking-[0.3em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-500">
-          Listen
+          Listen on Spotify
           <span class="inline-block motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:translate-x-2">&rarr;</span>
         </span>
       </div>
     </a>
 
-    {/* B-SIDE — Azorean Blues */}
+    {/* B-SIDE — Azorean Blues (viola da terra close-up) */}
     <a
       href={supplementary[2].href}
-      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
-      style="background-color: #0b1a2d;"
+      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none bg-gray-900"
       aria-label={`Playlist: ${supplementary[2].title}`}
     >
+      {/* Cover photograph */}
+      <Image
+        src={imgPlaylistAzoreanBlues}
+        alt="Romeu Bairos playing viola da terra — close-up"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2200ms] ease-out motion-safe:group-hover:scale-105"
+        widths={[800, 1200, 1800]}
+        sizes="(max-width: 640px) 100vw, 50vw"
+      />
+
+      <div class="absolute inset-0 bg-black/45 pointer-events-none"></div>
+
       <div
         class="absolute -left-1/4 -bottom-1/4 w-[160%] aspect-square rounded-full transition-transform duration-[3000ms] ease-out motion-safe:group-hover:-rotate-[20deg] pointer-events-none"
-        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(255,255,255,0.11) 5px 6px, transparent 6px 12px, rgba(255,255,255,0.05) 12px 13px);"
+        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(0,0,0,0.38) 5px 6px, transparent 6px 12px, rgba(0,0,0,0.2) 12px 13px);"
         aria-hidden="true"
       ></div>
+
       <div
-        class="absolute left-[16%] bottom-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center"
+        class="absolute left-[16%] bottom-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center ring-1 ring-white/10"
         style={`background: ${accentColour};`}
         aria-hidden="true"
       >
@@ -409,24 +437,24 @@ const supplementary = [
 
       <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
         <div class="flex items-baseline justify-between gap-4">
-          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white/70">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white">
             B-side &middot; 33⅓ rpm
           </p>
-          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/40">
+          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/60">
             ILH&middot;B&middot;02
           </p>
         </div>
       </div>
 
       <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
-        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
+        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white mb-5">
           Playlist 02 &middot; pp. {supplementary[2].pages}
         </p>
-        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl">
+        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl mix-blend-difference">
           {supplementary[2].title}
         </h3>
         <span class="font-inter text-[11px] uppercase tracking-[0.3em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-500">
-          Listen
+          Listen on Spotify
           <span class="inline-block motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:translate-x-2">&rarr;</span>
         </span>
       </div>
