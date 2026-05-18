@@ -332,63 +332,102 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       PLAYLISTS — paired side-by-side, vinyl
+       PLAYLISTS — paired record sleeves
+       Vinyl grooves rotate slowly on hover.
+       A-SIDE / B-SIDE micro-labels, catalog mark.
        ═══════════════════════════════════════════ -->
   <section class="grid sm:grid-cols-2">
+
+    {/* A-SIDE — Sound of Blue */}
     <a
       href={supplementary[0].href}
-      class="block group h-[65vh] sm:h-[80vh] relative overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 outline-none"
-      style="background-color: #0a1628;"
+      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
+      style="background-color: #060f1c;"
       aria-label={`Playlist: ${supplementary[0].title}`}
     >
+      {/* Grooves (rotated 20deg on hover) */}
       <div
-        class="absolute -right-1/4 -top-1/4 w-[140%] aspect-square rounded-full transition-transform duration-[2500ms] ease-out motion-safe:group-hover:rotate-[20deg] pointer-events-none"
-        style="background: repeating-radial-gradient(circle at center, transparent 0 7px, rgba(255,255,255,0.06) 7px 8px, transparent 8px 15px, rgba(255,255,255,0.02) 15px 16px);"
+        class="absolute -right-1/4 -top-1/4 w-[160%] aspect-square rounded-full transition-transform duration-[3000ms] ease-out motion-safe:group-hover:rotate-[20deg] pointer-events-none"
+        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(255,255,255,0.10) 5px 6px, transparent 6px 12px, rgba(255,255,255,0.04) 12px 13px);"
         aria-hidden="true"
       ></div>
+      {/* Centre label disc */}
       <div
-        class="absolute right-[18%] top-[18%] w-3 h-3 rounded-full"
+        class="absolute right-[16%] top-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center"
         style={`background: ${accentColour};`}
         aria-hidden="true"
-      ></div>
-      <div class="relative h-full flex flex-col justify-end p-8 lg:p-12">
-        <p class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] text-white/50 mb-5">
+      >
+        <div class="w-2 h-2 rounded-full bg-black"></div>
+      </div>
+
+      {/* A-SIDE micro-label, top-left */}
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white/70">
+            A-side &middot; 33⅓ rpm
+          </p>
+          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/40">
+            ILH&middot;B&middot;01
+          </p>
+        </div>
+      </div>
+
+      {/* Title block — big, bottom-left */}
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
           Playlist 01 &middot; pp. {supplementary[0].pages}
         </p>
-        <h3 class="font-minion text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-white mb-6 max-w-md">
+        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl">
           {supplementary[0].title}
         </h3>
-        <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/50 transition-all duration-500 motion-safe:group-hover:translate-x-2 motion-safe:group-hover:text-white">
-          Listen &rarr;
+        <span class="font-inter text-[11px] uppercase tracking-[0.3em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-500">
+          Listen
+          <span class="inline-block motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:translate-x-2">&rarr;</span>
         </span>
       </div>
     </a>
 
+    {/* B-SIDE — Azorean Blues */}
     <a
       href={supplementary[2].href}
-      class="block group h-[65vh] sm:h-[80vh] relative overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 outline-none"
-      style="background-color: #0f2137;"
+      class="block group h-[75vh] sm:h-[90vh] lg:h-screen relative overflow-hidden focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
+      style="background-color: #0b1a2d;"
       aria-label={`Playlist: ${supplementary[2].title}`}
     >
       <div
-        class="absolute -left-1/4 -bottom-1/4 w-[140%] aspect-square rounded-full transition-transform duration-[2500ms] ease-out motion-safe:group-hover:-rotate-[20deg] pointer-events-none"
-        style="background: repeating-radial-gradient(circle at center, transparent 0 7px, rgba(255,255,255,0.07) 7px 8px, transparent 8px 15px, rgba(255,255,255,0.02) 15px 16px);"
+        class="absolute -left-1/4 -bottom-1/4 w-[160%] aspect-square rounded-full transition-transform duration-[3000ms] ease-out motion-safe:group-hover:-rotate-[20deg] pointer-events-none"
+        style="background: repeating-radial-gradient(circle at center, transparent 0 5px, rgba(255,255,255,0.11) 5px 6px, transparent 6px 12px, rgba(255,255,255,0.05) 12px 13px);"
         aria-hidden="true"
       ></div>
       <div
-        class="absolute left-[18%] bottom-[18%] w-3 h-3 rounded-full"
+        class="absolute left-[16%] bottom-[16%] w-14 h-14 lg:w-20 lg:h-20 rounded-full flex items-center justify-center"
         style={`background: ${accentColour};`}
         aria-hidden="true"
-      ></div>
-      <div class="relative h-full flex flex-col justify-end p-8 lg:p-12">
-        <p class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] text-white/50 mb-5">
+      >
+        <div class="w-2 h-2 rounded-full bg-black"></div>
+      </div>
+
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] text-white/70">
+            B-side &middot; 33⅓ rpm
+          </p>
+          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/40">
+            ILH&middot;B&middot;02
+          </p>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
           Playlist 02 &middot; pp. {supplementary[2].pages}
         </p>
-        <h3 class="font-minion text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-white mb-6 max-w-md">
+        <h3 class="font-minion italic text-4xl sm:text-6xl lg:text-7xl leading-[0.95] text-white mb-6 sm:mb-8 max-w-xl">
           {supplementary[2].title}
         </h3>
-        <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/50 transition-all duration-500 motion-safe:group-hover:translate-x-2 motion-safe:group-hover:text-white">
-          Listen &rarr;
+        <span class="font-inter text-[11px] uppercase tracking-[0.3em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-500">
+          Listen
+          <span class="inline-block motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:translate-x-2">&rarr;</span>
         </span>
       </div>
     </a>
@@ -396,49 +435,114 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       MAP — full-bleed accent blue with ticks + compass
+       MAP — Ruins of the Azores
+       Navy ground, compass rose, coordinate ticks,
+       and all 9 islands stylised as translucent
+       ellipses with italic Minion labels.
        ═══════════════════════════════════════════ -->
   <section class="relative overflow-hidden" style={`background-color: ${accentColour};`}>
-    <div class="h-[55vh] sm:h-[65vh] relative">
+    <div class="relative h-[75vh] sm:h-[85vh] lg:h-screen">
+
+      {/* Coordinate ticks along all four edges */}
       <svg
         class="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 800 400"
+        viewBox="0 0 1200 600"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {Array.from({ length: 20 }, (_, i) => i * 40).map((x) => (
-          <line x1={x} y1="0" x2={x} y2={x % 80 === 0 ? 14 : 8} stroke="rgba(255,255,255,0.2)" stroke-width="0.6" />
+        {Array.from({ length: 30 }, (_, i) => i * 40).map((x) => (
+          <line x1={x} y1="0" x2={x} y2={x % 80 === 0 ? 16 : 9} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
         ))}
-        {Array.from({ length: 20 }, (_, i) => i * 40).map((x) => (
-          <line x1={x} y1="400" x2={x} y2={400 - (x % 80 === 0 ? 14 : 8)} stroke="rgba(255,255,255,0.2)" stroke-width="0.6" />
+        {Array.from({ length: 30 }, (_, i) => i * 40).map((x) => (
+          <line x1={x} y1="600" x2={x} y2={600 - (x % 80 === 0 ? 16 : 9)} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
         ))}
-        {Array.from({ length: 10 }, (_, i) => i * 40).map((y) => (
-          <line x1="0" y1={y} x2={y % 80 === 0 ? 14 : 8} y2={y} stroke="rgba(255,255,255,0.2)" stroke-width="0.6" />
+        {Array.from({ length: 15 }, (_, i) => i * 40).map((y) => (
+          <line x1="0" y1={y} x2={y % 80 === 0 ? 16 : 9} y2={y} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
         ))}
-        {Array.from({ length: 10 }, (_, i) => i * 40).map((y) => (
-          <line x1="800" y1={y} x2={800 - (y % 80 === 0 ? 14 : 8)} y2={y} stroke="rgba(255,255,255,0.2)" stroke-width="0.6" />
+        {Array.from({ length: 15 }, (_, i) => i * 40).map((y) => (
+          <line x1="1200" y1={y} x2={1200 - (y % 80 === 0 ? 16 : 9)} y2={y} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
         ))}
       </svg>
+
+      {/* Nine islands of the Azores — translucent ellipses + italic labels */}
       <svg
-        class="absolute top-8 right-8 lg:top-10 lg:right-10 w-14 h-14 lg:w-20 lg:h-20 opacity-50 pointer-events-none"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 1200 600"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+      >
+        <g>
+          {/* Western group */}
+          <ellipse cx="180" cy="285" rx="11" ry="9" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="180" y="312" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Corvo</text>
+
+          <ellipse cx="200" cy="375" rx="22" ry="16" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="200" y="410" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Flores</text>
+
+          {/* Central group */}
+          <ellipse cx="460" cy="372" rx="18" ry="14" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="460" y="404" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Faial</text>
+
+          <ellipse cx="540" cy="372" rx="36" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="540" y="408" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Pico</text>
+
+          <ellipse cx="580" cy="300" rx="40" ry="10" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" transform="rotate(-25 580 300)" />
+          <text x="615" y="280" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">São Jorge</text>
+
+          <ellipse cx="620" cy="220" rx="14" ry="10" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="620" y="250" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Graciosa</text>
+
+          <ellipse cx="720" cy="295" rx="28" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="720" y="328" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Terceira</text>
+
+          {/* Eastern group */}
+          <ellipse cx="950" cy="350" rx="52" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="950" y="385" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">São Miguel</text>
+
+          <ellipse cx="1080" cy="450" rx="22" ry="14" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
+          <text x="1080" y="480" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Santa Maria</text>
+        </g>
+      </svg>
+
+      {/* Compass rose — larger, top right */}
+      <svg
+        class="absolute top-8 right-8 lg:top-12 lg:right-12 w-16 h-16 lg:w-24 lg:h-24 opacity-70 pointer-events-none"
         viewBox="0 0 40 40"
         fill="none"
         aria-hidden="true"
       >
-        <circle cx="20" cy="20" r="17.5" stroke="white" stroke-width="0.5" />
-        <path d="M20 4 L22 20 L20 36 L18 20 Z" fill="white" fill-opacity="0.6" />
-        <path d="M4 20 L20 18 L36 20 L20 22 Z" fill="white" fill-opacity="0.25" />
-        <text x="20" y="10" text-anchor="middle" fill="white" font-size="4.5" font-family="Cardo, serif">N</text>
+        <circle cx="20" cy="20" r="17.5" stroke="white" stroke-width="0.4" />
+        <circle cx="20" cy="20" r="13" stroke="white" stroke-width="0.2" stroke-opacity="0.5" />
+        <path d="M20 3 L22 20 L20 37 L18 20 Z" fill="white" fill-opacity="0.7" />
+        <path d="M3 20 L20 18 L37 20 L20 22 Z" fill="white" fill-opacity="0.3" />
+        <text x="20" y="9" text-anchor="middle" fill="white" font-size="4" font-family="Minion Pro, Cardo, serif" font-style="italic">N</text>
       </svg>
-      <div class="absolute inset-0">
-        <div class="max-w-6xl mx-auto px-6 h-full flex flex-col justify-end pb-14 lg:pb-20">
-          <p class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] text-white/60 mb-5">
-            Map &middot; pp. {supplementary[3].pages}
+
+      {/* Subtle bottom gradient to anchor the title */}
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0,0,0,0.35) 100%);"
+      ></div>
+
+      {/* Top — eyebrow + page numbers */}
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
+          <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+            Map &middot; 37&deg;N &mdash; 39&deg;N, 25&deg;W &mdash; 31&deg;W
           </p>
-          <h3 class="font-minion text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-white mb-3 max-w-2xl">
+          <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/80">
+            pp. {supplementary[3].pages}
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom — title (mix-blend over navy → warm beige) */}
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
             {supplementary[3].title}
           </h3>
-          <p class="font-minion text-lg italic text-white/60">
+          <p class="font-minion text-base sm:text-lg italic text-white/85">
             By {supplementary[3].contributors}
           </p>
         </div>
@@ -488,81 +592,127 @@ const supplementary = [
 
   <!-- ═══════════════════════════════════════════
        PROSE — full-bleed cream typographic
+       Giant italic Minion quote glyph dominates;
+       pull-line is the centrepiece, title quiet below.
        ═══════════════════════════════════════════ -->
   <section class="relative overflow-hidden" style="background-color: #F6F1E8;">
-    <div class="h-[55vh] sm:h-[65vh] relative">
+    <div class="h-[75vh] sm:h-[85vh] lg:h-screen relative">
+
+      {/* Opening quote glyph — top-left, off-frame */}
       <span
         aria-hidden="true"
-        class="absolute -top-24 -left-8 font-minion italic text-[28rem] sm:text-[36rem] lg:text-[44rem] leading-none select-none pointer-events-none"
-        style={`color: ${accentColour}; opacity: 0.08;`}
+        class="absolute -top-32 sm:-top-44 lg:-top-56 -left-6 sm:-left-12 lg:-left-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
+        style={`color: ${accentColour}; opacity: 0.09;`}
       >&ldquo;</span>
+
+      {/* Closing quote glyph — bottom-right, mirroring */}
+      <span
+        aria-hidden="true"
+        class="absolute -bottom-40 sm:-bottom-56 lg:-bottom-72 -right-6 sm:-right-12 lg:-right-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
+        style={`color: ${accentColour}; opacity: 0.06;`}
+      >&rdquo;</span>
+
+      {/* Top eyebrow */}
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
+          <p
+            class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em]"
+            style={`color: ${accentColour};`}
+          >
+            Prose &middot; A Short Story
+          </p>
+          <p
+            class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em]"
+            style={`color: ${accentColour}; opacity: 0.5;`}
+          >
+            pp. {supplementary[5].pages}
+          </p>
+        </div>
+      </div>
+
+      {/* Pull-line — centre, biggest typographic moment */}
       <div class="relative h-full max-w-6xl mx-auto px-6 flex flex-col justify-center">
         <p
-          class="font-inter text-[11px] font-bold uppercase tracking-[0.3em] mb-6"
-          style={`color: ${accentColour}; opacity: 0.7;`}
-        >
-          Prose &middot; pp. {supplementary[5].pages}
-        </p>
-        <p
-          class="font-minion italic text-3xl sm:text-4xl lg:text-5xl leading-[1.3] mb-10 max-w-3xl"
+          class="font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[1.15] max-w-5xl"
           style={`color: ${accentColour};`}
         >
           A short story of unravelling in water.
         </p>
-        <h3 class="font-minion text-2xl sm:text-3xl text-gray-900 mb-3 max-w-2xl">
-          {supplementary[5].title.split('—')[0].trim()}
-        </h3>
-        <p class="font-minion text-lg italic text-gray-500">
-          By {supplementary[5].contributors}
-        </p>
+      </div>
+
+      {/* Bottom — title + byline */}
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+          <h3
+            class="font-minion italic text-xl sm:text-2xl leading-tight max-w-2xl"
+            style={`color: ${accentColour};`}
+          >
+            {supplementary[5].title.split('—')[0].trim()}
+          </h3>
+          <p class="font-minion text-base italic text-gray-500">
+            By {supplementary[5].contributors}
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
 
   <!-- ═══════════════════════════════════════════
-       PREVIOUSLY — AZORES (sold out, no link)
+       PREVIOUSLY — AZORES (sold out, no subpage link)
+       Forest-green archive moment. Cover floats and
+       rotates on hover; "Sold Out" postmark stamp.
        ═══════════════════════════════════════════ -->
   {previousIssue && (
-    <section class="bg-stone-50 border-t border-gray-100">
-      <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28">
-        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+    <section class="relative overflow-hidden group" style="background-color: #2D5F3E;">
+      <div class="relative h-[70vh] sm:h-[80vh] lg:h-[85vh]">
 
-          <!-- Cover with sold-out tag -->
-          <div class="lg:col-span-4 flex justify-center lg:justify-start">
-            <div class="relative max-w-[260px] w-full">
-              <Image
-                src={coverIssueA}
-                alt="Cover of Ilhéu Magazine: Azores — sold out"
-                class="w-full shadow-lg grayscale opacity-90"
-                widths={[260, 400, 520]}
-                sizes="260px"
-              />
-              <div class="absolute top-3 left-3 bg-gray-900 text-white font-inter text-[10px] uppercase tracking-[0.25em] px-3 py-1.5">
-                Sold Out
+        {/* Cover floats on the right — grayscale, slight rotation, sold-out stamp */}
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[55%] sm:w-[42%] lg:w-[30%] -mr-[8%] sm:-mr-[2%] lg:mr-[8%] pointer-events-none">
+          <div class="relative -rotate-6 motion-safe:transition-transform motion-safe:duration-[1500ms] motion-safe:ease-out motion-safe:group-hover:-rotate-3">
+            <Image
+              src={coverIssueA}
+              alt="Cover of Ilhéu Magazine: Azores — sold out"
+              class="w-full shadow-2xl grayscale opacity-75"
+              widths={[400, 600, 800]}
+              sizes="(max-width: 768px) 55vw, 32vw"
+            />
+            {/* Postmark-style sold-out stamp */}
+            <div class="absolute -top-3 -left-5 sm:-left-8 lg:-left-10 rotate-[-12deg]">
+              <div class="border-2 border-white/70 px-4 py-1.5 sm:px-6 sm:py-2 bg-white/10 backdrop-blur-sm">
+                <span class="font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.35em] text-white">
+                  Sold Out
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Text -->
-          <div class="lg:col-span-8">
-            <p class="font-inter text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400 mb-5">
-              Previous Issue
+        {/* Top eyebrow */}
+        <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+          <div class="max-w-6xl mx-auto">
+            <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white/80">
+              Previously &middot; Issue A &middot; 2024
             </p>
-            <h2 class="font-minion italic text-5xl sm:text-6xl lg:text-7xl leading-[1.0] text-gray-900 mb-6">
+          </div>
+        </div>
+
+        {/* Bottom-left — "Azores" huge, with mix-blend on the green */}
+        <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="font-minion italic text-7xl sm:text-9xl lg:text-[14rem] leading-[0.9] text-white mb-6 sm:mb-8 mix-blend-difference">
               Azores
             </h2>
-            <p class="font-minion text-lg text-gray-500 italic leading-relaxed max-w-xl mb-6">
-              The first issue &mdash; Island of Origins. 128 pages on S&atilde;o Miguel, sold out in print. With Hugo Gon&ccedil;ales, Pedro Borges, and Hun-Chung Lee.
+            <p class="font-minion italic text-base sm:text-lg text-white/85 leading-relaxed max-w-md mb-5">
+              Island of Origins. 128 pages on S&atilde;o Miguel. Hugo Gon&ccedil;ales, Pedro Borges, Hun-Chung Lee.
             </p>
             <a
               href="mailto:contact@ilheumagazine.com?subject=Back%20issue%20enquiry"
-              class="font-inter text-[11px] uppercase tracking-[0.25em] text-gray-500 underline underline-offset-4 decoration-gray-300 hover:text-gray-900 hover:decoration-gray-500 transition-colors duration-300"
+              class="font-inter text-[11px] uppercase tracking-[0.3em] text-white/70 underline underline-offset-4 decoration-white/30 hover:text-white hover:decoration-white transition-colors duration-300"
             >
               Back-issue enquiries &rarr;
             </a>
           </div>
-
         </div>
       </div>
     </section>
@@ -570,30 +720,31 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       BUY CTA
+       BUY CTA — final crescendo on accent navy
        ═══════════════════════════════════════════ -->
-  <section class="border-t border-gray-100">
-    <div class="max-w-2xl mx-auto px-6 py-24 lg:py-32 text-center">
-      <p class="font-inter text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
+  <section class="relative overflow-hidden" style={`background-color: ${accentColour};`}>
+    <div class="relative max-w-3xl mx-auto px-6 py-24 sm:py-32 lg:py-40 text-center">
+      <p class="font-inter text-[11px] uppercase tracking-[0.3em] text-white/60 mb-6 sm:mb-8">
         Limited Print Edition
       </p>
-      <h2 class="font-minion text-3xl sm:text-4xl text-gray-900 mb-4">
+      <h2 class="font-minion italic text-5xl sm:text-7xl lg:text-9xl text-white mb-10 leading-[0.95]">
         Get your copy
       </h2>
-      <p class="font-inter text-base text-gray-500 leading-relaxed mb-10 max-w-md mx-auto">
-        128 pages of conversations, photography, prose, maps and comics. Printed on Munken Pure 100g at Nova Grafica, Sao Miguel.
+      <p class="font-minion text-base sm:text-lg text-white/75 italic leading-relaxed mb-12 max-w-lg mx-auto">
+        128 pages of conversations, photography, prose, maps and comics. Printed on Munken Pure 100g at Nova Gr&aacute;fica, S&atilde;o Miguel.
       </p>
-      <p class="font-minion text-2xl text-gray-900 mb-2">&euro;15</p>
-      <p class="font-inter text-sm text-gray-400 mb-8">+ shipping</p>
+      <div class="flex items-baseline justify-center gap-3 mb-10">
+        <p class="font-minion text-4xl sm:text-5xl text-white">&euro;15</p>
+        <p class="font-inter text-xs uppercase tracking-[0.25em] text-white/50">+ shipping</p>
+      </div>
       <a
         href={purchaseUrl}
-        class="inline-block text-white font-inter text-xs uppercase tracking-[0.2em] px-14 py-4 hover:opacity-90 transition-opacity duration-300"
-        style={`background-color: ${accentColour}`}
+        class="inline-block bg-white text-gray-900 font-inter text-xs uppercase tracking-[0.3em] px-16 py-5 hover:bg-gray-100 transition-colors duration-300"
       >
         Buy Issue B
       </a>
-      <p class="font-inter text-xs text-gray-400 mt-6">
-        Worldwide shipping available. Secure checkout via Stripe.
+      <p class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/50 mt-8">
+        Worldwide shipping &middot; Secure checkout via Stripe
       </p>
     </div>
   </section>
