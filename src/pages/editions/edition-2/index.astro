@@ -8,7 +8,7 @@ import coverImage from '../../../assets/images/00-covers/front-cover-full-page.p
 import coverIssueA from '../../../assets/images/00-covers/cover-issue-a.png';
 
 // Contents images
-import imgDacosta from '../../../assets/images/01-antonio-dacosta-conversation/arlete-alves-da-silva-with-dacosta-paintings.jpg';
+import imgDacosta from '../../../assets/images/01-antonio-dacosta-conversation/dacosta-eyelids.jpg';
 import imgDacostaEssay from '../../../assets/images/06-dacosta-picture-essay-artworks/dacosta-memory-v-1982-acrylic-collage-wax-crayon.jpg';
 import imgLeila from '../../../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-golden-light-blue-shirt.jpg';
 import imgRomeu from '../../../assets/images/03-azorean-blues-conversation/romeu-bairos-portrait-with-viola-da-terra.jpg';
@@ -35,7 +35,7 @@ const conversations = [
     contributors: 'Urbano Resendes, Arlete Alves da Silva',
     pages: '12–25',
     image: imgDacosta,
-    alt: 'Arlete Alves da Silva with António Dacosta paintings at Galeria 111',
+    alt: 'António Dacosta, eyelids — detail',
     href: '/conversations/dacosta',
   },
   {
@@ -71,6 +71,7 @@ const conversations = [
     contributors: 'Adriano Quintela, Bernardo Brito e Abreu',
     pages: '100–111',
     image: imgBlueAzores,
+    videoSrc: '/videos/blue-jellyfish.mp4',
     alt: 'Blue Azores jellyfish underwater, photograph by Nelson Raposo',
     href: '/conversations/blue-azores',
   },
@@ -139,6 +140,24 @@ const supplementary = [
         </div>
 
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PURE BLUE ILHÉU — title slate
+       Magazine title-page moment after the cover.
+       ═══════════════════════════════════════════ -->
+  <section class="bg-white py-20 sm:py-28 lg:py-36 border-y border-gray-100">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
+      <img
+        src="/images/ilheu-logo-pure-blue.png"
+        alt="Ilhéu — Pure Blue"
+        class="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl mb-8 sm:mb-10"
+      />
+      <p class="font-inter text-[11px] sm:text-xs uppercase tracking-[0.35em] text-gray-400">
+        Issue B &middot; Spring 2026
+      </p>
     </div>
   </section>
 
@@ -230,13 +249,27 @@ const supplementary = [
         class="block group relative bg-gray-900 focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
       >
         <div class="relative h-[85vh] sm:h-[90vh] lg:h-screen overflow-hidden">
-          <Image
-            src={item.image}
-            alt={item.alt}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
-            widths={[800, 1200, 1800, 2400]}
-            sizes="100vw"
-          />
+          {item.videoSrc ? (
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster={item.image.src}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
+            >
+              <source src={item.videoSrc} type="video/mp4" />
+            </video>
+          ) : (
+            <Image
+              src={item.image}
+              alt={item.alt}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
+              widths={[800, 1200, 1800, 2400]}
+              sizes="100vw"
+            />
+          )}
 
           {/* Subtle gradient — top + bottom — to keep small meta legible */}
           <div
@@ -619,29 +652,44 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       PROSE — full-bleed cream typographic
-       Giant italic Minion quote glyph dominates;
-       pull-line is the centrepiece, title quiet below.
+       PROSE — bedtime-story video background
+       Cream tile, quote glyph watermarks,
+       autoplay/loop video behind the type.
        ═══════════════════════════════════════════ -->
-  <section class="relative overflow-hidden" style="background-color: #F6F1E8;">
+  <section class="relative overflow-hidden bg-gray-900">
     <div class="h-[75vh] sm:h-[85vh] lg:h-screen relative">
+
+      {/* Autoplay looping background video */}
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/bedtime-story.mp4" type="video/mp4" />
+      </video>
+
+      {/* Cream-tinted overlay so the page reads as a "prose" (cream) tile */}
+      <div class="absolute inset-0 pointer-events-none" style="background-color: rgba(246, 241, 232, 0.78);"></div>
 
       {/* Opening quote glyph — top-left, off-frame */}
       <span
         aria-hidden="true"
         class="absolute -top-32 sm:-top-44 lg:-top-56 -left-6 sm:-left-12 lg:-left-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
-        style={`color: ${accentColour}; opacity: 0.09;`}
+        style={`color: ${accentColour}; opacity: 0.14;`}
       >&ldquo;</span>
 
       {/* Closing quote glyph — bottom-right, mirroring */}
       <span
         aria-hidden="true"
         class="absolute -bottom-40 sm:-bottom-56 lg:-bottom-72 -right-6 sm:-right-12 lg:-right-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
-        style={`color: ${accentColour}; opacity: 0.06;`}
+        style={`color: ${accentColour}; opacity: 0.09;`}
       >&rdquo;</span>
 
       {/* Top eyebrow */}
-      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+      <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14 z-10">
         <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
           <p
             class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em]"
@@ -659,7 +707,7 @@ const supplementary = [
       </div>
 
       {/* Pull-line — centre, biggest typographic moment */}
-      <div class="relative h-full max-w-6xl mx-auto px-6 flex flex-col justify-center">
+      <div class="relative h-full max-w-6xl mx-auto px-6 flex flex-col justify-center z-10">
         <p
           class="font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[1.15] max-w-5xl"
           style={`color: ${accentColour};`}
@@ -669,7 +717,7 @@ const supplementary = [
       </div>
 
       {/* Bottom — title + byline */}
-      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+      <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14 z-10">
         <div class="max-w-6xl mx-auto flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
           <h3
             class="font-minion italic text-xl sm:text-2xl leading-tight max-w-2xl"
