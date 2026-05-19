@@ -27,12 +27,17 @@ const isDark = variant === 'dark';
 
       <a
         href="/"
-        class:list={[
-          'font-cardo text-xl tracking-[0.15em] uppercase transition-colors duration-300',
-          isDark ? 'text-white/90 hover:text-white' : 'text-gray-900 hover:text-gray-500',
-        ]}
+        class="block transition-opacity duration-300 hover:opacity-70"
+        aria-label="Ilh&eacute;u Magazine — home"
       >
-        Ilh&eacute;u
+        <img
+          src="/images/ilheu-logo-pure-blue.png"
+          alt="Ilh&eacute;u — Pure Blue"
+          class:list={[
+            'h-8 md:h-10 w-auto',
+            isDark && 'brightness-0 invert',
+          ]}
+        />
       </a>
 
       <nav class="hidden md:flex items-center gap-10">
@@ -87,7 +92,13 @@ const isDark = variant === 'dark';
     </svg>
   </button>
 
-  <a href="/" class="font-cardo text-2xl tracking-[0.15em] uppercase text-gray-900 mb-4">Ilh&eacute;u</a>
+  <a href="/" class="block mb-4" aria-label="Ilh&eacute;u Magazine — home">
+    <img
+      src="/images/ilheu-logo-pure-blue.png"
+      alt="Ilh&eacute;u — Pure Blue"
+      class="h-12 w-auto"
+    />
+  </a>
 
   {navItems.map((item) => (
     <a
