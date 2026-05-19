@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+@plugin "@tailwindcss/typography";
 
 @font-face {
   font-family: 'Minion Pro';
