@@ -271,10 +271,10 @@ const supplementary = [
             />
           )}
 
-          {/* Subtle gradient — top + bottom — to keep small meta legible */}
+          {/* Top gradient only — keeps the eyebrow legible */}
           <div
-            class="absolute inset-0 pointer-events-none transition-opacity duration-[1200ms] motion-safe:group-hover:opacity-90"
-            style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
+            class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 28%);"
           ></div>
 
           {/* Top — eyebrow + page numbers */}
@@ -289,21 +289,25 @@ const supplementary = [
             </div>
           </div>
 
-          {/* Bottom — title (mix-blend-difference), contributors, read CTA */}
+          {/* Bottom — highlighter-style title (per-line backdrop only) */}
           <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
             <div class="max-w-6xl mx-auto">
-              <h3
-                class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference motion-safe:transition-transform motion-safe:duration-[1000ms] motion-safe:group-hover:-translate-y-1"
-              >
-                {item.title}
+              <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[8rem] leading-[1.15] text-white mb-5 sm:mb-7 max-w-5xl">
+                <span class="bg-black/45 backdrop-blur-md box-decoration-clone px-2 sm:px-3 lg:px-4 py-0.5 sm:py-1 motion-safe:transition-all motion-safe:duration-[600ms] motion-safe:group-hover:bg-black/55">
+                  {item.title}
+                </span>
               </h3>
-              <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 max-w-5xl">
-                <p class="font-minion text-base sm:text-lg italic text-white/85">
-                  With {item.contributors}
+              <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2 max-w-5xl">
+                <p class="font-minion text-base sm:text-lg italic text-white">
+                  <span class="bg-black/45 backdrop-blur-md box-decoration-clone px-2 py-0.5">
+                    With {item.contributors}
+                  </span>
                 </p>
-                <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-[600ms]">
-                  Read the conversation
-                  <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
+                <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white">
+                  <span class="inline-flex items-center gap-2 bg-black/45 backdrop-blur-md box-decoration-clone px-2 py-0.5">
+                    Read the conversation
+                    <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
+                  </span>
                 </span>
               </div>
             </div>
