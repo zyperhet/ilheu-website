@@ -613,17 +613,21 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       COMIC STRIP — full-bleed, mix-blend title
+       COMIC STRIP — full-bleed bedtime-story video
        ═══════════════════════════════════════════ -->
   <section class="relative bg-gray-900 group">
     <div class="relative h-[60vh] sm:h-[75vh] lg:h-[85vh] overflow-hidden">
-      <Image
-        src={supplementary[4].image!}
-        alt={supplementary[4].alt!}
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster={supplementary[4].image!.src}
         class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
-        widths={[1200, 1800, 2400]}
-        sizes="100vw"
-      />
+      >
+        <source src="/videos/bedtime-story.mp4" type="video/mp4" />
+      </video>
       <div
         class="absolute inset-0 pointer-events-none"
         style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
@@ -652,40 +656,24 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       PROSE — bedtime-story video background
-       Cream tile, quote glyph watermarks,
-       autoplay/loop video behind the type.
+       PROSE — full-bleed cream typographic
+       Giant italic quote glyphs as watermarks.
        ═══════════════════════════════════════════ -->
-  <section class="relative overflow-hidden bg-gray-900">
+  <section class="relative overflow-hidden" style="background-color: #F6F1E8;">
     <div class="h-[75vh] sm:h-[85vh] lg:h-screen relative">
-
-      {/* Autoplay looping background video */}
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/videos/bedtime-story.mp4" type="video/mp4" />
-      </video>
-
-      {/* Cream-tinted overlay so the page reads as a "prose" (cream) tile */}
-      <div class="absolute inset-0 pointer-events-none" style="background-color: rgba(246, 241, 232, 0.78);"></div>
 
       {/* Opening quote glyph — top-left, off-frame */}
       <span
         aria-hidden="true"
         class="absolute -top-32 sm:-top-44 lg:-top-56 -left-6 sm:-left-12 lg:-left-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
-        style={`color: ${accentColour}; opacity: 0.14;`}
+        style={`color: ${accentColour}; opacity: 0.09;`}
       >&ldquo;</span>
 
       {/* Closing quote glyph — bottom-right, mirroring */}
       <span
         aria-hidden="true"
         class="absolute -bottom-40 sm:-bottom-56 lg:-bottom-72 -right-6 sm:-right-12 lg:-right-16 font-minion italic text-[28rem] sm:text-[44rem] lg:text-[60rem] leading-none select-none pointer-events-none"
-        style={`color: ${accentColour}; opacity: 0.09;`}
+        style={`color: ${accentColour}; opacity: 0.06;`}
       >&rdquo;</span>
 
       {/* Top eyebrow */}
