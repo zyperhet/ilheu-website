@@ -1,6 +1,8 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
 @plugin "@tailwindcss/typography";
+
+/* Cardo + Inter are loaded via <link rel="stylesheet"> in BaseLayout.astro
+   so they don't end up as an out-of-order @import in the compiled CSS. */
 
 @font-face {
   font-family: 'Minion Pro';
