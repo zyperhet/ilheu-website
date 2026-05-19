@@ -290,8 +290,8 @@ const supplementary = [
             </div>
           </div>
 
-          {/* Bottom — title (mix-blend-difference, same as Picture Essay) */}
-          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+          {/* Bottom — title (mix-blend-difference, fades in/out at viewport centre) */}
+          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14 scroll-fade-center">
             <div class="max-w-6xl mx-auto">
               <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
                 {item.title}
@@ -864,6 +864,31 @@ const supplementary = [
       .funky-marker {
         animation: none !important;
         background-size: 100% 100% !important;
+      }
+    }
+
+    /* Scroll-driven fade — title peaks when its section is centred
+       in the viewport, fades out as the section leaves either edge. */
+    @supports (animation-timeline: view()) {
+      .scroll-fade-center {
+        opacity: 0;
+        animation: scroll-fade-center linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes scroll-fade-center {
+        0%   { opacity: 0; transform: translateY(40px); }
+        35%  { opacity: 1; transform: translateY(0); }
+        65%  { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-40px); }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-fade-center {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
       }
     }
   </style>
