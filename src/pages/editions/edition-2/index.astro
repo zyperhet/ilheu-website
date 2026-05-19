@@ -246,9 +246,10 @@ const supplementary = [
     return (
       <a
         href={item.href}
-        class="block group relative bg-gray-900 focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
+        class="block group relative bg-black focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
       >
         <div class="relative h-[85vh] sm:h-[90vh] lg:h-screen overflow-hidden">
+          {/* Atmospheric backdrop — image/video dimmed so the title-as-image pops */}
           {item.videoSrc ? (
             <video
               autoplay
@@ -257,7 +258,7 @@ const supplementary = [
               playsinline
               preload="metadata"
               poster={item.image.src}
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
+              class="absolute inset-0 w-full h-full object-cover opacity-25 motion-safe:transition-opacity motion-safe:duration-[1500ms] motion-safe:group-hover:opacity-40"
             >
               <source src={item.videoSrc} type="video/mp4" />
             </video>
@@ -265,51 +266,44 @@ const supplementary = [
             <Image
               src={item.image}
               alt={item.alt}
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.07]"
+              class="absolute inset-0 w-full h-full object-cover opacity-25 motion-safe:transition-opacity motion-safe:duration-[1500ms] motion-safe:group-hover:opacity-40"
               widths={[800, 1200, 1800, 2400]}
               sizes="100vw"
             />
           )}
 
-          {/* Top gradient only — keeps the eyebrow legible */}
-          <div
-            class="absolute inset-0 pointer-events-none"
-            style="background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 28%);"
-          ></div>
-
-          {/* Top — eyebrow + page numbers */}
-          <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
+          {/* Top eyebrow */}
+          <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14 z-10">
             <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
               <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
                 {item.category} &middot; Conversation {num}
               </p>
-              <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/80">
+              <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/70">
                 pp. {item.pages}
               </p>
             </div>
           </div>
 
-          {/* Bottom — highlighter-style title (per-line backdrop only) */}
-          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14">
-            <div class="max-w-6xl mx-auto">
-              <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[8rem] leading-[1.15] text-white mb-5 sm:mb-7 max-w-5xl">
-                <span class="funky-marker backdrop-blur-md box-decoration-clone px-2 sm:px-3 lg:px-4 py-0.5 sm:py-1 motion-safe:transition-all motion-safe:duration-[600ms] motion-safe:group-hover:bg-black/55">
-                  {item.title}
-                </span>
-              </h3>
-              <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2 max-w-5xl">
-                <p class="font-minion text-base sm:text-lg italic text-white">
-                  <span class="funky-marker backdrop-blur-md box-decoration-clone px-2 py-0.5">
-                    With {item.contributors}
-                  </span>
-                </p>
-                <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white">
-                  <span class="inline-flex items-center gap-2 funky-marker backdrop-blur-md box-decoration-clone px-2 py-0.5">
-                    Read the conversation
-                    <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
-                  </span>
-                </span>
-              </div>
+          {/* TITLE AS IMAGE — letters reveal the photograph through their shapes */}
+          <div class="relative h-full flex items-center px-4 sm:px-8 lg:px-12 z-10">
+            <h3
+              class="font-minion italic font-bold leading-[0.88] tracking-tight text-[5rem] sm:text-[10rem] lg:text-[15rem] max-w-full text-transparent motion-safe:transition-transform motion-safe:duration-[1200ms] motion-safe:group-hover:scale-[1.02]"
+              style={`background-image: url(${item.image.src}); background-size: 220% auto; background-position: 50% 35%; -webkit-background-clip: text; background-clip: text;`}
+            >
+              {item.title}
+            </h3>
+          </div>
+
+          {/* Bottom meta */}
+          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14 z-10">
+            <div class="max-w-6xl mx-auto flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+              <p class="font-minion text-base sm:text-lg italic text-white/90">
+                With {item.contributors}
+              </p>
+              <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-[600ms]">
+                Read the conversation
+                <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
+              </span>
             </div>
           </div>
         </div>
