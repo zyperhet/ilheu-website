@@ -309,12 +309,20 @@ const supplementary = [
           {/* Bottom — title (mix-blend-difference, fades in/out at viewport centre) */}
           <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14 scroll-fade-center">
             <div class="max-w-6xl mx-auto">
-              <h3
-                class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] mb-6 sm:mb-8 max-w-5xl"
-                style="color: #F6F1E8; text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 6px 28px rgba(0,0,0,0.55);"
-              >
-                {item.title}
-              </h3>
+              {/* Cream + text-shadow for Dacosta and Pool (low-contrast photos);
+                  mix-blend-difference for the rest (their photos read fine). */}
+              {(item.href === '/conversations/dacosta' || item.href === '/conversations/pool') ? (
+                <h3
+                  class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] mb-6 sm:mb-8 max-w-5xl"
+                  style="color: #F6F1E8; text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 6px 28px rgba(0,0,0,0.55);"
+                >
+                  {item.title}
+                </h3>
+              ) : (
+                <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
+                  {item.title}
+                </h3>
+              )}
               <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 max-w-5xl">
                 <p class="font-minion text-base sm:text-lg italic text-white/85">
                   With {item.contributors}
