@@ -1,0 +1,108 @@
+---
+import '../styles/global.css';
+import { getEntry } from 'astro:content';
+
+const edition = await getEntry('editions', 'edition-2');
+const buyUrl = edition?.data.purchase_url;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Ilhéu — conversations from the Atlantic." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Ilhéu Magazine</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+
+    <div class="min-h-dvh flex flex-col items-center justify-center px-6">
+
+      <!-- Brand -->
+      <header class="mb-20 text-center">
+        <h1 class="font-cardo text-4xl sm:text-5xl tracking-[0.2em] uppercase text-gray-900">
+          Ilhéu
+        </h1>
+        <p class="font-cardo text-lg sm:text-xl italic mt-5" style="color: #1B3A5C;">
+          Conversations from the Atlantic
+        </p>
+      </header>
+
+      <!-- Upcoming -->
+      <p class="font-inter text-[11px] tracking-[0.25em] uppercase text-gray-400 mb-10">
+        Issue B&ensp;·&ensp;The Colour Blue
+      </p>
+
+      <!-- Primary CTA: Buy Issue B -->
+      {buyUrl && (
+        <a
+          href={buyUrl}
+          class="inline-block text-white font-inter text-xs uppercase tracking-[0.25em] px-12 py-4 mb-20 hover:opacity-90 transition-opacity duration-300"
+          style="background-color: #1B3A5C;"
+        >
+          Buy Issue B
+        </a>
+      )}
+
+      <!-- Secondary actions -->
+      <nav class="flex flex-col items-center gap-6">
+        <a
+          href="https://www.instagram.com/ilheumagazine"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300"
+        >
+          Follow
+        </a>
+
+        <a
+          href="mailto:contact@ilheumagazine.com"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300"
+        >
+          Write to us
+        </a>
+
+        <button
+          id="share-btn"
+          type="button"
+          class="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-300 cursor-pointer"
+        >
+          Spread the word
+        </button>
+      </nav>
+
+      <!-- Stockist / distributor -->
+      <p class="mt-24 font-inter text-[10px] tracking-widest uppercase text-gray-300">
+        <a
+          href="mailto:contact@ilheumagazine.com?subject=Distribution%20enquiry"
+          class="hover:text-gray-500 transition-colors duration-300"
+        >
+          Stockist &amp; distribution enquiries
+        </a>
+      </p>
+
+    </div>
+
+    <script>
+      const btn = document.getElementById('share-btn');
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          const data = {
+            title: 'Ilhéu Magazine',
+            text: 'Conversations from the Atlantic.',
+            url: window.location.href,
+          };
+          if (navigator.share) {
+            try { await navigator.share(data); } catch {}
+          } else {
+            await navigator.clipboard.writeText(window.location.href);
+            btn.textContent = 'Link copied';
+            setTimeout(() => { btn.textContent = 'Spread the word'; }, 2000);
+          }
+        });
+      }
+    </script>
+
+  </body>
+</html>

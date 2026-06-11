@@ -16,6 +16,7 @@
     "@astrojs/mdx": "^4.3.13",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^5.18.0",
+    "lightningcss": "^1.32.0",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {

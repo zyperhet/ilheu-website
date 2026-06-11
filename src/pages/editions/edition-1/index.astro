@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import coverIssueA from '../../../assets/images/00-covers/cover-issue-a.png';
+
+const archiveGreen = '#2D5F3E';
+---
+
+<BaseLayout
+  title="Issue A: São Miguel — Ilhéu Magazine"
+  description="Issue A of Ilhéu Magazine — São Miguel: Island of Origins. Content coming soon."
+  fullBleed={true}
+>
+  <section
+    class="relative min-h-screen flex items-center overflow-hidden"
+    style={`background-color: ${archiveGreen};`}
+  >
+    <div class="max-w-5xl mx-auto px-6 py-24 lg:py-32 w-full">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-20 lg:items-center">
+
+        {/* Cover */}
+        <div class="lg:col-span-7 flex justify-center lg:justify-start mb-14 lg:mb-0">
+          <div class="relative max-w-xs sm:max-w-sm lg:max-w-md -rotate-3">
+            <Image
+              src={coverIssueA}
+              alt="Cover of Ilhéu Magazine Issue A: São Miguel"
+              class="w-full shadow-2xl"
+              widths={[400, 600, 800]}
+              sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, 480px"
+            />
+          </div>
+        </div>
+
+        {/* Text */}
+        <div class="lg:col-span-5 text-center lg:text-left">
+          <p class="font-inter text-[11px] uppercase tracking-[0.3em] text-white/60 mb-8">
+            Issue A &middot; 2024
+          </p>
+          <h1 class="font-minion italic text-5xl sm:text-6xl lg:text-7xl leading-[1.0] text-white mb-6">
+            São Miguel
+          </h1>
+          <p class="font-minion italic text-lg sm:text-xl text-white/85 leading-relaxed max-w-sm mx-auto lg:mx-0 mb-12">
+            Island of Origins. 128 pages on São Miguel.
+          </p>
+
+          <p class="inline-block border border-white/40 px-5 py-2.5 font-inter text-[11px] uppercase tracking-[0.3em] text-white/80 mb-12">
+            Content coming soon
+          </p>
+
+          <p class="font-inter text-[11px] uppercase tracking-[0.25em] text-white/55">
+            <a
+              href="mailto:contact@ilheumagazine.com?subject=Back%20issue%20enquiry"
+              class="underline underline-offset-4 decoration-white/30 hover:text-white hover:decoration-white transition-colors duration-300"
+            >
+              Back-issue enquiries &rarr;
+            </a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

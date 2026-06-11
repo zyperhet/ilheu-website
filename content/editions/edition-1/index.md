@@ -5,7 +5,6 @@ theme: "Island of Origins"
 release_date: 2024-06-01
 status: archive
 accent_colour: "#2D5F3E"
-purchase_url: "https://buy.stripe.com/test_14AfZabUn9opgLmavC7IY00"
 contributors:
   - hugo-goncales
   - pedro-borges

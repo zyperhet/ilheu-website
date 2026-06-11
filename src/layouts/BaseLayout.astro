@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   navVariant?: 'light' | 'dark';
   fullBleed?: boolean;
+  ogImage?: string;
 }
 
 const {
@@ -15,7 +16,12 @@ const {
   description = 'Ilhéu is a biannual literary and cultural magazine from the Azores.',
   navVariant = 'light',
   fullBleed = false,
+  ogImage = '/images/ilheu-logo-pure-blue.png',
 } = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://ilheumagazine.com';
+const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---
 
 <!doctype html>
@@ -24,6 +30,7 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,6 +38,21 @@ const {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap"
     />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ilhéu Magazine" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <title>{title}</title>
   </head>
   <body class="font-inter text-gray-900 bg-white antialiased overflow-x-hidden">

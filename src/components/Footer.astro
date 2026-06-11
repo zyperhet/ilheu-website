@@ -6,6 +6,23 @@ const currentYear = new Date().getFullYear();
   <div class="max-w-5xl mx-auto px-4 py-8 text-center">
     <p class="font-cardo text-lg tracking-widest uppercase text-gray-900">Ilhéu</p>
     <p class="text-sm text-gray-500 mt-1">A biannual magazine from the Azores</p>
-    <p class="text-xs text-gray-400 mt-4">&copy; {currentYear} Ilhéu Magazine. All rights reserved.</p>
+    <nav class="mt-5 flex items-center justify-center gap-6 font-inter text-[11px] tracking-[0.2em] uppercase">
+      <a
+        href="https://www.instagram.com/ilheumagazine"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-500 hover:text-gray-900 transition-colors duration-300"
+      >
+        Instagram
+      </a>
+      <span aria-hidden="true" class="text-gray-300">·</span>
+      <a
+        href="mailto:contact@ilheumagazine.com"
+        class="text-gray-500 hover:text-gray-900 transition-colors duration-300"
+      >
+        Contact
+      </a>
+    </nav>
+    <p class="text-xs text-gray-400 mt-5">&copy; {currentYear} Ilhéu Magazine. All rights reserved.</p>
   </div>
 </footer>
