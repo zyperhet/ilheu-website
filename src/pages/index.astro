@@ -20,6 +20,9 @@ import imgComic from '../assets/images/10-comic-strip/comic-strip-sara-azad-pont
 import imgPlaylistSoundOfBlue from '../assets/images/03-azorean-blues-conversation/azores-landscape-opa-collective-playlist.jpg';
 import imgPlaylistAzoreanBlues from '../assets/images/03-azorean-blues-conversation/romeu-bairos-viola-da-terra-close-up.jpg';
 
+// Map background
+import imgMapRuins from '../assets/images/misc/ilheu-map-ruins-clean.png';
+
 const edition = await getEntry('editions', 'edition-2');
 const purchaseUrl = edition?.data.purchase_url ?? '#';
 const accentColour = '#1B3A5C';
@@ -619,87 +622,18 @@ const supplementary = [
 
   <!-- ═══════════════════════════════════════════
        MAP — Ruins of the Azores
-       Navy ground, compass rose, coordinate ticks,
-       and all 9 islands stylised as translucent
-       ellipses with italic Minion labels.
+       Full-bleed designed map graphic on navy.
        ═══════════════════════════════════════════ -->
   <section class="relative overflow-hidden" style={`background-color: ${accentColour};`}>
     <div class="relative h-[75vh] sm:h-[85vh] lg:h-screen">
 
-      {/* Coordinate ticks along all four edges */}
-      <svg
-        class="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 1200 600"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {Array.from({ length: 30 }, (_, i) => i * 40).map((x) => (
-          <line x1={x} y1="0" x2={x} y2={x % 80 === 0 ? 16 : 9} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
-        ))}
-        {Array.from({ length: 30 }, (_, i) => i * 40).map((x) => (
-          <line x1={x} y1="600" x2={x} y2={600 - (x % 80 === 0 ? 16 : 9)} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
-        ))}
-        {Array.from({ length: 15 }, (_, i) => i * 40).map((y) => (
-          <line x1="0" y1={y} x2={y % 80 === 0 ? 16 : 9} y2={y} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
-        ))}
-        {Array.from({ length: 15 }, (_, i) => i * 40).map((y) => (
-          <line x1="1200" y1={y} x2={1200 - (y % 80 === 0 ? 16 : 9)} y2={y} stroke="rgba(255,255,255,0.22)" stroke-width="0.6" />
-        ))}
-      </svg>
-
-      {/* Nine islands of the Azores — translucent ellipses + italic labels */}
-      <svg
-        class="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 1200 600"
-        preserveAspectRatio="xMidYMid meet"
-        aria-hidden="true"
-      >
-        <g>
-          {/* Western group */}
-          <ellipse cx="180" cy="285" rx="11" ry="9" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="180" y="312" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Corvo</text>
-
-          <ellipse cx="200" cy="375" rx="22" ry="16" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="200" y="410" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Flores</text>
-
-          {/* Central group */}
-          <ellipse cx="460" cy="372" rx="18" ry="14" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="460" y="404" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Faial</text>
-
-          <ellipse cx="540" cy="372" rx="36" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="540" y="408" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Pico</text>
-
-          <ellipse cx="580" cy="300" rx="40" ry="10" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" transform="rotate(-25 580 300)" />
-          <text x="615" y="280" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">São Jorge</text>
-
-          <ellipse cx="620" cy="220" rx="14" ry="10" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="620" y="250" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Graciosa</text>
-
-          <ellipse cx="720" cy="295" rx="28" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="720" y="328" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Terceira</text>
-
-          {/* Eastern group */}
-          <ellipse cx="950" cy="350" rx="52" ry="18" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="950" y="385" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">São Miguel</text>
-
-          <ellipse cx="1080" cy="450" rx="22" ry="14" fill="white" fill-opacity="0.13" stroke="white" stroke-opacity="0.4" stroke-width="0.6" />
-          <text x="1080" y="480" text-anchor="middle" fill="white" fill-opacity="0.6" font-size="11" font-family="Minion Pro, Cardo, serif" font-style="italic">Santa Maria</text>
-        </g>
-      </svg>
-
-      {/* Compass rose — larger, top right */}
-      <svg
-        class="absolute top-8 right-8 lg:top-12 lg:right-12 w-16 h-16 lg:w-24 lg:h-24 opacity-70 pointer-events-none"
-        viewBox="0 0 40 40"
-        fill="none"
-        aria-hidden="true"
-      >
-        <circle cx="20" cy="20" r="17.5" stroke="white" stroke-width="0.4" />
-        <circle cx="20" cy="20" r="13" stroke="white" stroke-width="0.2" stroke-opacity="0.5" />
-        <path d="M20 3 L22 20 L20 37 L18 20 Z" fill="white" fill-opacity="0.7" />
-        <path d="M3 20 L20 18 L37 20 L20 22 Z" fill="white" fill-opacity="0.3" />
-        <text x="20" y="9" text-anchor="middle" fill="white" font-size="4" font-family="Minion Pro, Cardo, serif" font-style="italic">N</text>
-      </svg>
+      <Image
+        src={imgMapRuins}
+        alt="Hand-drawn map of the nine Azorean islands marking notable ruins"
+        class="absolute inset-0 w-full h-full object-cover"
+        widths={[800, 1200, 1800, 2400]}
+        sizes="100vw"
+      />
 
       {/* Subtle bottom gradient to anchor the title */}
       <div
@@ -1032,6 +966,18 @@ const supplementary = [
         if (rtpVideo instanceof HTMLVideoElement) rtpVideo.pause();
       });
     }
+
+    // Loop fallback — Safari (and some mobile browsers) don't reliably
+    // honour the `loop` attribute on muted autoplay videos that carry an
+    // audio track. Manually rewind + replay on `ended`.
+    document.querySelectorAll('video[loop]').forEach((video) => {
+      if (video instanceof HTMLVideoElement) {
+        video.addEventListener('ended', () => {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        });
+      }
+    });
   </script>
 
   <style is:global>
