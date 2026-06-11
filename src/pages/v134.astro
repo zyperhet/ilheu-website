@@ -1,0 +1,179 @@
+---
+// v134 — QUIET NEWSSTAND
+// A calmer homepage variation: restrained, cover-led, and intentionally sparse.
+
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import coverIssueB from '../assets/images/00-covers/front-cover-full-page.png';
+import coverIssueA from '../assets/images/00-covers/cover-issue-a.png';
+
+const allEditions = await getCollection('editions');
+const currentEdition = allEditions.find(e => e.data.status === 'current');
+const archivedEditions = allEditions
+  .filter(e => e.data.status === 'archive')
+  .sort((a, b) => b.data.edition_number - a.data.edition_number);
+const issueA = archivedEditions[0];
+
+let featuredArticle = null;
+let featuredAuthor = null;
+if (currentEdition) {
+  const featured = await getCollection('articles', ({ id, data }) =>
+    id.startsWith(currentEdition.id + '/') && data.featured === true
+  );
+  featuredArticle = featured[0] || null;
+  if (featuredArticle) {
+    featuredAuthor = await getEntry(featuredArticle.data.author);
+  }
+}
+---
+
+<BaseLayout
+  title="Ilhéu Magazine"
+  description="Ilhéu is a biannual literary and cultural magazine from the Azores."
+  fullBleed
+>
+  <div class="v134-shell min-h-screen bg-[#f5f0e8] text-[#151515]">
+    {currentEdition && (
+      <section class="mx-auto flex min-h-screen max-w-7xl flex-col px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+        <div class="mb-14 flex justify-center lg:mb-10 lg:justify-start">
+          <img
+            src="/images/ilheu-logo-pure-blue.png"
+            alt="Ilhéu Pure Blue"
+            class="w-64 rounded-[1px] shadow-[0_18px_45px_rgba(0,0,0,0.12)] sm:w-80"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div class="grid flex-1 items-center gap-14 lg:grid-cols-[0.85fr_0.9fr_0.85fr] lg:gap-12">
+          <div class="order-2 text-center lg:order-1 lg:self-end lg:pb-12 lg:text-left">
+            <p class="font-inter mb-8 text-[10px] uppercase tracking-[0.32em] text-[#006b96]">
+              Biannual · Print · Azores
+            </p>
+            <p class="font-minion mx-auto max-w-xs text-2xl leading-snug text-[#151515]/60 lg:mx-0">
+              Conversations from the Atlantic. Essays, photography, poetry, and
+              visual art, gathered slowly in print.
+            </p>
+          </div>
+
+          <div class="order-1 flex justify-center lg:order-2">
+            <Image
+              src={coverIssueB}
+              alt={`Cover of Ilhéu Magazine Issue B: ${currentEdition.data.title}`}
+              class="w-[min(72vw,340px)] shadow-[0_28px_80px_rgba(0,0,0,0.22)]"
+              widths={[360, 520, 680]}
+              sizes="(max-width: 1024px) 72vw, 340px"
+              loading="eager"
+            />
+          </div>
+
+          <div class="order-3 text-center lg:text-left">
+            <p class="font-inter mb-7 text-[10px] uppercase tracking-[0.32em] text-[#151515]/35">
+              Issue B · Available Now
+            </p>
+            <h1 class="font-minion mb-5 text-5xl leading-[0.95] text-[#006b96] sm:text-6xl">
+              The Colour Blue
+            </h1>
+            <p class="font-minion mb-8 text-2xl leading-snug text-[#151515]/55">
+              {currentEdition.data.title}: {currentEdition.data.theme}
+            </p>
+            <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              {currentEdition.data.purchase_url && (
+                <a
+                  href={currentEdition.data.purchase_url}
+                  class="font-inter inline-flex min-w-52 justify-center bg-[#006b96] px-8 py-4 text-[11px] uppercase tracking-[0.22em] text-white transition-colors duration-300 hover:bg-[#075f83]"
+                >
+                  Buy Issue B
+                </a>
+              )}
+              <a
+                href={`/editions/${currentEdition.id}`}
+                class="font-inter inline-flex min-w-52 justify-center border border-[#151515]/20 px-8 py-4 text-[11px] uppercase tracking-[0.22em] text-[#151515]/65 transition-colors duration-300 hover:border-[#151515] hover:text-[#151515]"
+              >
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="font-inter mt-16 grid gap-4 border-t border-[#151515]/10 pt-6 text-[10px] uppercase tracking-[0.26em] text-[#151515]/35 sm:grid-cols-3">
+          <p>Limited print edition</p>
+          <p class="sm:text-center">Independent magazine</p>
+          <p class="sm:text-right">Based in São Miguel</p>
+        </div>
+      </section>
+    )}
+
+    {featuredArticle && featuredAuthor && (
+      <section class="border-y border-[#151515]/10 bg-[#eee6d9]">
+        <div class="mx-auto max-w-5xl px-6 py-20 sm:px-8 lg:py-24">
+          <div class="grid gap-10 lg:grid-cols-[220px_1fr] lg:gap-16">
+            <p class="font-inter text-[10px] uppercase tracking-[0.32em] text-[#006b96]">
+              Featured in Issue B
+            </p>
+            <div>
+              <a href={`/articles/${featuredArticle.id}`} class="group block">
+                <h2 class="font-minion mb-6 text-4xl leading-[1.08] text-[#151515] transition-colors duration-300 group-hover:text-[#006b96] sm:text-5xl">
+                  {featuredArticle.data.title}
+                </h2>
+                {featuredArticle.data.excerpt && (
+                  <p class="font-minion max-w-2xl text-xl leading-relaxed text-[#151515]/58">
+                    {featuredArticle.data.excerpt}
+                  </p>
+                )}
+              </a>
+              <p class="font-inter mt-8 text-[10px] uppercase tracking-[0.22em] text-[#151515]/35">
+                {featuredAuthor.data.name}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section>
+      <div class="mx-auto max-w-5xl px-6 py-16 sm:px-8 lg:py-20">
+        {issueA && (
+          <div class="grid gap-8 border-t border-[#151515]/10 pt-10 sm:grid-cols-[86px_1fr_auto] sm:items-center">
+            <div>
+              <Image
+                src={coverIssueA}
+                alt={`Cover of Ilhéu Magazine Issue A: ${issueA.data.title}`}
+                class="w-20 opacity-60 grayscale"
+                widths={[120, 180]}
+                sizes="80px"
+              />
+            </div>
+            <div>
+              <p class="font-inter mb-3 text-[10px] uppercase tracking-[0.28em] text-[#151515]/35">
+                Previous Edition
+              </p>
+              <p class="font-minion text-2xl leading-snug text-[#151515]/55">
+                Issue A, {issueA.data.title}: {issueA.data.theme}
+              </p>
+            </div>
+            <p class="font-inter text-[10px] uppercase tracking-[0.24em] text-[#151515]/35">
+              Sold out
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  @font-face {
+    font-family: 'Minion Pro Local';
+    src: url('/fonts/MinionPro-Regular.otf') format('opentype');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .v134-shell .font-minion {
+    font-family: 'Minion Pro Local', 'Cardo', Georgia, serif;
+  }
+</style>
