@@ -1,0 +1,370 @@
+---
+/*
+  ConcertBanner — one-off event promotion for the homepage.
+
+  A slim navy bar pins to the top of the page; tapping it slides in a
+  drawer (native <dialog>, right-edge) with the flyer, the details, and a
+  Buy button straight to Stripe. No auto-popup.
+
+  Self-retiring: the markup stops rendering after the event (build-time
+  guard below), and the client script removes the bar as a fallback for
+  deploys that aren't rebuilt in time. Dismiss (×) hides it for the session.
+
+  Reuses the site's native-<dialog> idiom (see the RTP clip in index.astro):
+  ESC-to-close, focus trapping, top-layer stacking, and ::backdrop for free.
+*/
+import { Image } from 'astro:assets';
+import flyer from '../assets/images/concert/romeu-bairos-flyer.jpg';
+
+const accentColour = '#1B3A5C';
+const stripeUrl = 'https://buy.stripe.com/aFacN7boegr7biI2MbfMA04';
+const mapsUrl = 'https://maps.app.goo.gl/MYcWGFnWGxhdWFUz5';
+
+// ~end of Saturday 20 June 2026, Azores (UTC−1 → 21 Jun 04:00 UTC is comfortably past midnight local).
+const eventEndIso = '2026-06-21T04:00:00Z';
+const eventOver = new Date() > new Date(eventEndIso);
+---
+
+{!eventOver && (
+  <>
+    <!-- ── Sticky announcement bar ─────────────────────────── -->
+    <div
+      id="concert-bar"
+      data-event-end={eventEndIso}
+      class="concert-bar sticky top-0 z-[55] flex items-stretch"
+    >
+      <button
+        id="concert-open"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="concert-drawer"
+        aria-label="Romeu Bairos live at Pico do Refúgio, Saturday 20 June — tickets €10"
+        class="group relative min-w-0 flex-1 h-14 sm:h-16 overflow-hidden text-white"
+      >
+        <span class="relative z-[1] flex items-center gap-3 sm:gap-4 h-full pl-4 sm:pl-6 pr-2">
+
+          <!-- Live equaliser — reads instantly as "live music" -->
+          <span class="concert-eq shrink-0" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+
+          <!-- Billing line -->
+          <span class="min-w-0 flex items-baseline gap-2 sm:gap-3 whitespace-nowrap overflow-hidden">
+            <span class="hidden sm:inline font-inter text-[10px] font-bold uppercase tracking-[0.32em] text-[#f4c84b]">Live in concert</span>
+            <span class="hidden sm:inline text-white/25" aria-hidden="true">&middot;</span>
+            <span class="font-minion italic text-lg sm:text-2xl leading-none">Romeu Bairos</span>
+            <span class="hidden md:inline text-white/25" aria-hidden="true">&middot;</span>
+            <span class="hidden md:inline font-inter text-[11px] uppercase tracking-[0.18em] text-white/65">Sat 20 Jun &middot; Pico do Ref&uacute;gio</span>
+          </span>
+
+          <span class="flex-1"></span>
+
+          <!-- Gold ticket pill — the flyer's yellow, the clear tap target -->
+          <span class="concert-pill shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#f4c84b] text-[#16304e] font-inter text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] px-4 sm:px-5 py-2 sm:py-2.5 group-hover:bg-[#ffdc55] transition-colors">
+            <span class="hidden sm:inline">Tickets&nbsp;&middot;&nbsp;</span>&euro;10
+            <span class="motion-safe:transition-transform motion-safe:duration-300 group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+          </span>
+        </span>
+
+        <!-- Glossy light sweep -->
+        <span class="concert-sheen" aria-hidden="true"></span>
+      </button>
+
+      <button
+        id="concert-dismiss"
+        type="button"
+        aria-label="Dismiss concert announcement"
+        class="shrink-0 self-stretch flex items-center px-2.5 sm:px-3 text-white/35 hover:text-white transition-colors"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- ── Drawer (right-edge native dialog) ───────────────── -->
+    <dialog id="concert-drawer" class="concert-drawer" aria-label="Romeu Bairos concert — tickets">
+      <div class="flex flex-col h-full">
+
+        <!-- Scrollable area: flyer + details -->
+        <div class="concert-scroll flex-1 overflow-y-auto">
+
+          <div class="relative">
+            <Image
+              src={flyer}
+              alt="Romeu Bairos live at Pico do Refúgio — Saturday 20 June, 16h, €10"
+              class="block w-full h-auto"
+              widths={[420, 840]}
+              sizes="(max-width: 460px) 92vw, 420px"
+            />
+            <button
+              id="concert-close"
+              type="button"
+              aria-label="Close"
+              class="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm text-white/90 hover:text-white hover:bg-black/60 transition-colors"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="px-6 sm:px-7 py-7" style={`color: ${accentColour};`}>
+            <p class="font-inter text-[10px] uppercase tracking-[0.3em] opacity-50 mb-3">
+              Live &middot; Pico do Ref&uacute;gio
+            </p>
+            <h2 class="font-minion italic text-3xl sm:text-4xl leading-[1.05] mb-4">
+              An evening with Romeu Bairos
+            </h2>
+            <p class="font-minion text-base sm:text-lg italic leading-relaxed opacity-80 mb-7">
+              One of Portugal&rsquo;s most interesting young musicians &mdash; and, it turns out,
+              surprisingly easy to find when you&rsquo;re feeling in a jam.<span id="concert-bio-rest"> We first saw Romeu play at an odd academic conference at the
+              University of the Azores. We didn&rsquo;t know then how insanely, annoyingly
+              difficult he can be to get hold of &mdash; but somehow we managed it. He gave an
+              outstanding interview to Diogo Lima on whether there is such a thing as Azorean
+              Blues in our latest issue. (There is.) Despite being so hard to reach, Romeu ended
+              up one of Ilh&eacute;u&rsquo;s great friends. We couldn&rsquo;t be more pleased, or
+              more proud, to have such a star with us &mdash; and we already know the concert will
+              not be one to miss.</span>
+              <button
+                id="concert-bio-toggle"
+                type="button"
+                class="ml-1 align-baseline font-inter text-[10px] not-italic uppercase tracking-[0.22em] underline underline-offset-2 opacity-55 hover:opacity-100 transition-opacity"
+              >more&hellip;</button>
+            </p>
+
+            <dl class="border-y border-current/10 divide-y divide-current/10">
+              <div class="flex items-baseline justify-between gap-5 py-3.5">
+                <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">When</dt>
+                <dd class="text-right">
+                  <span class="font-minion italic text-lg leading-tight block">Saturday 20 June</span>
+                  <span class="font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">Doors 16h</span>
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-5 py-3.5">
+                <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">Where</dt>
+                <dd class="text-right">
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-minion italic text-lg leading-tight inline-flex items-center gap-1.5 underline underline-offset-4 decoration-current/25 hover:decoration-current transition-colors"
+                  >
+                    Pico do Ref&uacute;gio
+                    <span class="text-xs not-italic opacity-60" aria-hidden="true">&#8599;</span>
+                  </a>
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-5 py-3.5">
+                <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">Tickets</dt>
+                <dd class="text-right">
+                  <span class="font-minion italic text-lg leading-tight block">&euro;10</span>
+                  <span class="font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">Kids up to 12 free</span>
+                </dd>
+              </div>
+            </dl>
+
+            <p class="font-minion italic text-sm leading-relaxed opacity-70 mt-5">
+              Your ticket includes a free drink and Furnas-style corn-on-the-cob.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pinned footer: Buy -->
+        <div class="shrink-0 border-t border-[#1B3A5C]/10 px-6 sm:px-7 py-4" style="background-color:#F6F1E8;">
+          <!-- Same-window on purpose: most traffic is mobile / in-app browsers
+               (Instagram, WhatsApp) where target=_blank is unreliable, and it
+               matches the site's other buy buttons. -->
+          <a
+            href={stripeUrl}
+            class="block w-full text-center text-white font-inter text-xs uppercase tracking-[0.22em] py-4 hover:opacity-90 transition-opacity duration-300"
+            style={`background-color: ${accentColour};`}
+          >
+            Buy tickets &mdash; &euro;10 &rarr;
+          </a>
+          <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-center mt-3" style={`color: ${accentColour}; opacity: 0.5;`}>
+            Secure checkout via Stripe &middot; Also available on the door
+          </p>
+        </div>
+      </div>
+    </dialog>
+  </>
+)}
+
+<script>
+  const STORAGE_KEY = 'ilheu-concert-dismissed';
+  const bar = document.getElementById('concert-bar');
+
+  if (bar) {
+    const end = bar.dataset.eventEnd ? new Date(bar.dataset.eventEnd) : null;
+
+    // Client-side fallbacks: retire after the event, or if dismissed this session.
+    if ((end && new Date() > end) || sessionStorage.getItem(STORAGE_KEY)) {
+      bar.remove(); // :has(#concert-bar) in CSS resets the nav offset automatically
+    } else {
+      const openBtn = document.getElementById('concert-open');
+      const dismissBtn = document.getElementById('concert-dismiss');
+      const closeBtn = document.getElementById('concert-close');
+      const drawer = document.getElementById('concert-drawer');
+
+      const openDrawer = () => {
+        if (!(drawer instanceof HTMLDialogElement)) return;
+        drawer.showModal();
+        document.body.style.overflow = 'hidden';
+        // next frame → trigger the slide-in transition
+        requestAnimationFrame(() => drawer.classList.add('is-open'));
+      };
+
+      const closeDrawer = () => {
+        if (!(drawer instanceof HTMLDialogElement)) return;
+        drawer.classList.remove('is-open');
+        const finish = () => {
+          drawer.close();
+          document.body.style.overflow = '';
+          drawer.removeEventListener('transitionend', finish);
+        };
+        drawer.addEventListener('transitionend', finish);
+        // Fallback if transitionend never fires (e.g. reduced motion)
+        setTimeout(finish, 420);
+      };
+
+      openBtn?.addEventListener('click', openDrawer);
+      closeBtn?.addEventListener('click', closeDrawer);
+
+      dismissBtn?.addEventListener('click', () => {
+        sessionStorage.setItem(STORAGE_KEY, '1');
+        bar.remove();
+      });
+
+      if (drawer instanceof HTMLDialogElement) {
+        // Backdrop click closes (clicks on the dialog itself, outside the panel content)
+        drawer.addEventListener('click', (e) => {
+          if (e.target === drawer) closeDrawer();
+        });
+        // Animate the native ESC close instead of snapping shut
+        drawer.addEventListener('cancel', (e) => {
+          e.preventDefault();
+          closeDrawer();
+        });
+      }
+
+      // Expandable bio: collapse on load (progressive enhancement — the full
+      // text stays visible if JS is unavailable), toggle with more…/less.
+      const bioRest = document.getElementById('concert-bio-rest');
+      const bioToggle = document.getElementById('concert-bio-toggle');
+      if (bioRest && bioToggle) {
+        bioRest.hidden = true;
+        bioToggle.addEventListener('click', () => {
+          bioRest.hidden = !bioRest.hidden;
+          bioToggle.textContent = bioRest.hidden ? 'more…' : 'less';
+        });
+      }
+    }
+  }
+</script>
+
+<style is:global>
+  /* Offset the homepage's floating (absolute) nav so it sits below the bar.
+     Scoped with :has() so removing #concert-bar (dismiss / expiry) snaps the
+     nav back to the top with no leftover gap. */
+  body:has(#concert-bar) header {
+    top: 3.5rem; /* matches bar h-14 */
+  }
+  @media (min-width: 640px) {
+    body:has(#concert-bar) header {
+      top: 4rem; /* matches bar sm:h-16 */
+    }
+  }
+
+  /* Deep navy gradient + a gold underline that ties the bar to the flyer */
+  .concert-bar {
+    background: linear-gradient(100deg, #14304f 0%, #1b3a5c 42%, #14304f 100%);
+    box-shadow: inset 0 -2px 0 rgba(244, 200, 75, 0.6);
+  }
+  .concert-pill {
+    box-shadow: 0 1px 10px -2px rgba(244, 200, 75, 0.5);
+  }
+
+  /* Live equaliser — gold bars that dance like a soundcheck.
+     Runs even under prefers-reduced-motion: it's a small, localised brand
+     accent (the "live" signal), not a large vestibular-triggering motion. */
+  .concert-eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 18px;
+  }
+  .concert-eq > span {
+    width: 3px;
+    border-radius: 1px;
+    background-color: #f4c84b;
+    animation: concert-eq 850ms ease-in-out infinite;
+  }
+  .concert-eq > span:nth-child(1) { height: 45%; animation-delay: -200ms; }
+  .concert-eq > span:nth-child(2) { height: 80%; animation-delay: -520ms; }
+  .concert-eq > span:nth-child(3) { height: 30%; animation-delay: -90ms; }
+  .concert-eq > span:nth-child(4) { height: 65%; animation-delay: -360ms; }
+  @keyframes concert-eq {
+    0%, 100% { height: 22%; }
+    50%      { height: 95%; }
+  }
+
+  /* Periodic glossy light sweep across the bar */
+  .concert-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.16) 50%, transparent 65%);
+    transform: translateX(-130%);
+    mix-blend-mode: screen;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .concert-sheen {
+      animation: concert-sheen 7s ease-in-out 2s infinite;
+    }
+    @keyframes concert-sheen {
+      0%        { transform: translateX(-130%); }
+      30%, 100% { transform: translateX(130%); }
+    }
+  }
+
+  /* ── Right-edge drawer ─────────────────────────────────── */
+  .concert-drawer {
+    position: fixed;
+    inset: 0 0 0 auto; /* pin to the right edge, full height */
+    margin: 0;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: min(420px, 92vw);
+    max-width: 92vw;
+    border: 0;
+    padding: 0;
+    background-color: #f6f1e8;
+    color: #1b3a5c;
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: -20px 0 60px -15px rgba(8, 18, 38, 0.4);
+  }
+  .concert-drawer.is-open {
+    transform: translateX(0);
+  }
+  .concert-drawer::backdrop {
+    background: rgba(8, 18, 38, 0.5);
+    opacity: 0;
+    transition: opacity 360ms ease;
+  }
+  .concert-drawer.is-open::backdrop {
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .concert-drawer {
+      transition: none;
+    }
+    .concert-drawer::backdrop {
+      transition: none;
+    }
+  }
+</style>
