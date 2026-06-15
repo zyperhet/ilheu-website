@@ -7,13 +7,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import coverImage from '../assets/images/00-covers/front-cover-full-page.png';
 import coverIssueA from '../assets/images/00-covers/cover-issue-a.png';
 
+// Homepage conversation compositions
+import imgDacosta from '../assets/images/home/conversations/conversation-01-antonio-dacosta.webp';
+import imgLeila from '../assets/images/home/conversations/conversation-02-leila-slimani.webp';
+import imgRomeu from '../assets/images/home/conversations/conversation-03-azorean-blues.webp';
+import imgPool from '../assets/images/home/conversations/conversation-04-pool-edge-of-the-world.webp';
+import imgBlueAzores from '../assets/images/home/conversations/conversation-05-blue-azores.webp';
+
 // Contents images
-import imgDacosta from '../assets/images/01-antonio-dacosta-conversation/dacosta-eyelids.jpg';
 import imgDacostaEssay from '../assets/images/06-dacosta-picture-essay-artworks/dacosta-memory-v-1982-acrylic-collage-wax-crayon.jpg';
-import imgLeila from '../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-golden-light-blue-shirt.jpg';
-import imgRomeu from '../assets/images/03-azorean-blues-conversation/romeu-bairos-portrait-with-viola-da-terra.jpg';
-import imgPool from '../assets/images/04-pool-at-edge-of-world-architecture/povoacao-pool-diving-platform-lanes-interior.jpg';
-import imgBlueAzores from '../assets/images/05-blue-azores-environment/blue-azores-jellyfish-underwater-nelson-raposo.jpg';
 import imgComic from '../assets/images/10-comic-strip/comic-strip-sara-azad-ponta-delgada.png';
 
 // Playlist backgrounds
@@ -33,49 +35,33 @@ const previousIssue = allEditions.find((e) => e.data.status === 'archive');
 
 const conversations = [
   {
-    category: 'Art',
     title: 'Antonio Dacosta and His Paris Blues',
-    contributors: 'Urbano Resendes, Arlete Alves da Silva',
-    pages: '12–25',
     image: imgDacosta,
-    alt: 'António Dacosta, eyelids — detail',
+    alt: 'Conversation 1: António Dacosta and His Paris Blues, with Urbano Resendes and Arlete Alves da Silva',
     href: '/conversations/dacosta',
   },
   {
-    category: 'Writing',
     title: "What’s the point trying to understand a soul?",
-    contributors: 'Maria Brandao, Leila Slimani',
-    pages: '50–63',
     image: imgLeila,
-    alt: 'Leila Slimani, portrait in golden light wearing blue shirt',
+    alt: "Conversation 2: What's the point trying to understand a soul?, with Maria Brandão and Leïla Slimani",
     href: '/conversations/slimani',
   },
   {
-    category: 'Music',
     title: 'Azorean Blues',
-    contributors: 'Diogo Lima, Romeu Bairos',
-    pages: '66–76',
     image: imgRomeu,
-    alt: 'Romeu Bairos, portrait with viola da terra',
+    alt: 'Conversation 3: Azorean Blues, with Diogo Lima and Romeu Bairos',
     href: '/conversations/azorean-blues',
   },
   {
-    category: 'Architecture',
     title: 'The Pool at the Edge of the World',
-    contributors: 'Ilheu Atelier, Jose Antonio Barbosa',
-    pages: '82–95',
     image: imgPool,
-    alt: 'Povoacao municipal swimming pool, abandoned interior with diving platform and lanes',
+    alt: 'Conversation 4: The Pool at the Edge of the World, with Ilhéu Atelier and José António Barbosa',
     href: '/conversations/pool',
   },
   {
-    category: 'Environment',
     title: 'Blue Azores',
-    contributors: 'Adriano Quintela, Bernardo Brito e Abreu',
-    pages: '100–111',
     image: imgBlueAzores,
-    videoSrc: '/videos/blue-jellyfish.mp4',
-    alt: 'Blue Azores jellyfish underwater, photograph by Nelson Raposo',
+    alt: 'Conversation 5: Blue Azores, with Adriano Quintela and Bernardo Brito e Abreu',
     href: '/conversations/blue-azores',
   },
 ];
@@ -182,7 +168,7 @@ const supplementary = [
   <section class="bg-white py-20 sm:py-28 lg:py-36 border-y border-gray-100">
     <div class="max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
       <img
-        src="/images/ilheu-logo-pure-blue.png"
+        src="/images/ilheu-logo-pure-blue.webp"
         alt="Ilhéu — Pure Blue"
         class="w-full max-w-xl sm:max-w-2xl lg:max-w-3xl mb-8 sm:mb-10"
       />
@@ -329,91 +315,27 @@ const supplementary = [
 
 
   <!-- ═══════════════════════════════════════════
-       FIVE FULL-BLEED CINEMATIC CONVERSATIONS
-       Title overlays image with mix-blend-difference —
-       text colour inverts against the photograph behind it.
+       FIVE FULL-WIDTH CONVERSATION COMPOSITIONS
+       The supplied artwork contains its own title,
+       category, contributor credits, and numbering.
        ═══════════════════════════════════════════ -->
-  {conversations.map((item, idx) => {
-    const num = String(idx + 1).padStart(2, '0');
-    return (
-      <a
-        href={item.href}
-        class="block group relative bg-gray-900 focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white outline-none"
-      >
-        <div class="relative h-[85vh] sm:h-[90vh] lg:h-screen overflow-hidden">
-          {/* Full-brightness photograph / video background */}
-          {item.videoSrc ? (
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster={item.image.src}
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
-            >
-              <source src={item.videoSrc} type="video/mp4" />
-            </video>
-          ) : (
-            <Image
-              src={item.image}
-              alt={item.alt}
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out motion-safe:group-hover:scale-[1.05]"
-              widths={[800, 1200, 1800, 2400]}
-              sizes="100vw"
-            />
-          )}
-
-          {/* Top + bottom gradient — same as Picture Essay */}
-          <div
-            class="absolute inset-0 pointer-events-none"
-            style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.6) 100%);"
-          ></div>
-
-          {/* Top — eyebrow + page numbers */}
-          <div class="absolute top-0 inset-x-0 p-6 sm:p-10 lg:p-14">
-            <div class="max-w-6xl mx-auto flex items-baseline justify-between gap-4">
-              <p class="font-inter text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-white">
-                {item.category} &middot; Conversation {num}
-              </p>
-              <p class="font-inter text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/80">
-                pp. {item.pages}
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom — title (mix-blend-difference, fades in/out at viewport centre) */}
-          <div class="absolute bottom-0 inset-x-0 p-6 sm:p-10 lg:p-14 scroll-fade-center">
-            <div class="max-w-6xl mx-auto">
-              {/* Cream + text-shadow for Dacosta, Pool, and Blue Azores;
-                  mix-blend-difference for Slimani and Azorean Blues. */}
-              {(item.href === '/conversations/dacosta' || item.href === '/conversations/pool' || item.href === '/conversations/blue-azores') ? (
-                <h3
-                  class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] mb-6 sm:mb-8 max-w-5xl"
-                  style="color: #F6F1E8; text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 6px 28px rgba(0,0,0,0.55);"
-                >
-                  {item.title}
-                </h3>
-              ) : (
-                <h3 class="font-minion italic text-5xl sm:text-7xl lg:text-[9rem] leading-[0.95] text-white mb-6 sm:mb-8 max-w-5xl mix-blend-difference">
-                  {item.title}
-                </h3>
-              )}
-              <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 max-w-5xl">
-                <p class="font-minion text-base sm:text-lg italic text-white/85">
-                  With {item.contributors}
-                </p>
-                <span class="font-inter text-[11px] uppercase tracking-[0.25em] text-white inline-flex items-center gap-2 motion-safe:transition-all motion-safe:duration-[600ms]">
-                  Read the conversation
-                  <span class="inline-block motion-safe:transition-transform motion-safe:duration-[600ms] motion-safe:group-hover:translate-x-2">&rarr;</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    );
-  })}
+  {conversations.map((item, idx) => (
+    <a
+      href={item.href}
+      aria-label={`Read ${item.title}`}
+      class="block group bg-white focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-[#1B3A5C] outline-none"
+    >
+      <Image
+        src={item.image}
+        alt={item.alt}
+        class="block w-full h-auto motion-safe:transition-opacity motion-safe:duration-500 motion-safe:group-hover:opacity-95"
+        widths={[640, 960, 1280, 1600, 1984, 2400]}
+        sizes="100vw"
+        loading={idx === 0 ? 'eager' : 'lazy'}
+      />
+      <span class="sr-only">Read the conversation</span>
+    </a>
+  ))}
 
 
   <!-- ═══════════════════════════════════════════
