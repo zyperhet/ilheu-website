@@ -1,0 +1,195 @@
+---
+/*
+  EventDrawer — reusable right-edge drawer for a single event.
+
+  Generalizes the native-<dialog> slide-in from ConcertBanner.astro:
+  ESC-to-close, focus trap, top-layer stacking and ::backdrop for free,
+  plus a transform-based slide-in. Open/close is wired generically on the
+  page (panel button [data-drawer-open] -> dialog#id; close via the
+  [data-drawer-close] button, backdrop click, or ESC).
+
+  Presentational only: the body (description/bio) is passed via <slot/>.
+  CTA is paid (price + stripeUrl) or free (free + optional mapsUrl).
+*/
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  when: string;
+  whenNote?: string;
+  where: string;
+  mapsUrl?: string;
+  price?: string;
+  priceNote?: string;
+  stripeUrl?: string;
+  free?: boolean;
+  /** Must be a 6-digit hex (#RRGGBB): the component appends an alpha pair. */
+  accent?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  image,
+  imageAlt,
+  when,
+  whenNote,
+  where,
+  mapsUrl,
+  price,
+  priceNote,
+  stripeUrl,
+  free = false,
+  accent = '#1B3A5C',
+} = Astro.props;
+---
+
+<dialog id={id} class="event-drawer" aria-label={`${title} — details`}>
+  <div class="flex flex-col h-full">
+    <!-- Scrollable: hero image + details -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="relative">
+        <Image
+          src={image}
+          alt={imageAlt}
+          class="block w-full h-auto"
+          widths={[420, 840]}
+          sizes="(max-width: 460px) 92vw, 420px"
+        />
+        <button
+          type="button"
+          data-drawer-close
+          aria-label="Close"
+          class="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/45 backdrop-blur-sm text-white/90 hover:text-white hover:bg-black/60 transition-colors"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="px-6 sm:px-7 py-7" style={`color: ${accent};`}>
+        <p class="font-inter text-[10px] uppercase tracking-[0.3em] opacity-50 mb-3">{eyebrow}</p>
+        <h2 class="font-minion italic text-3xl sm:text-4xl leading-[1.05] mb-4">{title}</h2>
+
+        <div class="font-minion text-base sm:text-lg italic leading-relaxed opacity-80 mb-7">
+          <slot />
+        </div>
+
+        <dl class="border-y border-current/10 divide-y divide-current/10">
+          <div class="flex items-baseline justify-between gap-5 py-3.5">
+            <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">When</dt>
+            <dd class="text-right">
+              <span class="font-minion italic text-lg leading-tight block">{when}</span>
+              {whenNote && <span class="font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">{whenNote}</span>}
+            </dd>
+          </div>
+          <div class="flex items-baseline justify-between gap-5 py-3.5">
+            <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">Where</dt>
+            <dd class="text-right">
+              {mapsUrl ? (
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-minion italic text-lg leading-tight inline-flex items-center gap-1.5 underline underline-offset-4 decoration-current/25 hover:decoration-current transition-colors"
+                >
+                  {where}
+                  <span class="text-xs not-italic opacity-60" aria-hidden="true">&#8599;</span>
+                </a>
+              ) : (
+                <span class="font-minion italic text-lg leading-tight block">{where}</span>
+              )}
+            </dd>
+          </div>
+          <div class="flex items-baseline justify-between gap-5 py-3.5">
+            <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">Entry</dt>
+            <dd class="text-right">
+              <span class="font-minion italic text-lg leading-tight block">{free ? 'Free entry' : price}</span>
+              {priceNote && <span class="font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">{priceNote}</span>}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Pinned footer: CTA -->
+    <div class="shrink-0 border-t px-6 sm:px-7 py-4" style={`border-color: ${accent}1a; background-color:#F6F1E8;`}>
+      {!free && stripeUrl ? (
+        <>
+          <a
+            href={stripeUrl}
+            class="block w-full text-center text-white font-inter text-xs uppercase tracking-[0.22em] py-4 hover:opacity-90 transition-opacity duration-300"
+            style={`background-color: ${accent};`}
+          >
+            Buy tickets &mdash; {price} &rarr;
+          </a>
+          <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-center mt-3" style={`color: ${accent}; opacity: 0.5;`}>
+            Secure checkout via Stripe &middot; Also available on the door
+          </p>
+        </>
+      ) : (
+        <>
+          <p class="font-inter text-xs uppercase tracking-[0.22em] text-center py-2" style={`color: ${accent};`}>
+            Free entry &middot; All welcome
+          </p>
+          {mapsUrl && (
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full text-center font-inter text-[11px] uppercase tracking-[0.22em] py-3 mt-1 border hover:opacity-80 transition-opacity duration-300"
+              style={`color: ${accent}; border-color: ${accent}33;`}
+            >
+              Get directions &#8599;
+            </a>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .event-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    margin: 0;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: min(420px, 92vw);
+    max-width: 92vw;
+    border: 0;
+    padding: 0;
+    background-color: #f6f1e8;
+    color: #1b3a5c;
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: -20px 0 60px -15px rgba(8, 18, 38, 0.4);
+  }
+  .event-drawer.is-open {
+    transform: translateX(0);
+  }
+  .event-drawer::backdrop {
+    background: rgba(8, 18, 38, 0.5);
+    opacity: 0;
+    transition: opacity 360ms ease;
+  }
+  .event-drawer.is-open::backdrop {
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .event-drawer,
+    .event-drawer::backdrop {
+      transition: none;
+    }
+  }
+</style>
