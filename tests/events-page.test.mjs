@@ -29,3 +29,26 @@ test('EventDrawer supports paid and free CTAs and the slide-in pattern', async (
   assert.match(drawer, /stripeUrl/);
   assert.match(drawer, /Free entry/);
 });
+
+test('events page wires three drawers, images, and CTAs', async () => {
+  const page = await readProjectFile('src/pages/events.astro');
+
+  // three drawers, opened from three panels
+  for (const id of ['drawer-arquitectura', 'drawer-romeu', 'drawer-undercover']) {
+    assert.match(page, new RegExp(`data-drawer-open="${id}"`));
+    assert.match(page, new RegExp(`id="${id}"`));
+  }
+
+  // images wired
+  assert.match(page, /arquitectura-dos-acores\.jpg/);
+  assert.match(page, /under-the-cover-lisboa\.jpg/);
+  assert.match(page, /romeu-bairos-flyer\.jpg/);
+
+  // paid Romeu CTA + free entry for the other two
+  assert.match(page, /buy\.stripe\.com\/aFacN7boegr7biI2MbfMA04/);
+  assert.match(page, /free=\{true\}/);
+
+  // generic open/close wiring present
+  assert.match(page, /data-drawer-open/);
+  assert.match(page, /showModal\(\)/);
+});

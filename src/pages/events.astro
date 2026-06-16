@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventDrawer from '../components/EventDrawer.astro';
+import imgArquitectura from '../assets/images/events/arquitectura-dos-acores.jpg';
+import imgUnderCover from '../assets/images/events/under-the-cover-lisboa.jpg';
+import flyerRomeu from '../assets/images/concert/romeu-bairos-flyer.jpg';
+
+const stripeUrl = 'https://buy.stripe.com/aFacN7boegr7biI2MbfMA04';
+const mapsPico = 'https://maps.app.goo.gl/MYcWGFnWGxhdWFUz5';
+const mapsUnderCover = 'https://www.google.com/maps/search/?api=1&query=Under+the+Cover+livraria+Lisboa';
+
+const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+---
+
+<BaseLayout
+  title="Events — June 2026 · Ilhéu Magazine"
+  description="Three Ilhéu events in June 2026: Azores Architecture Today (18 Jun), Romeu Bairos in concert (20 Jun), and the Issue B launch at Under the Cover, Lisbon (27 Jun)."
+  navVariant="dark"
+  fullBleed={true}
+  ogImage="/images/events-flyer.jpg"
+>
+  <!-- Black right strip — ILHÉU / JUNE · JUNHO (overlays all panels) -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none fixed inset-y-0 right-0 z-[40] w-9 sm:w-14 bg-[#0B0B0B] flex flex-col items-center justify-between pt-20 sm:pt-24 pb-6"
+  >
+    <span class="font-inter font-black uppercase tracking-[0.15em] text-white text-base sm:text-2xl" style="writing-mode:vertical-rl;">Ilhéu</span>
+    <span class="font-inter font-bold uppercase tracking-[0.3em] text-white/90 text-[10px] sm:text-xs" style="writing-mode:vertical-rl;">June · Junho</span>
+  </div>
+
+  <!-- ── Panel 1 · Arquitectura (magenta) ───────────────── -->
+  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#EC008C] overflow-hidden">
+    <button
+      type="button"
+      data-drawer-open="drawer-arquitectura"
+      aria-haspopup="dialog"
+      aria-controls="drawer-arquitectura"
+      aria-label="Arquitectura dos Açores hoje — 18 June, 18h30, Pico do Refúgio. Open details."
+      class="absolute inset-0 w-full h-full cursor-pointer focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-black/40 outline-none"
+    ></button>
+    <span aria-hidden="true" class="pointer-events-none absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 origin-center font-inter font-bold uppercase tracking-[0.2em] text-xs sm:text-base text-[#FFD400]" style="writing-mode:vertical-rl; transform:rotate(180deg);">Conversa · Conversation</span>
+    <div class="pointer-events-none relative z-[1] w-full max-w-5xl mx-auto px-12 sm:px-24 pr-14 sm:pr-28">
+      <p class="font-inter font-extrabold uppercase text-xl sm:text-3xl tracking-tight text-black mb-3">18 jun — 18h30</p>
+      <h2 class="font-inter font-black uppercase leading-[0.9] text-black text-4xl sm:text-6xl lg:text-7xl mb-4">Arquitectura dos Açores hoje</h2>
+      <p class="font-inter font-bold text-lg sm:text-2xl text-black/80 mb-5">Azores Architecture Today</p>
+      <p class="font-inter font-bold uppercase tracking-wide text-sm sm:text-lg text-black">Pico do Refúgio</p>
+    </div>
+    <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center gap-2 font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-black/70">Details <span class="text-base leading-none">+</span></span>
+  </section>
+
+  <!-- ── Panel 2 · Romeu Bairos (yellow) ────────────────── -->
+  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#FFD400] overflow-hidden">
+    <button
+      type="button"
+      data-drawer-open="drawer-romeu"
+      aria-haspopup="dialog"
+      aria-controls="drawer-romeu"
+      aria-label="Romeu Bairos in concert — 20 June, 16h, Pico do Refúgio. Tickets €10. Open details."
+      class="absolute inset-0 w-full h-full cursor-pointer focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-black/40 outline-none"
+    ></button>
+    <span aria-hidden="true" class="pointer-events-none absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 origin-center font-inter font-bold uppercase tracking-[0.2em] text-xs sm:text-base text-[#EC008C]" style="writing-mode:vertical-rl; transform:rotate(180deg);">Concerto · Concert</span>
+    <div class="pointer-events-none relative z-[1] w-full max-w-5xl mx-auto px-12 sm:px-24 pr-14 sm:pr-28">
+      <p class="font-inter font-extrabold uppercase text-xl sm:text-3xl tracking-tight text-black mb-3">20 jun — 16h</p>
+      <h2 class="font-inter font-black uppercase leading-[0.9] text-black text-5xl sm:text-7xl lg:text-8xl mb-4">Romeu Bairos</h2>
+      <p class="font-inter font-bold uppercase tracking-wide text-sm sm:text-lg text-black">Pico do Refúgio</p>
+    </div>
+    <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black text-white font-inter font-bold text-sm sm:text-base">€10</span>
+  </section>
+
+  <!-- ── Panel 3 · Under the Cover (blue) ───────────────── -->
+  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#2E4FA2] overflow-hidden">
+    <button
+      type="button"
+      data-drawer-open="drawer-undercover"
+      aria-haspopup="dialog"
+      aria-controls="drawer-undercover"
+      aria-label="Under the Cover, Lisboa — Issue B magazine launch, 27 June, 16h. Open details."
+      class="absolute inset-0 w-full h-full cursor-pointer focus-visible:outline-4 focus-visible:-outline-offset-8 focus-visible:outline-white/50 outline-none"
+    ></button>
+    <div class="pointer-events-none relative z-[1] w-full max-w-5xl mx-auto px-12 sm:px-24 pr-14 sm:pr-28">
+      <p class="font-inter font-extrabold uppercase text-xl sm:text-3xl tracking-tight text-black mb-3">27 jun — 16h</p>
+      <p class="font-inter font-bold uppercase tracking-[0.18em] text-sm sm:text-lg text-white mb-6">Lançamento · Magazine Launch</p>
+      <h2 class="font-inter font-black uppercase leading-[0.9] text-black text-4xl sm:text-6xl lg:text-7xl">Under the cover, Lisboa</h2>
+    </div>
+    <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center gap-2 font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-white/80">Details <span class="text-base leading-none">+</span></span>
+  </section>
+
+  <!-- ── Drawers ────────────────────────────────────────── -->
+  <EventDrawer
+    id="drawer-arquitectura"
+    accent="#B00068"
+    eyebrow="Conversa · Pico do Refúgio"
+    title="Arquitectura dos Açores hoje"
+    image={imgArquitectura}
+    imageAlt="A sculptural concrete staircase — Azorean architecture"
+    when="Wednesday 18 June"
+    whenNote="18h30"
+    where="Pico do Refúgio"
+    mapsUrl={mapsPico}
+    free={true}
+  >
+    <p>{lorem}</p>
+  </EventDrawer>
+
+  <EventDrawer
+    id="drawer-romeu"
+    accent="#1B3A5C"
+    eyebrow="Live · Pico do Refúgio"
+    title="An evening with Romeu Bairos"
+    image={flyerRomeu}
+    imageAlt="Romeu Bairos live at Pico do Refúgio — Saturday 20 June, 16h, €10"
+    when="Saturday 20 June"
+    whenNote="Doors 16h"
+    where="Pico do Refúgio"
+    mapsUrl={mapsPico}
+    price="€10"
+    priceNote="Kids up to 12 free"
+    stripeUrl={stripeUrl}
+  >
+    <p>One of Portugal&rsquo;s most interesting young musicians plays the viola da terra at Pico do Refúgio. He gave an outstanding interview on whether there is such a thing as Azorean Blues in our latest issue. (There is.) Your ticket includes a free drink and Furnas-style corn-on-the-cob.</p>
+  </EventDrawer>
+
+  <EventDrawer
+    id="drawer-undercover"
+    accent="#234191"
+    eyebrow="Magazine Launch · Lisbon"
+    title="Under the Cover, Lisboa"
+    image={imgUnderCover}
+    imageAlt="The Under the Cover bookshop storefront in Lisbon"
+    when="Friday 27 June"
+    whenNote="16h"
+    where="Under the Cover, Lisboa"
+    mapsUrl={mapsUnderCover}
+    free={true}
+  >
+    <p>{lorem}</p>
+  </EventDrawer>
+
+  <!-- Generic open/close wiring for every EventDrawer on the page -->
+  <script>
+    document.querySelectorAll('[data-drawer-open]').forEach((btn) => {
+      const id = btn.getAttribute('data-drawer-open');
+      const drawer = id ? document.getElementById(id) : null;
+      if (!(drawer instanceof HTMLDialogElement)) return;
+      btn.addEventListener('click', () => {
+        drawer.showModal();
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => drawer.classList.add('is-open'));
+      });
+    });
+
+    document.querySelectorAll('dialog.event-drawer').forEach((drawer) => {
+      if (!(drawer instanceof HTMLDialogElement)) return;
+      const close = () => {
+        drawer.classList.remove('is-open');
+        const finish = () => {
+          drawer.close();
+          document.body.style.overflow = '';
+          drawer.removeEventListener('transitionend', finish);
+        };
+        drawer.addEventListener('transitionend', finish);
+        setTimeout(finish, 420); // fallback for reduced motion
+      };
+      drawer.querySelector('[data-drawer-close]')?.addEventListener('click', close);
+      drawer.addEventListener('click', (e) => { if (e.target === drawer) close(); });
+      drawer.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+    });
+  </script>
+
+  <style is:global>
+    /* Snap one panel at a time on /events only (page-scoped global). */
+    html { scroll-snap-type: y proximity; }
+    .event-panel { scroll-snap-align: start; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-snap-type: none; }
+    }
+  </style>
+</BaseLayout>
