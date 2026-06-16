@@ -1,0 +1,96 @@
+---
+/*
+  FurnasPerks — what every Romeu Bairos ticket includes: a free drink and a
+  Furnas-style corn-on-the-cob, with playful animated icons (rising bubbles
+  in the drink; rising steam off the cob — Furnas cooks in volcanic springs).
+
+  Single source of truth, used by both the homepage ConcertBanner drawer and
+  the /events Romeu drawer. Inherits the drawer's text colour via currentColor;
+  the icons carry their own brand-ish fills. Motion is gated behind
+  prefers-reduced-motion.
+*/
+---
+
+<div class="furnas-perks mt-6 border-t border-current/10 pt-5">
+  <p class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 mb-4">On us, with every ticket</p>
+
+  <ul class="flex flex-col gap-4 not-italic">
+    <li class="flex items-center gap-3.5">
+      <!-- Drink — glass + straw + rising bubbles -->
+      <span class="fp-ico drink shrink-0" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
+          <path d="M9 9 H23 L21 28 A2.2 2.2 0 0 1 18.8 30 H13.2 A2.2 2.2 0 0 1 11 28 Z" fill="#eaf6fb" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9.8 16 H22.2 L21 28 A2.2 2.2 0 0 1 18.8 30 H13.2 A2.2 2.2 0 0 1 11 28 Z" fill="#5bb8df"/>
+          <line x1="9.8" y1="16" x2="22.2" y2="16" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <line x1="19" y1="5" x2="15.6" y2="15" stroke="#ef6b5e" stroke-width="2.2" stroke-linecap="round"/>
+          <circle class="fp-bubble b1" cx="16" cy="24" r="1.4" fill="#ffffff"/>
+          <circle class="fp-bubble b2" cx="13.6" cy="26" r="1" fill="#ffffff"/>
+          <circle class="fp-bubble b3" cx="18.2" cy="22.5" r="1.2" fill="#ffffff"/>
+        </svg>
+      </span>
+      <span class="font-minion italic text-lg leading-tight">A free drink</span>
+    </li>
+
+    <li class="flex items-center gap-3.5">
+      <!-- Corn — cob + husk + rising steam -->
+      <span class="fp-ico corn shrink-0" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
+          <path class="fp-steam s1" d="M14 6 C13 4.5 15 3.5 14 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path class="fp-steam s2" d="M18 6 C17 4.5 19 3.5 18 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path class="fp-steam s3" d="M16 5.6 C15.3 4.6 16.7 3.9 16 2.9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M16 22 C12 25 9 25 7 24 C9 23 11 21 15 21 Z" fill="#5ca15a"/>
+          <path d="M16 22 C20 25 23 25 25 24 C23 23 21 21 17 21 Z" fill="#5ca15a"/>
+          <path d="M16 6.5 C19.5 6.5 22 10 22 15.2 C22 20.4 19.5 23.8 16 23.8 C12.5 23.8 10 20.4 10 15.2 C10 10 12.5 6.5 16 6.5 Z" fill="#f6c945" stroke="currentColor" stroke-width="1.4"/>
+          <g fill="currentColor" opacity="0.4">
+            <circle cx="13.6" cy="10" r="0.6"/><circle cx="16" cy="9.4" r="0.6"/><circle cx="18.4" cy="10" r="0.6"/>
+            <circle cx="13.4" cy="13" r="0.6"/><circle cx="16" cy="12.6" r="0.6"/><circle cx="18.6" cy="13" r="0.6"/>
+            <circle cx="13.4" cy="16" r="0.6"/><circle cx="16" cy="15.8" r="0.6"/><circle cx="18.6" cy="16" r="0.6"/>
+            <circle cx="13.6" cy="19" r="0.6"/><circle cx="16" cy="19" r="0.6"/><circle cx="18.4" cy="19" r="0.6"/>
+          </g>
+        </svg>
+      </span>
+      <span class="font-minion italic text-lg leading-tight">A Furnas-style corn-on-the-cob</span>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .fp-ico { display: inline-flex; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fp-ico { animation: fp-bob 3.4s ease-in-out infinite; }
+    .fp-ico.corn { animation-delay: 0.7s; }
+
+    .fp-bubble {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: fp-bubble 2.6s ease-in-out infinite;
+    }
+    .fp-bubble.b2 { animation-delay: 0.9s; }
+    .fp-bubble.b3 { animation-delay: 0.5s; }
+
+    .fp-steam {
+      transform-box: fill-box;
+      transform-origin: bottom center;
+      opacity: 0;
+      animation: fp-steam 3s ease-in-out infinite;
+    }
+    .fp-steam.s2 { animation-delay: 1s; }
+    .fp-steam.s3 { animation-delay: 0.5s; }
+  }
+
+  @keyframes fp-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1.5px); }
+  }
+  @keyframes fp-bubble {
+    0% { transform: translateY(2px); opacity: 0; }
+    25% { opacity: 0.95; }
+    100% { transform: translateY(-7px); opacity: 0; }
+  }
+  @keyframes fp-steam {
+    0% { transform: translateY(2px) scaleY(0.7); opacity: 0; }
+    40% { opacity: 0.5; }
+    100% { transform: translateY(-3px) scaleY(1.15); opacity: 0; }
+  }
+</style>

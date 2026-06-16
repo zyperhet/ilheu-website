@@ -26,6 +26,8 @@ interface Props {
   mapsUrl?: string;
   price?: string;
   priceNote?: string;
+  /** Show a prominent "Kids free" pill beside the price. */
+  kidsFree?: boolean;
   stripeUrl?: string;
   free?: boolean;
   /** Must be a 6-digit hex (#RRGGBB): the component appends an alpha pair. */
@@ -44,6 +46,7 @@ const {
   mapsUrl,
   price,
   priceNote,
+  kidsFree = false,
   stripeUrl,
   free = false,
   accent = '#1B3A5C',
@@ -109,10 +112,15 @@ const {
             </dd>
           </div>
           <div class="flex items-baseline justify-between gap-5 py-3.5">
-            <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">Entry</dt>
+            <dt class="font-inter text-[10px] uppercase tracking-[0.25em] opacity-45 shrink-0 pt-1">{free ? 'Entry' : 'Tickets'}</dt>
             <dd class="text-right">
-              <span class="font-minion italic text-lg leading-tight block">{free ? 'Free entry' : price}</span>
-              {priceNote && <span class="font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">{priceNote}</span>}
+              <span class="inline-flex items-center gap-2 justify-end flex-wrap">
+                <span class="font-minion italic text-lg leading-tight">{free ? 'Free entry' : price}</span>
+                {kidsFree && (
+                  <span class="inline-flex items-center rounded-full bg-[#f4c84b] text-[#1B3A5C] px-2 py-0.5 font-inter text-[9px] font-bold uppercase tracking-[0.14em]">Kids free</span>
+                )}
+              </span>
+              {priceNote && <span class="block font-inter text-[11px] uppercase tracking-[0.18em] opacity-55">{priceNote}</span>}
             </dd>
           </div>
         </dl>

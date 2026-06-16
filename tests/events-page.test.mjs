@@ -52,3 +52,28 @@ test('events page wires three drawers, images, and CTAs', async () => {
   assert.match(page, /data-drawer-open/);
   assert.match(page, /showModal\(\)/);
 });
+
+test('Furnas perks component has animated drink + corn icons', async () => {
+  const perks = await readProjectFile('src/components/FurnasPerks.astro');
+  assert.match(perks, /drink/i);
+  assert.match(perks, /corn/i);
+  assert.match(perks, /steam/i); // Furnas = steaming hot springs
+  assert.match(perks, /@keyframes/);
+  assert.match(perks, /prefers-reduced-motion/);
+});
+
+test('Romeu ticket perks + kids-free appear on events page and homepage banner', async () => {
+  const [page, banner, drawer] = await Promise.all([
+    readProjectFile('src/pages/events.astro'),
+    readProjectFile('src/components/ConcertBanner.astro'),
+    readProjectFile('src/components/EventDrawer.astro'),
+  ]);
+  // shared perks component used in both contexts
+  assert.match(page, /FurnasPerks/);
+  assert.match(banner, /FurnasPerks/);
+  // kids-free is explicit next to the price
+  assert.match(drawer, /kidsFree/);
+  assert.match(page, /kidsFree=\{true\}/);
+  assert.match(banner, /Kids free/i);
+  assert.match(page, /Kids free/i); // yellow panel badge label
+});

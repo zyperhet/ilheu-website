@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EventDrawer from '../components/EventDrawer.astro';
+import FurnasPerks from '../components/FurnasPerks.astro';
 import imgArquitectura from '../assets/images/events/arquitectura-dos-acores.jpg';
 import imgUnderCover from '../assets/images/events/under-the-cover-lisboa.jpg';
 import flyerRomeu from '../assets/images/concert/romeu-bairos-flyer.jpg';
@@ -19,10 +20,13 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
   fullBleed={true}
   ogImage="/images/events-flyer.jpg"
 >
+  <!-- Flyer area: three panels + the black right strip (strip scoped here so
+       it spans the panels but stops at the site footer). -->
+  <div class="relative">
   <!-- Black right strip — ILHÉU / JUNE · JUNHO (overlays all panels) -->
   <div
     aria-hidden="true"
-    class="pointer-events-none fixed inset-y-0 right-0 z-[40] w-9 sm:w-14 bg-[#0B0B0B] flex flex-col items-center justify-between pt-20 sm:pt-24 pb-6"
+    class="pointer-events-none absolute inset-y-0 right-0 z-[40] w-9 sm:w-14 bg-[#0B0B0B] flex flex-col items-center justify-between pt-20 sm:pt-24 pb-6"
   >
     <span class="font-inter font-black uppercase tracking-[0.15em] text-white text-base sm:text-2xl" style="writing-mode:vertical-rl;">Ilhéu</span>
     <span class="font-inter font-bold uppercase tracking-[0.3em] text-white/90 text-[10px] sm:text-xs" style="writing-mode:vertical-rl;">June · Junho</span>
@@ -64,7 +68,10 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
       <h2 class="font-inter font-black uppercase leading-[0.9] text-black text-5xl sm:text-7xl lg:text-8xl mb-4">Romeu Bairos</h2>
       <p class="font-inter font-bold uppercase tracking-wide text-sm sm:text-lg text-black">Pico do Refúgio</p>
     </div>
-    <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black text-white font-inter font-bold text-sm sm:text-base">€10</span>
+    <div aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 flex items-center gap-3">
+      <span class="font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-black">Kids free</span>
+      <span class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black text-white font-inter font-bold text-sm sm:text-base">€10</span>
+    </div>
   </section>
 
   <!-- ── Panel 3 · Under the Cover (blue) ───────────────── -->
@@ -84,6 +91,7 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     </div>
     <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center gap-2 font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-white/80">Details <span class="text-base leading-none">+</span></span>
   </section>
+  </div>
 
   <!-- ── Drawers ────────────────────────────────────────── -->
   <EventDrawer
@@ -114,10 +122,11 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     where="Pico do Refúgio"
     mapsUrl={mapsPico}
     price="€10"
-    priceNote="Kids up to 12 free"
+    kidsFree={true}
     stripeUrl={stripeUrl}
   >
-    <p>One of Portugal&rsquo;s most interesting young musicians plays the viola da terra at Pico do Refúgio. He gave an outstanding interview on whether there is such a thing as Azorean Blues in our latest issue. (There is.) Your ticket includes a free drink and Furnas-style corn-on-the-cob.</p>
+    <p>One of Portugal&rsquo;s most interesting young musicians plays the viola da terra at Pico do Refúgio. He gave an outstanding interview on whether there is such a thing as Azorean Blues in our latest issue. (There is.)</p>
+    <FurnasPerks />
   </EventDrawer>
 
   <EventDrawer
