@@ -263,7 +263,7 @@ const supplementary = [
         <button
           type="button"
           id="rtp-trigger"
-          class="font-inter inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-white/40 hover:text-white/85 transition-colors duration-300 cursor-pointer max-w-2xl mx-auto px-6"
+          class="group font-inter inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-white/55 hover:text-white transition-colors duration-300 cursor-pointer max-w-2xl mx-auto px-6"
           aria-label="Watch Pedro Norten explain Ilhéu on RTP1, 57 seconds"
         >
           <span>On television</span>
@@ -275,8 +275,12 @@ const supplementary = [
           <span>RTP1</span>
           <span class="text-white/20" aria-hidden="true">/</span>
           <span>57s</span>
-          <span class="text-white/20" aria-hidden="true">/</span>
-          <span class="text-base sm:text-lg" aria-hidden="true">&#9654;</span>
+          <span
+            class="ml-1 inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/30 bg-white/10 text-white motion-safe:transition-all motion-safe:duration-300 group-hover:bg-white/25 group-hover:border-white/70 group-hover:scale-110"
+            aria-hidden="true"
+          >
+            <svg class="w-4 h-4 translate-x-[1px]" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          </span>
         </button>
       </div>
 
@@ -298,7 +302,7 @@ const supplementary = [
       </h2>
 
       <div class="grid lg:grid-cols-12 gap-10 lg:gap-12">
-        <p class="font-minion text-xl sm:text-2xl lg:text-3xl italic leading-[1.4] text-gray-700 lg:col-span-7 max-w-3xl">
+        <p class="font-minion text-xl sm:text-2xl lg:text-3xl leading-[1.4] text-gray-700 lg:col-span-7 max-w-3xl">
           Five investigations into the least pure of all the colours &mdash; from the Paris blues of the painter Ant&oacute;nio Dacosta to the architectural ruin of a six-million-euro swimming pool, from Le&iuml;la Slimani on writer&rsquo;s block to Romeu Bairos on the viola da terra, all the way down to the underwater stillness of the Azorean marine park.
         </p>
         <div class="lg:col-span-4 lg:col-start-9 lg:pt-2">
@@ -356,7 +360,7 @@ const supplementary = [
       </h2>
 
       <div class="grid lg:grid-cols-12 gap-10 lg:gap-12">
-        <p class="font-minion text-xl sm:text-2xl lg:text-3xl italic leading-[1.4] text-gray-700 lg:col-span-7 max-w-3xl">
+        <p class="font-minion text-xl sm:text-2xl lg:text-3xl leading-[1.4] text-gray-700 lg:col-span-7 max-w-3xl">
           Threading between the conversations: a picture essay on Dacosta&rsquo;s late period, two playlists curated to set the issue&rsquo;s mood, a hand-drawn map of Azorean ruins, a comic strip from Ponta Delgada, and a short story by Kathleen McCaul. Interludes that hold the page between the louder voices.
         </p>
         <div class="lg:col-span-4 lg:col-start-9 lg:pt-2">
@@ -685,7 +689,7 @@ const supplementary = [
       {/* Pull-line — centre, biggest typographic moment */}
       <div class="relative h-full max-w-6xl mx-auto px-6 flex flex-col justify-center z-10">
         <p
-          class="font-minion italic text-4xl sm:text-6xl lg:text-8xl leading-[1.15] max-w-5xl"
+          class="font-minion text-4xl sm:text-6xl lg:text-8xl leading-[1.15] max-w-5xl"
           style={`color: ${accentColour};`}
         >
           A short story of unravelling in water.
@@ -761,7 +765,7 @@ const supplementary = [
             <h2 class="font-minion italic text-7xl sm:text-9xl lg:text-[14rem] leading-[0.9] text-white mb-6 sm:mb-8 mix-blend-difference">
               Azores
             </h2>
-            <p class="font-minion italic text-base sm:text-lg text-white/85 leading-relaxed max-w-md mb-5">
+            <p class="font-minion text-base sm:text-lg text-white/85 leading-relaxed max-w-md mb-5">
               Island of Origins. 128 pages on S&atilde;o Miguel. Hugo Gon&ccedil;ales, Pedro Borges, Hun-Chung Lee.
             </p>
             <a
@@ -788,7 +792,7 @@ const supplementary = [
       <h2 class="font-minion italic text-5xl sm:text-7xl lg:text-9xl text-white mb-10 leading-[0.95]">
         Get your copy
       </h2>
-      <p class="font-minion text-base sm:text-lg text-white/75 italic leading-relaxed mb-12 max-w-lg mx-auto">
+      <p class="font-minion text-base sm:text-lg text-white/75 leading-relaxed mb-12 max-w-lg mx-auto">
         128 pages of conversations, photography, prose, maps and comics. Printed on Munken Pure 100g at Nova Gr&aacute;fica, S&atilde;o Miguel.
       </p>
       <div class="flex items-baseline justify-center gap-3 mb-10">
@@ -1048,6 +1052,7 @@ const supplementary = [
        Native <dialog> gives ESC + focus trap free;
        we style the centered card and backdrop. */
     .rtp-dialog {
+      margin: auto; /* centre in the viewport — Tailwind's reset zeroes the UA margin */
       border: 0;
       padding: 0;
       background: transparent;
