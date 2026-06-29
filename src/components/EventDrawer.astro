@@ -30,6 +30,13 @@ interface Props {
   kidsFree?: boolean;
   stripeUrl?: string;
   free?: boolean;
+  /** ISO end time; drives the client-side "ended" state. */
+  endIso?: string;
+  /** Initial (build-time) past state — re-checked client-side from endIso. */
+  past?: boolean;
+  /** Manually mark the event cancelled (overrides the past treatment). */
+  cancelled?: boolean;
+  cancelledNote?: string;
   /** Must be a 6-digit hex (#RRGGBB): the component appends an alpha pair. */
   accent?: string;
 }
@@ -49,11 +56,20 @@ const {
   kidsFree = false,
   stripeUrl,
   free = false,
+  endIso,
+  past = false,
+  cancelled = false,
+  cancelledNote,
   accent = '#1B3A5C',
 } = Astro.props;
 ---
 
-<dialog id={id} class="event-drawer" aria-label={`${title} — details`}>
+<dialog
+  id={id}
+  class:list={['event-drawer', past && 'is-past', cancelled && 'is-cancelled']}
+  data-event-end={endIso}
+  aria-label={`${title} — details`}
+>
   <div class="flex flex-col h-full">
     <!-- Scrollable: hero image + details -->
     <div class="flex-1 overflow-y-auto">
@@ -127,39 +143,56 @@ const {
       </div>
     </div>
 
-    <!-- Pinned footer: CTA -->
+    <!-- Pinned footer: CTA (active / ended / cancelled — toggled by state) -->
     <div class="shrink-0 border-t px-6 sm:px-7 py-4" style={`border-color: ${accent}1a; background-color:#F6F1E8;`}>
-      {!free && stripeUrl ? (
-        <>
-          <a
-            href={stripeUrl}
-            class="block w-full text-center text-white font-inter text-xs uppercase tracking-[0.22em] py-4 hover:opacity-90 transition-opacity duration-300"
-            style={`background-color: ${accent};`}
-          >
-            Buy tickets &mdash; {price} &rarr;
-          </a>
-          <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-center mt-3" style={`color: ${accent}; opacity: 0.5;`}>
-            Secure checkout via Stripe &middot; Also available on the door
-          </p>
-        </>
-      ) : (
-        <>
-          <p class="font-inter text-xs uppercase tracking-[0.22em] text-center py-2" style={`color: ${accent};`}>
-            Free entry &middot; All welcome
-          </p>
-          {mapsUrl && (
+      <div class="cta-active">
+        {!free && stripeUrl ? (
+          <>
             <a
-              href={mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block w-full text-center font-inter text-[11px] uppercase tracking-[0.22em] py-3 mt-1 border hover:opacity-80 transition-opacity duration-300"
-              style={`color: ${accent}; border-color: ${accent}33;`}
+              href={stripeUrl}
+              class="block w-full text-center text-white font-inter text-xs uppercase tracking-[0.22em] py-4 hover:opacity-90 transition-opacity duration-300"
+              style={`background-color: ${accent};`}
             >
-              Get directions &#8599;
+              Buy tickets &mdash; {price} &rarr;
             </a>
-          )}
-        </>
-      )}
+            <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-center mt-3" style={`color: ${accent}; opacity: 0.5;`}>
+              Secure checkout via Stripe &middot; Also available on the door
+            </p>
+          </>
+        ) : (
+          <>
+            <p class="font-inter text-xs uppercase tracking-[0.22em] text-center py-2" style={`color: ${accent};`}>
+              Free entry &middot; All welcome
+            </p>
+            {mapsUrl && (
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full text-center font-inter text-[11px] uppercase tracking-[0.22em] py-3 mt-1 border hover:opacity-80 transition-opacity duration-300"
+                style={`color: ${accent}; border-color: ${accent}33;`}
+              >
+                Get directions &#8599;
+              </a>
+            )}
+          </>
+        )}
+      </div>
+
+      <div class="cta-ended">
+        <p class="font-inter text-xs uppercase tracking-[0.24em] text-center py-3" style={`color: ${accent}; opacity: 0.65;`}>
+          This event has ended
+        </p>
+      </div>
+
+      <div class="cta-cancelled">
+        <p class="font-inter text-xs font-bold uppercase tracking-[0.28em] text-center pt-2" style="color:#c02626;">
+          Cancelled
+        </p>
+        <p class="font-minion italic text-sm text-center pb-1.5 mt-1" style={`color: ${accent}; opacity: 0.75;`}>
+          {cancelledNote ?? 'We’ll reschedule soon.'}
+        </p>
+      </div>
     </div>
   </div>
 </dialog>
@@ -199,5 +232,23 @@ const {
     .event-drawer::backdrop {
       transition: none;
     }
+  }
+
+  /* Footer CTA state machine: active by default; ended / cancelled swap in. */
+  .cta-ended,
+  .cta-cancelled {
+    display: none;
+  }
+  .event-drawer.is-past:not(.is-cancelled) .cta-active {
+    display: none;
+  }
+  .event-drawer.is-past:not(.is-cancelled) .cta-ended {
+    display: block;
+  }
+  .event-drawer.is-cancelled .cta-active {
+    display: none;
+  }
+  .event-drawer.is-cancelled .cta-cancelled {
+    display: block;
   }
 </style>

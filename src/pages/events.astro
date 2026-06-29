@@ -11,6 +11,26 @@ const mapsPico = 'https://maps.app.goo.gl/MYcWGFnWGxhdWFUz5';
 const mapsUnderCover = 'https://www.google.com/maps/search/?api=1&query=Under+the+Cover+livraria+Lisboa';
 
 const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+
+// Each event's "over" moment — Azores is UTC−1, so the morning-after in UTC is
+// safely past local midnight. Drives the "ended" treatment: computed at build
+// for the initial state, then re-checked client-side (see the script below) so
+// it stays correct without a rebuild.
+const ends = {
+  arquitectura: '2026-06-19T04:00:00Z', // Wed 18 Jun, 18h30
+  romeu: '2026-06-21T04:00:00Z',        // Sat 20 Jun, 16h
+  undercover: '2026-06-28T04:00:00Z',   // Fri 27 Jun, 16h
+};
+const now = new Date();
+const isPast = {
+  arquitectura: now > new Date(ends.arquitectura),
+  romeu: now > new Date(ends.romeu),
+  undercover: now > new Date(ends.undercover),
+};
+
+// Under the Cover is cancelled (manual flag, independent of date).
+const undercoverCancelled = true;
+const undercoverNote = 'This launch has been cancelled. We’ll reschedule soon — watch this space.';
 ---
 
 <BaseLayout
@@ -33,7 +53,10 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
   </div>
 
   <!-- ── Panel 1 · Arquitectura (magenta) ───────────────── -->
-  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#EC008C] overflow-hidden">
+  <section
+    class:list={['event-panel relative min-h-[100svh] flex items-center bg-[#EC008C] overflow-hidden', isPast.arquitectura && 'is-past']}
+    data-event-end={ends.arquitectura}
+  >
     <button
       type="button"
       data-drawer-open="drawer-arquitectura"
@@ -50,10 +73,17 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
       <p class="font-inter font-bold uppercase tracking-wide text-sm sm:text-lg text-black">Pico do Refúgio</p>
     </div>
     <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center gap-2 font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-black/70">Details <span class="text-base leading-none">+</span></span>
+    <div class="panel-scrim pointer-events-none absolute inset-0 z-[2] bg-white/55"></div>
+    <div class="ended-stamp pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
+      <span class="-rotate-[8deg] border-[3px] border-black/75 bg-white/15 backdrop-blur-sm px-7 py-3 font-inter text-2xl sm:text-4xl font-black uppercase tracking-[0.3em] text-black/85">Ended</span>
+    </div>
   </section>
 
   <!-- ── Panel 2 · Romeu Bairos (yellow) ────────────────── -->
-  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#FFD400] overflow-hidden">
+  <section
+    class:list={['event-panel relative min-h-[100svh] flex items-center bg-[#FFD400] overflow-hidden', isPast.romeu && 'is-past']}
+    data-event-end={ends.romeu}
+  >
     <button
       type="button"
       data-drawer-open="drawer-romeu"
@@ -72,10 +102,17 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
       <span class="font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-black">Kids free</span>
       <span class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black text-white font-inter font-bold text-sm sm:text-base">€10</span>
     </div>
+    <div class="panel-scrim pointer-events-none absolute inset-0 z-[2] bg-white/55"></div>
+    <div class="ended-stamp pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
+      <span class="-rotate-[8deg] border-[3px] border-black/75 bg-white/15 backdrop-blur-sm px-7 py-3 font-inter text-2xl sm:text-4xl font-black uppercase tracking-[0.3em] text-black/85">Ended</span>
+    </div>
   </section>
 
-  <!-- ── Panel 3 · Under the Cover (blue) ───────────────── -->
-  <section class="event-panel relative min-h-[100svh] flex items-center bg-[#2E4FA2] overflow-hidden">
+  <!-- ── Panel 3 · Under the Cover (blue) — cancelled ───── -->
+  <section
+    class:list={['event-panel relative min-h-[100svh] flex items-center bg-[#2E4FA2] overflow-hidden', isPast.undercover && 'is-past', undercoverCancelled && 'is-cancelled']}
+    data-event-end={ends.undercover}
+  >
     <button
       type="button"
       data-drawer-open="drawer-undercover"
@@ -90,6 +127,11 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
       <h2 class="font-inter font-black uppercase leading-[0.9] text-black text-4xl sm:text-6xl lg:text-7xl">Under the cover, Lisboa</h2>
     </div>
     <span aria-hidden="true" class="pointer-events-none absolute bottom-6 right-12 sm:right-20 inline-flex items-center gap-2 font-inter text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-white/80">Details <span class="text-base leading-none">+</span></span>
+    <div class="panel-scrim pointer-events-none absolute inset-0 z-[2] bg-white/55"></div>
+    <div class="cancelled-stamp pointer-events-none absolute inset-0 z-[3] flex flex-col items-center justify-center gap-4">
+      <span class="-rotate-[8deg] border-[3px] border-[#c02626] bg-white/20 backdrop-blur-sm px-7 py-3 font-inter text-2xl sm:text-4xl font-black uppercase tracking-[0.3em] text-[#c02626]">Cancelled</span>
+      <span class="-rotate-[8deg] font-inter text-xs sm:text-sm font-bold uppercase tracking-[0.28em] text-black/80">Rescheduling soon</span>
+    </div>
   </section>
   </div>
 
@@ -106,6 +148,8 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     where="Pico do Refúgio"
     mapsUrl={mapsPico}
     free={true}
+    endIso={ends.arquitectura}
+    past={isPast.arquitectura}
   >
     <p>{lorem}</p>
   </EventDrawer>
@@ -124,6 +168,8 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     price="€10"
     kidsFree={true}
     stripeUrl={stripeUrl}
+    endIso={ends.romeu}
+    past={isPast.romeu}
   >
     <p>One of Portugal&rsquo;s most interesting young musicians plays the viola da terra at Pico do Refúgio. He gave an outstanding interview on whether there is such a thing as Azorean Blues in our latest issue. (There is.)</p>
     <FurnasPerks />
@@ -141,12 +187,24 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     where="Under the Cover, Lisboa"
     mapsUrl={mapsUnderCover}
     free={true}
+    endIso={ends.undercover}
+    past={isPast.undercover}
+    cancelled={undercoverCancelled}
+    cancelledNote={undercoverNote}
   >
     <p>{lorem}</p>
   </EventDrawer>
 
   <!-- Generic open/close wiring for every EventDrawer on the page -->
   <script>
+    // Mark any event whose end time has passed, so "ended" stays correct in the
+    // visitor's browser without needing a rebuild. Applies to panels + drawers.
+    const nowTs = Date.now();
+    document.querySelectorAll('[data-event-end]').forEach((el) => {
+      const end = Date.parse(el.getAttribute('data-event-end') || '');
+      if (!Number.isNaN(end) && nowTs > end) el.classList.add('is-past');
+    });
+
     document.querySelectorAll('[data-drawer-open]').forEach((btn) => {
       const id = btn.getAttribute('data-drawer-open');
       const drawer = id ? document.getElementById(id) : null;
@@ -183,5 +241,15 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do e
     @media (prefers-reduced-motion: reduce) {
       html { scroll-snap-type: none; }
     }
+
+    /* Past / cancelled treatment — hidden until the state class is present
+       (set at build time and re-checked client-side). */
+    .event-panel .panel-scrim,
+    .event-panel .ended-stamp,
+    .event-panel .cancelled-stamp { display: none; }
+    .event-panel.is-past .panel-scrim,
+    .event-panel.is-cancelled .panel-scrim { display: block; }
+    .event-panel.is-past:not(.is-cancelled) .ended-stamp { display: flex; }
+    .event-panel.is-cancelled .cancelled-stamp { display: flex; }
   </style>
 </BaseLayout>

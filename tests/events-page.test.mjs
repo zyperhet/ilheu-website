@@ -62,6 +62,26 @@ test('Furnas perks component has animated drink + corn icons', async () => {
   assert.match(perks, /prefers-reduced-motion/);
 });
 
+test('events auto-mark past + cancelled states', async () => {
+  const [page, drawer] = await Promise.all([
+    readProjectFile('src/pages/events.astro'),
+    readProjectFile('src/components/EventDrawer.astro'),
+  ]);
+  // each panel carries an end time for client-side "past" detection
+  const ends = page.match(/data-event-end=/g) || [];
+  assert.ok(ends.length >= 3, `expected >=3 data-event-end, got ${ends.length}`);
+  // client toggles a "past" state from the end time
+  assert.match(page, /is-past/);
+  assert.match(page, /Date\.parse/);
+  // visible ENDED stamp + cancelled / rescheduling messaging on the page
+  assert.match(page, /Ended/);
+  assert.match(page, /Cancelled/);
+  assert.match(page, /[Rr]eschedul/);
+  // drawer renders ended + cancelled footer states
+  assert.match(drawer, /is-cancelled/);
+  assert.match(drawer, /This event has ended/i);
+});
+
 test('Romeu ticket perks + kids-free appear on events page and homepage banner', async () => {
   const [page, banner, drawer] = await Promise.all([
     readProjectFile('src/pages/events.astro'),
