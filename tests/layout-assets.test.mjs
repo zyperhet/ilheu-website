@@ -5,39 +5,27 @@ import test from 'node:test';
 const readProjectFile = (path) =>
   readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('homepage uses the five supplied conversation compositions without duplicate hero titles', async () => {
+test('homepage hero uses the Issue B cover spread and links to all five conversations', async () => {
   const homepage = await readProjectFile('src/pages/index.astro');
 
-  for (const asset of [
-    'conversation-01-antonio-dacosta.webp',
-    'conversation-02-leila-slimani.webp',
-    'conversation-03-azorean-blues.webp',
-    'conversation-04-pool-edge-of-the-world.webp',
-    'conversation-05-blue-azores.webp',
+  // New hero: the cover-spread asset
+  assert.match(homepage, /cover-spread-b\.jpg/);
+
+  // Five Conversations card row links to each conversation page
+  for (const href of [
+    '/conversations/dacosta',
+    '/conversations/slimani',
+    '/conversations/azorean-blues',
+    '/conversations/pool',
+    '/conversations/blue-azores',
   ]) {
-    assert.match(homepage, new RegExp(asset.replaceAll('.', '\\.')));
+    assert.match(homepage, new RegExp(href.replaceAll('/', '\\/')));
   }
 
-  const conversationSectionStart = homepage.indexOf('{conversations.map');
-  const conversationSectionEnd = homepage.indexOf(
-    'ALSO IN THIS ISSUE — INTRO',
-    conversationSectionStart,
-  );
-  const conversationSection = homepage.slice(
-    conversationSectionStart,
-    conversationSectionEnd,
-  );
-
-  assert.doesNotMatch(conversationSection, /<h3/);
-  assert.doesNotMatch(conversationSection, /videoSrc/);
+  assert.match(homepage, /Five Conversations on Blue/);
 });
 
-test('navigation and large homepage logo use the requested supplied assets', async () => {
-  const [navigation, homepage] = await Promise.all([
-    readProjectFile('src/components/Nav.astro'),
-    readProjectFile('src/pages/index.astro'),
-  ]);
-
+test('navigation logo uses the supplied solo asset', async () => {
+  const navigation = await readProjectFile('src/components/Nav.astro');
   assert.match(navigation, /\/images\/ilheu-logo-solo\.webp/);
-  assert.match(homepage, /\/images\/ilheu-logo-pure-blue\.webp/);
 });
