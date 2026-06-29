@@ -15,10 +15,12 @@
 
   /* Legacy aliases — repointed onto the new system so the ~500 existing
      utility usages adopt the new fonts site-wide with no markup churn:
-       font-inter  -> Saira     (sans / UI / labels)
-       font-minion -> PT Serif  (editorial serif / body / quotes)
-       font-cardo  -> PT Serif  */
-  --font-inter:  'Saira', sans-serif;
+       font-inter  -> Saira Condensed  (the kicker/label voice, used site-wide)
+       font-minion -> PT Serif         (editorial serif / body / quotes)
+       font-cardo  -> PT Serif
+     Reading paragraphs that were on font-inter are switched to `font-body`
+     (PT Serif) in markup. */
+  --font-inter:  'Saira Condensed', 'Saira', sans-serif;
   --font-minion: 'PT Serif', Georgia, serif;
   --font-cardo:  'PT Serif', Georgia, serif;
 }

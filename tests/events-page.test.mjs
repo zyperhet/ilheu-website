@@ -25,7 +25,7 @@ test('global css maps the role-based type system', async () => {
   assert.match(css, /--font-kicker:\s*'Saira Condensed'/);
   assert.match(css, /--font-mega:\s*'Anton'/);
   // legacy aliases repointed onto the new families
-  assert.match(css, /--font-inter:\s*'Saira'/);
+  assert.match(css, /--font-inter:\s*'Saira Condensed'/); // labels/kickers site-wide
   assert.match(css, /--font-minion:\s*'PT Serif'/);
 });
 
