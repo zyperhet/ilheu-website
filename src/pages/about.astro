@@ -2,12 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About — Ilhéu Magazine" description="Credits and colophon for Ilhéu Magazine, Issue B, Spring 2026." navVariant="dark" fullBleed>
+<BaseLayout title="About — Ilhéu Magazine" description="Credits and colophon for Ilhéu Magazine, Issue B, Spring 2026." navVariant="dark" fullBleed showNavLogo={false}>
   <section class="bg-[#3B3F9E] text-white pt-28 md:pt-40 pb-20 md:pb-28 px-6">
     <div class="max-w-6xl mx-auto">
 
-      <!-- Wordmark -->
-      <h1 class="font-cardo text-5xl md:text-7xl lg:text-8xl font-bold text-center mb-20 md:mb-28 tracking-wide">ILHÉU</h1>
+      <!-- Wordmark (logo image, white on the indigo ground) -->
+      <h1 class="mb-20 md:mb-28">
+        <img
+          src="/images/ilheu-logo-solo.webp"
+          alt="Ilhéu"
+          class="h-20 md:h-28 lg:h-32 w-auto mx-auto block brightness-0 invert"
+        />
+      </h1>
 
       <!-- Three-column grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-10 lg:gap-14">

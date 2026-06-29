@@ -1,9 +1,10 @@
 ---
 interface Props {
   variant?: 'light' | 'dark';
+  showLogo?: boolean;
 }
 
-const { variant = 'light' } = Astro.props;
+const { variant = 'light', showLogo = true } = Astro.props;
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -25,20 +26,24 @@ const isDark = variant === 'dark';
   <div class="max-w-6xl mx-auto px-6">
     <div class="flex items-center justify-between h-16 md:h-20">
 
-      <a
-        href="/"
-        class="block transition-opacity duration-300 hover:opacity-70"
-        aria-label="Ilh&eacute;u Magazine — home"
-      >
-        <img
-          src="/images/ilheu-logo-solo.webp"
-          alt="Ilh&eacute;u"
-          class:list={[
-            'h-8 md:h-10 w-auto',
-            isDark && 'brightness-0 invert',
-          ]}
-        />
-      </a>
+      {showLogo ? (
+        <a
+          href="/"
+          class="block transition-opacity duration-300 hover:opacity-70"
+          aria-label="Ilh&eacute;u Magazine — home"
+        >
+          <img
+            src="/images/ilheu-logo-solo.webp"
+            alt="Ilh&eacute;u"
+            class:list={[
+              'h-8 md:h-10 w-auto',
+              isDark && 'brightness-0 invert',
+            ]}
+          />
+        </a>
+      ) : (
+        <span aria-hidden="true"></span>
+      )}
 
       <nav class="hidden md:flex items-center gap-10">
         {navItems.map((item) => (
