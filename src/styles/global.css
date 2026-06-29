@@ -1,19 +1,50 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Cardo + Inter are loaded via <link rel="stylesheet"> in BaseLayout.astro
-   so they don't end up as an out-of-order @import in the compiled CSS. */
-
-@font-face {
-  font-family: 'Minion Pro';
-  src: url('../assets/fonts/MinionPro-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* ── Type system ────────────────────────────────────────────────
+   PT Serif (body) · Saira (display) · Saira Condensed (kicker) · Anton (mega).
+   Families are loaded via <link rel="stylesheet"> in BaseLayout.astro so they
+   don't compile to an out-of-order @import. */
 
 @theme {
-  --font-cardo: 'Cardo', serif;
-  --font-inter: 'Inter', sans-serif;
-  --font-minion: 'Minion Pro', 'Cardo', serif;
+  /* Role-based families */
+  --font-body:    'PT Serif', Georgia, serif;
+  --font-display: 'Saira', sans-serif;
+  --font-kicker:  'Saira Condensed', 'Saira', sans-serif;
+  --font-mega:    'Anton', 'Saira Condensed', sans-serif;
+
+  /* Legacy aliases — repointed onto the new system so the ~500 existing
+     utility usages adopt the new fonts site-wide with no markup churn:
+       font-inter  -> Saira     (sans / UI / labels)
+       font-minion -> PT Serif  (editorial serif / body / quotes)
+       font-cardo  -> PT Serif  */
+  --font-inter:  'Saira', sans-serif;
+  --font-minion: 'PT Serif', Georgia, serif;
+  --font-cardo:  'PT Serif', Georgia, serif;
+}
+
+/* ── Role defaults ──────────────────────────────────────────────
+   Unlayered on purpose: these set the baseline voice across the whole site
+   (every page, including the v* drafts) and intentionally win over the legacy
+   font utilities still sitting on headings/body. Add `.mega` to push a heading
+   up to Anton, `.kicker` for condensed eyebrow labels. font-style is forced to
+   normal on headings so a stray `italic` class can't synth-italic a sans face. */
+body {
+  font-family: var(--font-body);
+}
+h1, .mega {
+  font-family: var(--font-mega);
+  font-style: normal;
+  text-transform: uppercase;
+}
+h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: normal;
+}
+.kicker {
+  font-family: var(--font-kicker);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }

@@ -11,10 +11,22 @@ test('nav links to the events page', async () => {
   assert.match(nav, /label:\s*'Events'/);
 });
 
-test('base layout loads heavy Inter weights for flyer-style titles', async () => {
+test('base layout loads the type-system families', async () => {
   const layout = await readProjectFile('src/layouts/BaseLayout.astro');
-  // Inter must include 700/800/900 in the Google Fonts request
-  assert.match(layout, /Inter:wght@[^"&]*;700;800;900/);
+  for (const family of ['Anton', 'PT\\+Serif', 'Saira', 'Saira\\+Condensed']) {
+    assert.match(layout, new RegExp(`family=${family}`));
+  }
+});
+
+test('global css maps the role-based type system', async () => {
+  const css = await readProjectFile('src/styles/global.css');
+  assert.match(css, /--font-body:\s*'PT Serif'/);
+  assert.match(css, /--font-display:\s*'Saira'/);
+  assert.match(css, /--font-kicker:\s*'Saira Condensed'/);
+  assert.match(css, /--font-mega:\s*'Anton'/);
+  // legacy aliases repointed onto the new families
+  assert.match(css, /--font-inter:\s*'Saira'/);
+  assert.match(css, /--font-minion:\s*'PT Serif'/);
 });
 
 test('EventDrawer supports paid and free CTAs and the slide-in pattern', async () => {

@@ -36,7 +36,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Saira:wght@400;500;600;800&family=Saira+Condensed:wght@600;800&display=swap"
     />
 
     {/* Open Graph */}
@@ -55,7 +55,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
 
     <title>{title}</title>
   </head>
-  <body class="font-inter text-gray-900 bg-white antialiased overflow-x-hidden">
+  <body class="font-body text-gray-900 bg-white antialiased overflow-x-hidden">
     <Nav variant={navVariant} />
     <main>
       {!fullBleed && <div class="h-16 md:h-20" aria-hidden="true" />}
