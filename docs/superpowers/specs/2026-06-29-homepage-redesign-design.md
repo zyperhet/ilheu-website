@@ -78,3 +78,21 @@ Current tactile single-cover hero, "magazine in motion" video, "Pure Blue ILHÉU
 - Exact hexes (sample in-browser).
 - Whether the cover artworks have their text overlays baked in (add overlays only if missing).
 - Final mobile layout for the cover spread and the 5 cards.
+
+## Addendum (2026-06-30) — "Previously: Issue A" becomes a mirror of the "B" split
+
+The bottom archival section (forest-green `#2D5F3E` block: floating grayscale cover, giant italic "Azores", description, back-issue link) is **replaced** by an inverted bookend of the top "B" quote section, so the homepage opens and closes on the same device.
+
+- **Same grammar:** full-bleed two-panel split, `min-h-[84vh]` desktop, giant letterform via `--font-mega` (Anton) sized with container-query units.
+- **Inverted vocabulary:**
+  - **Layout swap (L↔R):** giant letter on the **left**, text on the **right** (the "B" has letter right, text left).
+  - **Colour swap (blue↔green):** left panel **blue `#1A5FC4`** with a giant **green `#12A06A` "A"**; right panel **green `#12A06A`** with pale-blue text + blue accents (mirror of the "B" panel's pale-green/green-on-blue).
+- **Right (green) panel content** — trimmed to essentials:
+  - eyebrow `Previously · Issue A · 2024` (Saira Condensed kicker, pale blue)
+  - the grayscale **Issue A cover**, slightly rotated, with the **"Sold Out"** postmark stamp (kept from the old design)
+  - `Azores` caption/title
+  - `Back-issue enquiries →` mailto link
+  - **Dropped:** the "Island of Origins. 128 pages on São Miguel…" description paragraph.
+- **The "A" does double duty:** *Azores* + *Issue A*.
+- **Responsive:** stacks blue **A** panel on top, green cover panel below (mirror of how "B" stacks).
+- New `.hp-bigA` style mirrors `.hp-bigB` (tune the `cqh/cqw` cap for the A glyph during browser verify).
