@@ -132,9 +132,10 @@ const supplementary = [
           </footer>
         </blockquote>
       </div>
-      <div class="bg-[#12A06A] min-h-[34vh] md:min-h-[84vh]"></div>
+      <div class="bg-[#12A06A] min-h-[34vh] md:min-h-[84vh] relative overflow-hidden flex items-center justify-center">
+        <span aria-hidden="true" class="hp-bigB font-mega text-[#1A5FC4] leading-none select-none pointer-events-none">B</span>
+      </div>
     </div>
-    <span aria-hidden="true" class="hp-bigB absolute font-mega text-[#1A5FC4] select-none pointer-events-none">B</span>
   </section>
 
 
@@ -760,12 +761,13 @@ const supplementary = [
       .hp-rise-3 { animation-delay: 0.24s; }
     }
 
-    /* Giant blue B bleeding across the green panel */
+    /* Giant blue B — centered and fully visible within the green panel */
     .hp-bigB {
-      right: 0.04em;
-      bottom: -0.18em;
-      font-size: clamp(15rem, 40vw, 44rem);
-      line-height: 0.72;
+      font-size: 56vw;
+      line-height: 0.8;
+    }
+    @media (min-width: 768px) {
+      .hp-bigB { font-size: min(50vw, 84vh); }
     }
 
     /* Condensed heavy conversation-card titles */
