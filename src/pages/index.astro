@@ -132,7 +132,7 @@ const supplementary = [
           </footer>
         </blockquote>
       </div>
-      <div class="bg-[#12A06A] min-h-[34vh] md:min-h-[84vh] relative overflow-hidden flex items-center justify-center">
+      <div class="bg-[#12A06A] min-h-[34vh] md:min-h-[84vh] relative overflow-hidden flex items-center justify-center [container-type:size]">
         <span aria-hidden="true" class="hp-bigB font-mega text-[#1A5FC4] leading-none select-none pointer-events-none">B</span>
       </div>
     </div>
@@ -761,13 +761,11 @@ const supplementary = [
       .hp-rise-3 { animation-delay: 0.24s; }
     }
 
-    /* Giant blue B — centered and fully visible within the green panel */
+    /* Giant blue B — fills the green panel top-to-bottom (sized to the
+       container's own height; capped by width so the bowls never clip). */
     .hp-bigB {
-      font-size: 56vw;
-      line-height: 0.8;
-    }
-    @media (min-width: 768px) {
-      .hp-bigB { font-size: min(50vw, 84vh); }
+      font-size: min(138cqh, 150cqw);
+      line-height: 0.7;
     }
 
     /* Condensed heavy conversation-card titles */
