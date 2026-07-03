@@ -7,6 +7,7 @@ export default defineConfig({
   output: 'static',
   redirects: {
     '/editions/edition-2': '/',
+    '/home-2': '/',
   },
   vite: {
     plugins: [tailwindcss()],
