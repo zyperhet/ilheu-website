@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleNav from '../../components/ArticleNav.astro';
 
@@ -7,6 +8,9 @@ import heroImage from '../../assets/images/02-leila-slimani-conversation/leila-s
 import portraitSeated from '../../assets/images/02-leila-slimani-conversation/leila-slimani-full-page-portrait-seated-outdoors.jpg';
 import portraitGarden from '../../assets/images/02-leila-slimani-conversation/leila-slimani-portrait-garden-agapanthus.jpg';
 import portraitMaria from '../../assets/images/02-leila-slimani-conversation/maria-brandao-portrait-floral-dress-tree.jpg';
+
+const edition = await getEntry('editions', 'edition-2');
+const purchaseUrl = edition?.data.purchase_url ?? '#';
 ---
 
 <BaseLayout
@@ -160,7 +164,7 @@ import portraitMaria from '../../assets/images/02-leila-slimani-conversation/mar
           Read the full conversation in Ilh&eacute;u Magazine Issue B
         </p>
         <a
-          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          href={purchaseUrl}
           class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
         >
           Buy Issue B

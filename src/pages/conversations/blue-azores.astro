@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleNav from '../../components/ArticleNav.astro';
 
@@ -8,6 +9,9 @@ import planetEarth from '../../assets/images/05-blue-azores-environment/planet-e
 import marineMap from '../../assets/images/05-blue-azores-environment/blue-azores-marine-park-map.png';
 import portraitBernardo from '../../assets/images/05-blue-azores-environment/bernardo-melo-de-brito-portrait-underwater.jpg';
 import portraitAdriano from '../../assets/images/05-blue-azores-environment/adriano-quintela-portrait-radio-headphones.jpg';
+
+const edition = await getEntry('editions', 'edition-2');
+const purchaseUrl = edition?.data.purchase_url ?? '#';
 ---
 
 <BaseLayout
@@ -186,7 +190,7 @@ import portraitAdriano from '../../assets/images/05-blue-azores-environment/adri
           Read the full conversation in Ilh&eacute;u Magazine Issue B
         </p>
         <a
-          href="https://buy.stripe.com/00wdRbboeeiZcmM5YnfMA01"
+          href={purchaseUrl}
           class="inline-block font-inter text-sm tracking-wide uppercase text-gray-900 border border-gray-900 px-8 py-3 hover:bg-gray-900 hover:text-white transition-colors"
         >
           Buy Issue B

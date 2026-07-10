@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "test": "node --test tests/*.test.mjs",
     "product:add": "node scripts/add-product.mjs",
-    "shipping:setup": "node scripts/setup-shipping.mjs"
+    "shipping:setup": "node scripts/setup-shipping.mjs",
+    "shipping:restore": "node scripts/restore-issue-b-shipping.mjs"
   },
   "engines": {
     "node": ">=22"
