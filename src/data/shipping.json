@@ -13,15 +13,15 @@
       "currency": "eur"
     },
     {
-      "id": "shr_1TEV5ORsfkWOq7pPzSKX6jiR",
+      "id": "shr_1TtOJORsfkWOq7pPSJrflqIw",
       "name": "Europe",
-      "amount": 800,
+      "amount": 500,
       "currency": "eur"
     },
     {
-      "id": "shr_1TEUzERsfkWOq7pPcuuFC7qE",
+      "id": "shr_1TtOJORsfkWOq7pPjNIJJIWA",
       "name": "Rest of World",
-      "amount": 1800,
+      "amount": 1000,
       "currency": "eur"
     }
   ]
