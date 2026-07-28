@@ -9,7 +9,7 @@
 // + address collection, repoints the local data at it, and deactivates the
 // stale magazine links — while preserving the unrelated concert link.
 //
-// Shipping rates (Jul 2026): Pickup €0 / Portugal €5 / Europe €5 / World €10.
+// Shipping rates (Jul 2026): Pickup €0 / Portugal €2 / Europe €2 / World €5.
 // Stripe shipping-rate amounts are immutable, so rates are matched by
 // display_name + amount and created only when a match doesn't already exist.
 // The USA is intentionally NOT in the allowed-countries list (we can no longer
@@ -80,9 +80,9 @@ const CONCERT_LINK_SLUG = 'aFacN7boegr7biI2MbfMA04';
 // `short` is the label stored in src/data/shipping.json. Amounts are in cents.
 const RATES = [
   { key: 'pickup',   display_name: 'Collect in Ponta Delgada — Azores only (free)', short: 'Pickup (Ponta Delgada)', amount: 0 },
-  { key: 'portugal', display_name: 'Portugal (including Azores & Madeira)',          short: 'Portugal',              amount: 500 },
-  { key: 'europe',   display_name: 'Europe',                                          short: 'Europe',                amount: 500 },
-  { key: 'world',    display_name: 'Rest of World',                                   short: 'Rest of World',         amount: 1000 },
+  { key: 'portugal', display_name: 'Portugal (including Azores & Madeira)',          short: 'Portugal',              amount: 200 },
+  { key: 'europe',   display_name: 'Europe',                                          short: 'Europe',                amount: 200 },
+  { key: 'world',    display_name: 'Rest of World',                                   short: 'Rest of World',         amount: 500 },
 ];
 
 // --- Load local data ---
@@ -212,7 +212,7 @@ await writeFile(shippingFile, JSON.stringify(shippingOut, null, 2) + '\n');
 
 console.log('\n✓ Done.');
 console.log(`   New payment link: ${paymentLink.url}`);
-console.log(`   Shipping options: Pickup (free) / PT €5.00 / EU €5.00 / World €10.00`);
+console.log(`   Shipping options: Pickup (free) / PT €2.00 / EU €2.00 / World €5.00`);
 console.log(`   USA excluded from shipping destinations.`);
 console.log(`   Price: €15  ·  Quantity max: ${QUANTITY_MAX}`);
 console.log('\n   Next: commit the updated products.json, shipping.json and edition');

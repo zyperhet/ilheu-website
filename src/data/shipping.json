@@ -7,21 +7,21 @@
       "currency": "eur"
     },
     {
-      "id": "shr_1TEUzDRsfkWOq7pP9l9Do9m9",
+      "id": "shr_1TyEkPRsfkWOq7pPEb5VVuHF",
       "name": "Portugal",
-      "amount": 500,
+      "amount": 200,
       "currency": "eur"
     },
     {
-      "id": "shr_1TtOJORsfkWOq7pPSJrflqIw",
+      "id": "shr_1TyEkPRsfkWOq7pPjZMUy0S4",
       "name": "Europe",
-      "amount": 500,
+      "amount": 200,
       "currency": "eur"
     },
     {
-      "id": "shr_1TtOJORsfkWOq7pPjNIJJIWA",
+      "id": "shr_1TyEkQRsfkWOq7pPMFRA14gM",
       "name": "Rest of World",
-      "amount": 1000,
+      "amount": 500,
       "currency": "eur"
     }
   ]
