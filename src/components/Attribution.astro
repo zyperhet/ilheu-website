@@ -1,0 +1,129 @@
+---
+// Campaign attribution: carries campaign identity from a landing-page URL
+// through to Stripe, so a Checkout Session can be traced back to the ad that
+// produced it.
+//
+// Stripe reads `client_reference_id` off the Payment Link URL and stores it on
+// the Checkout Session, where the API can read it back. That is the only field
+// which survives the hop. UTM parameters are echoed onto the post-payment
+// redirect only and never reach the Session object, so they are passed through
+// as a secondary signal and nothing is built on them.
+//
+// See docs/tracking-plan-v2.md.
+---
+
+<script>
+  const KEY = 'ilheu_attr';
+  const HOST = 'buy.stripe.com';
+  const UTMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  // Stripe silently discards the *entire* client_reference_id if it contains
+  // anything outside [A-Za-z0-9_-] — no error, no warning, the field simply
+  // arrives null. Every component is scrubbed before it goes near the URL.
+  // Dashes are allowed inside a value; '_' is reserved as the field separator
+  // so the tag can be split unambiguously when reading it back.
+  function scrub(value, max) {
+    const out = String(value ?? '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .slice(0, max)
+      .replace(/^-+|-+$/g, '');
+    return out || 'none';
+  }
+
+  function capture() {
+    const q = new URLSearchParams(location.search);
+    const found = {};
+    let any = false;
+    for (const k of UTMS) {
+      const v = q.get(k);
+      if (v) { found[k] = v; any = true; }
+    }
+    // Meta's own click identifier. Unlike a campaign name it is immutable, so
+    // renaming a campaign in Ads Manager cannot orphan the data.
+    const fbclid = q.get('fbclid');
+    if (fbclid) { found.fbclid = fbclid; any = true; }
+    if (!any) return;
+    try {
+      sessionStorage.setItem(KEY, JSON.stringify(found));
+    } catch {
+      // Private browsing or storage disabled. Attribution degrades to
+      // 'direct' rather than breaking the buy button.
+    }
+  }
+
+  function recall() {
+    try {
+      return JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    } catch {
+      return null;
+    }
+  }
+
+  function pageSlug() {
+    const path = location.pathname.replace(/^\/+|\/+$/g, '');
+    return path ? scrub(path, 24) : 'home';
+  }
+
+  // source_campaign_content_page_random
+  // e.g. meta_de-lit_v1_home_k3n9x2 — well inside Stripe's 200-char ceiling.
+  //
+  // Computed once per page load and shared by every buy button on the page.
+  // Giving each button its own suffix would make one visitor who clicks two
+  // different buttons indistinguishable from two visitors, and would inflate
+  // the checkout-start count that the whole measurement rests on.
+  let cachedRef = null;
+  function buildRef() {
+    if (cachedRef) return cachedRef;
+    const a = recall() || {};
+    const source = a.utm_source ? scrub(a.utm_source, 12) : a.fbclid ? 'meta' : 'direct';
+    const rand = Math.random().toString(36).slice(2, 8);
+    cachedRef = [
+      source,
+      scrub(a.utm_campaign, 24),
+      scrub(a.utm_content, 16),
+      pageSlug(),
+      rand,
+    ].join('_');
+    return cachedRef;
+  }
+
+  // Decorating on load rather than intercepting the click avoids a race with
+  // the browser following the href, and keeps the tag stable if the visitor
+  // clicks the same button twice.
+  function decorate() {
+    const attr = recall();
+    for (const link of document.querySelectorAll('a[href*="' + HOST + '"]')) {
+      let url;
+      try {
+        url = new URL(link.href);
+      } catch {
+        continue;
+      }
+      if (url.hostname !== HOST) continue;
+      if (url.searchParams.has('client_reference_id')) continue;
+
+      url.searchParams.set('client_reference_id', buildRef());
+      if (attr) {
+        for (const k of UTMS) {
+          if (attr[k]) url.searchParams.set(k, scrub(attr[k], 40));
+        }
+      }
+      link.href = url.toString();
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (!target.closest('a[href*="' + HOST + '"]')) return;
+    if (typeof window.fbq === 'function') window.fbq('track', 'InitiateCheckout');
+  });
+
+  capture();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', decorate);
+  } else {
+    decorate();
+  }
+</script>
