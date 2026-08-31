@@ -98,3 +98,19 @@ export function buildReference(
     scrub(random, 8),
   ].join('_');
 }
+
+/**
+ * Decide which attribution applies to the current page view.
+ *
+ * The live URL wins over anything stored. A visitor arriving on a tagged link
+ * carries their campaign in the query string, and that is readable even when
+ * sessionStorage throws — private browsing, and some in-app browsers, block it.
+ * Reading storage first would silently downgrade exactly those visitors to
+ * 'direct', which is the failure mode hardest to notice after the fact.
+ */
+export function resolveAttribution(
+  search: string,
+  stored: Attribution | null,
+): Attribution | null {
+  return readAttribution(search) ?? stored;
+}

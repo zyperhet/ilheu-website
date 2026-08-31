@@ -19,6 +19,7 @@
     UTM_KEYS,
     buildReference,
     readAttribution,
+    resolveAttribution,
     scrub,
   } from '../lib/attribution';
 
@@ -36,7 +37,7 @@
     }
   }
 
-  function recall() {
+  function stored() {
     try {
       return JSON.parse(sessionStorage.getItem(KEY) || 'null');
     } catch {
@@ -61,7 +62,7 @@
   // Decorating on load rather than intercepting the click avoids racing the
   // browser to the href, and keeps the tag stable across repeat clicks.
   function decorate() {
-    const attribution = recall();
+    const attribution = resolveAttribution(location.search, stored());
     for (const link of document.querySelectorAll('a[href*="' + HOST + '"]')) {
       let url;
       try {

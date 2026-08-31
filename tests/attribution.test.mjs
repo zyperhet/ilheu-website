@@ -7,6 +7,7 @@ import {
   buildReference,
   pageSlug,
   readAttribution,
+  resolveAttribution,
   scrub,
 } from '../src/lib/attribution.ts';
 
@@ -123,4 +124,27 @@ test('the Meta Pixel emits nothing unless an ID is configured', async () => {
   assert.match(config, /export const META_PIXEL_ID = ''/);
   const pixel = await readProjectFile('src/components/MetaPixel.astro');
   assert.match(pixel, /\{META_PIXEL_ID && \(/);
+});
+
+test('a tagged landing page is attributed even when storage is unavailable', () => {
+  // sessionStorage throws in private browsing and some in-app browsers. The
+  // campaign is still in the URL, so it must not degrade to 'direct'.
+  const resolved = resolveAttribution('?utm_source=meta&utm_campaign=de_lit', null);
+  assert.deepEqual(resolved, { utm_source: 'meta', utm_campaign: 'de_lit' });
+  assert.equal(
+    buildReference(resolved, '/', 'k3n9x2'),
+    'meta_de-lit_none_home_k3n9x2',
+  );
+});
+
+test('stored attribution carries across internal navigation', () => {
+  const stored = { utm_source: 'meta', utm_campaign: 'de_lit' };
+  assert.deepEqual(resolveAttribution('', stored), stored);
+});
+
+test('a fresh campaign link overrides an older stored one', () => {
+  assert.deepEqual(
+    resolveAttribution('?utm_source=newsletter', { utm_source: 'meta' }),
+    { utm_source: 'newsletter' },
+  );
 });
