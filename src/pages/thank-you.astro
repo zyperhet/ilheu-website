@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Thank you — Ilhéu Magazine"
+  description="Your Ilhéu Magazine order."
+>
+  <section class="max-w-2xl mx-auto px-6 py-24 md:py-32 text-center">
+    <p class="text-xs uppercase tracking-[0.25em] text-gray-400 mb-8 font-inter">
+      Order received
+    </p>
+
+    <h1 class="font-cardo text-5xl sm:text-6xl leading-[1.05] text-gray-900 mb-8">
+      Obrigado.
+    </h1>
+
+    <div class="space-y-5 font-body text-lg text-gray-600 leading-relaxed">
+      <p>
+        Thank you for ordering Ilhéu. A receipt is on its way to the email address
+        you gave at checkout.
+      </p>
+      <p>
+        Shipped orders go out within three business days, wrapped and posted from
+        São Miguel. If you chose <strong class="text-gray-900">pickup in Ponta
+        Delgada</strong>, email us and we will arrange a time.
+      </p>
+    </div>
+
+    <p class="font-body text-sm text-gray-400 leading-relaxed mt-12">
+      Questions about your order?{' '}
+      <a
+        href="mailto:contact@ilheumagazine.com"
+        class="text-gray-600 underline underline-offset-4 decoration-gray-300 hover:text-gray-900 hover:decoration-gray-500 transition-colors"
+      >
+        contact@ilheumagazine.com
+      </a>
+    </p>
+
+    <a
+      href="/"
+      class="inline-block mt-14 bg-gray-900 text-white font-inter text-xs uppercase tracking-[0.2em] px-10 py-4 hover:bg-gray-700 transition-colors duration-300"
+    >
+      Back to Ilhéu
+    </a>
+  </section>
+</BaseLayout>
+
+<script>
+  // Stripe appends the Checkout Session ID to this URL. It is not a secret, but
+  // it should not be handed to analytics vendors or leaked through a Referer
+  // header, so it is removed from the address bar as soon as the page loads.
+  //
+  // Note this page deliberately makes no claim that payment succeeded: a static
+  // page cannot verify the Session without a Stripe key, and this URL can be
+  // revisited or typed by hand. Stripe's own receipt is the confirmation.
+  if (new URLSearchParams(location.search).has('session_id')) {
+    history.replaceState(null, '', location.pathname);
+  }
+</script>

@@ -1,0 +1,21 @@
+# Cloudflare Pages headers.
+#
+# Archived design variants and superseded homepages are still built and served,
+# but must not be indexed: they carry stale pricing and stale checkout links,
+# and a search engine landing a buyer on one of them costs a sale. Handled here
+# rather than as a prop on eleven pages so a new variant cannot forget it.
+#
+# The splat covers the route with and without a trailing slash. No live route
+# begins with /v1../v4 — /videos/ is unaffected, it does not match /v1.
+/v1*
+  X-Robots-Tag: noindex
+/v2*
+  X-Robots-Tag: noindex
+/v3*
+  X-Robots-Tag: noindex
+/v4*
+  X-Robots-Tag: noindex
+/home-old*
+  X-Robots-Tag: noindex
+/editions/edition-2-funky*
+  X-Robots-Tag: noindex

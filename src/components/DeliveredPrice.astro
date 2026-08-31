@@ -1,0 +1,32 @@
+---
+// The delivered price, stated before the buy button.
+//
+// Checkout conversion has tracked the shipping charge closely enough that
+// "+ shipping" is the most expensive phrase on the site: it defers the real
+// total to the Stripe page, where a surprise costs the sale. Read from
+// shipping.json so the copy cannot drift out of step with the live rates.
+import shippingData from '../data/shipping.json';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const amount = (name: string) =>
+  (shippingData.rates.find((rate) => rate.name === name)?.amount ?? 0) / 100;
+
+const euro = (value: number) => `€${Number.isInteger(value) ? value : value.toFixed(2)}`;
+
+const portugal = amount('Portugal');
+const europe = amount('Europe');
+const world = amount('Rest of World');
+
+const near =
+  portugal === europe
+    ? `${euro(portugal)} postage to Portugal and Europe`
+    : `${euro(portugal)} postage in Portugal, ${euro(europe)} to Europe`;
+---
+
+<p class={className}>
+  {near} &middot; {euro(world)} rest of world &middot; free pickup in Ponta Delgada
+</p>

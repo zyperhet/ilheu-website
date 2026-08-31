@@ -1,0 +1,99 @@
+---
+// Campaign attribution: carries campaign identity from a landing-page URL
+// through to Stripe, so a Checkout Session can be traced back to the ad that
+// produced it.
+//
+// Stripe reads `client_reference_id` off the Payment Link URL and stores it on
+// the Checkout Session, where the API can read it back — verified against a
+// live abandoned session, not just the docs, because Stripe only documents the
+// field arriving on checkout.session.completed. UTM parameters are echoed onto
+// the post-payment redirect only and never reach the Session object, so they
+// are passed through as a secondary signal and nothing is built on them.
+//
+// Tag construction lives in src/lib/attribution.ts so it can be tested.
+// See docs/tracking-plan-v2.md.
+---
+
+<script>
+  import {
+    UTM_KEYS,
+    buildReference,
+    readAttribution,
+    resolveAttribution,
+    scrub,
+  } from '../lib/attribution';
+
+  const KEY = 'ilheu_attr';
+  const HOST = 'buy.stripe.com';
+
+  function capture() {
+    const found = readAttribution(location.search);
+    if (!found) return;
+    try {
+      sessionStorage.setItem(KEY, JSON.stringify(found));
+    } catch {
+      // Private browsing or storage disabled. Attribution degrades to
+      // 'direct' rather than breaking the buy button.
+    }
+  }
+
+  function stored() {
+    try {
+      return JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    } catch {
+      return null;
+    }
+  }
+
+  // One reference per page load, shared by every buy button on the page.
+  // Giving each button its own suffix would make a visitor who clicks two
+  // different buttons indistinguishable from two visitors, and would inflate
+  // the checkout-start count the whole measurement rests on.
+  let cachedReference = null;
+  function reference(attribution) {
+    cachedReference ??= buildReference(
+      attribution,
+      location.pathname,
+      Math.random().toString(36).slice(2, 8),
+    );
+    return cachedReference;
+  }
+
+  // Decorating on load rather than intercepting the click avoids racing the
+  // browser to the href, and keeps the tag stable across repeat clicks.
+  function decorate() {
+    const attribution = resolveAttribution(location.search, stored());
+    for (const link of document.querySelectorAll('a[href*="' + HOST + '"]')) {
+      let url;
+      try {
+        url = new URL(link.href);
+      } catch {
+        continue;
+      }
+      if (url.hostname !== HOST) continue;
+      if (url.searchParams.has('client_reference_id')) continue;
+
+      url.searchParams.set('client_reference_id', reference(attribution));
+      if (attribution) {
+        for (const key of UTM_KEYS) {
+          if (attribution[key]) url.searchParams.set(key, scrub(attribution[key], 40));
+        }
+      }
+      link.href = url.toString();
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (!target.closest('a[href*="' + HOST + '"]')) return;
+    if (typeof window.fbq === 'function') window.fbq('track', 'InitiateCheckout');
+  });
+
+  capture();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', decorate);
+  } else {
+    decorate();
+  }
+</script>
